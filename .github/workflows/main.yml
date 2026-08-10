@@ -2,8 +2,7 @@ name: Build Evermore Android
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -17,24 +16,51 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: "3.32.8"
           channel: stable
           cache: true
 
-      - name: Get Flutter packages
+      - name: Verify Flutter
+        run: flutter --version
+
+      - name: Check project
+        run: |
+          echo "Project files:"
+          ls -la
+          echo "Pubspec:"
+          cat pubspec.yaml
+
+      - name: Remove old Android files
+        run: rm -rf android
+
+      - name: Generate fresh Android project
+        run: |
+          flutter create . \
+            --platforms=android \
+            --project-name evermore \
+            --org com.evermore
+
+      - name: Get packages
         run: flutter pub get
 
-      - name: Prepare signing keystore
+      - name: Prepare release keystore
         env:
           KEYSTORE_BASE64: ${{ secrets.EVERMORE_KEYSTORE_BASE64 }}
           KEYSTORE_PASSWORD: ${{ secrets.EVERMORE_KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.EVERMORE_KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.EVERMORE_KEY_PASSWORD }}
         run: |
-          set -e
+          set -euo pipefail
+
+          test -n "$KEYSTORE_BASE64"
+          test -n "$KEYSTORE_PASSWORD"
+          test -n "$KEY_ALIAS"
+          test -n "$KEY_PASSWORD"
 
           mkdir -p android/app/keystore
 
-          echo "$KEYSTORE_BASE64" | base64 --decode > android/app/keystore/evermore-upload-keystore.jks
+          echo "$KEYSTORE_BASE64" | base64 --decode \
+            > android/app/keystore/evermore-upload-keystore.jks
 
           cat > android/key.properties <<EOF
           storePassword=$KEYSTORE_PASSWORD
@@ -42,6 +68,62 @@ jobs:
           keyAlias=$KEY_ALIAS
           storeFile=keystore/evermore-upload-keystore.jks
           EOF
+
+      - name: Configure release signing
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path("android/app/build.gradle.kts")
+          text = path.read_text()
+
+          signing = '''
+              val keystorePropertiesFile = rootProject.file("key.properties")
+              val keystoreProperties = java.util.Properties()
+
+              if (keystorePropertiesFile.exists()) {
+                  keystorePropertiesFile.inputStream().use {
+                      keystoreProperties.load(it)
+                  }
+              }
+
+              signingConfigs {
+                  create("release") {
+                      keyAlias = keystoreProperties["keyAlias"] as String?
+                      keyPassword = keystoreProperties["keyPassword"] as String?
+                      storeFile = keystoreProperties["storeFile"]?.let {
+                          rootProject.file(it)
+                      }
+                      storePassword = keystoreProperties["storePassword"] as String?
+                  }
+              }
+          '''
+
+          if 'create("release")' not in text:
+              text = text.replace(
+                  "android {",
+                  "android {\\n" + signing,
+                  1
+              )
+
+          release = '''
+              release {
+                  signingConfig = signingConfigs.getByName("release")
+              }
+          '''
+
+          if 'signingConfig = signingConfigs.getByName("release")' not in text:
+              text = text.replace(
+                  "buildTypes {",
+                  "buildTypes {\\n" + release,
+                  1
+              )
+
+          path.write_text(text)
+          PY
+
+      - name: Analyze
+        run: flutter analyze
 
       - name: Build APK
         run: flutter build apk --release
@@ -61,7 +143,7 @@ jobs:
           name: evermore-release-aab
           path: build/app/outputs/bundle/release/app-release.aab
 
-      - name: Remove signing files
+      - name: Clean signing files
         if: always()
         run: |
           rm -f android/key.properties
