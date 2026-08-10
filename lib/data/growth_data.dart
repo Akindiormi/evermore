@@ -177,9 +177,6 @@ const growthPillars = <GrowthPillar>[
       ),
     ],
   ),
-
-  // KEEP YOUR PILLARS 2–10 HERE EXACTLY AS YOU PASTED THEM.
-];
   GrowthPillar(
     id: 2,
     title: 'Mindset & Resilience',
