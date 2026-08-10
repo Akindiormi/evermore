@@ -18,15 +18,13 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.14.3
 
 flutter:
   uses-material-design: true
+
   assets:
     - assets/evermore_icon.png
-
-
-dev_dependencies:
-  flutter_launcher_icons: ^0.14.3
 
 flutter_launcher_icons:
   android: true
