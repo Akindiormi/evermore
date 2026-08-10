@@ -1,5 +1,21 @@
 import '../models/lesson.dart';
 
+class GrowthPillar {
+  final int id;
+  final String title;
+  final String description;
+  final List<GrowthLesson> lessons;
+
+  const GrowthPillar({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.lessons,
+  });
+}
+
+const growthPillars = <GrowthPillar>[
+
 const growthPillars = <GrowthPillar>[
   GrowthPillar(
     id: 1,
