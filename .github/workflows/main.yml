@@ -40,6 +40,25 @@ jobs:
             --project-name evermore \
             --org com.evermore
 
+      - name: Remove generated default test
+        run: rm -f test/widget_test.dart
+
+      - name: Fix missing pillar import
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path("lib/screens/learn/learn_screen.dart")
+
+          if path.exists():
+              text = path.read_text()
+              text = text.replace(
+                  "import 'pillar_detail_screen.dart';\n",
+                  ""
+              )
+              path.write_text(text)
+          PY
+
       - name: Get packages
         run: flutter pub get
 
@@ -52,10 +71,25 @@ jobs:
         run: |
           set -euo pipefail
 
-          test -n "$KEYSTORE_BASE64"
-          test -n "$KEYSTORE_PASSWORD"
-          test -n "$KEY_ALIAS"
-          test -n "$KEY_PASSWORD"
+          test -n "$KEYSTORE_BASE64" || {
+            echo "Missing EVERMORE_KEYSTORE_BASE64"
+            exit 1
+          }
+
+          test -n "$KEYSTORE_PASSWORD" || {
+            echo "Missing EVERMORE_KEYSTORE_PASSWORD"
+            exit 1
+          }
+
+          test -n "$KEY_ALIAS" || {
+            echo "Missing EVERMORE_KEY_ALIAS"
+            exit 1
+          }
+
+          test -n "$KEY_PASSWORD" || {
+            echo "Missing EVERMORE_KEY_PASSWORD"
+            exit 1
+          }
 
           mkdir -p android/app/keystore
 
@@ -102,20 +136,21 @@ jobs:
           if 'create("release")' not in text:
               text = text.replace(
                   "android {",
-                  "android {\\n" + signing,
+                  "android {\n" + signing,
                   1
               )
 
           release = '''
-              release {
-                  signingConfig = signingConfigs.getByName("release")
-              }
+                  release {
+                      signingConfig =
+                          signingConfigs.getByName("release")
+                  }
           '''
 
           if 'signingConfig = signingConfigs.getByName("release")' not in text:
               text = text.replace(
                   "buildTypes {",
-                  "buildTypes {\\n" + release,
+                  "buildTypes {\n" + release,
                   1
               )
 
