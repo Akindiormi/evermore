@@ -1,9 +1,6 @@
 import '../models/lesson.dart';
 
 const growthPillars = <GrowthPillar>[
-const growthPillars = <GrowthPillar>[
-
-const growthPillars = <GrowthPillar>[
   GrowthPillar(
     id: 1,
     title: 'Self-Awareness',
@@ -13,59 +10,176 @@ const growthPillars = <GrowthPillar>[
         id: 'p01-l01',
         title: 'Know Yourself',
         duration: '8 min',
-        whyItMatters: 'Know Yourself is part of Self-Awareness. Growth becomes easier when you understand the idea and turn it into a repeatable behaviour.',
-        concepts: ['Understand the role of know yourself in personal growth.', 'Separate what you can control from what you cannot.', 'Use a simple framework instead of relying on motivation alone.'],
-        sections: ['Start with awareness: notice how know yourself currently shows up in your life.', 'Look for patterns rather than judging yourself from one event.', 'Choose one practical change that can be tested this week.', 'Review the result and keep what works.'],
-        actions: ['Write down your current situation honestly.', 'Identify one behaviour you want to improve.', 'Choose one small action you can complete today.'],
-        takeaways: ['Awareness comes before meaningful change.', 'Small actions create evidence that change is possible.', 'Reviewing your results helps you build a personal system.'],
-        quizQuestions: ['What is the most useful first step when improving a personal skill?', 'Why is a small repeatable action useful?', 'What should you do after testing a new behaviour?'],
+        whyItMatters:
+            'Know Yourself is part of Self-Awareness. Growth becomes easier when you understand the idea and turn it into a repeatable behaviour.',
+        concepts: [
+          'Understand the role of know yourself in personal growth.',
+          'Separate what you can control from what you cannot.',
+          'Use a simple framework instead of relying on motivation alone.',
+        ],
+        sections: [
+          'Start with awareness: notice how know yourself currently shows up in your life.',
+          'Look for patterns rather than judging yourself from one event.',
+          'Choose one practical change that can be tested this week.',
+          'Review the result and keep what works.',
+        ],
+        actions: [
+          'Write down your current situation honestly.',
+          'Identify one behaviour you want to improve.',
+          'Choose one small action you can complete today.',
+        ],
+        takeaways: [
+          'Awareness comes before meaningful change.',
+          'Small actions create evidence that change is possible.',
+          'Reviewing your results helps you build a personal system.',
+        ],
+        quizQuestions: [
+          'What is the most useful first step when improving a personal skill?',
+          'Why is a small repeatable action useful?',
+          'What should you do after testing a new behaviour?',
+        ],
       ),
+
       GrowthLesson(
         id: 'p01-l02',
         title: 'Values & Priorities',
         duration: '8 min',
-        whyItMatters: 'Values & Priorities is part of Self-Awareness. Growth becomes easier when you understand the idea and turn it into a repeatable behaviour.',
-        concepts: ['Understand the role of values & priorities in personal growth.', 'Separate what you can control from what you cannot.', 'Use a simple framework instead of relying on motivation alone.'],
-        sections: ['Start with awareness: notice how values & priorities currently shows up in your life.', 'Look for patterns rather than judging yourself from one event.', 'Choose one practical change that can be tested this week.', 'Review the result and keep what works.'],
-        actions: ['Write down your current situation honestly.', 'Identify one behaviour you want to improve.', 'Choose one small action you can complete today.'],
-        takeaways: ['Awareness comes before meaningful change.', 'Small actions create evidence that change is possible.', 'Reviewing your results helps you build a personal system.'],
-        quizQuestions: ['What is the most useful first step when improving a personal skill?', 'Why is a small repeatable action useful?', 'What should you do after testing a new behaviour?'],
+        whyItMatters:
+            'Values & Priorities is part of Self-Awareness. Growth becomes easier when you understand the idea and turn it into a repeatable behaviour.',
+        concepts: [
+          'Understand the role of values & priorities in personal growth.',
+          'Separate what you can control from what you cannot.',
+          'Use a simple framework instead of relying on motivation alone.',
+        ],
+        sections: [
+          'Start with awareness: notice how values & priorities currently shows up in your life.',
+          'Look for patterns rather than judging yourself from one event.',
+          'Choose one practical change that can be tested this week.',
+          'Review the result and keep what works.',
+        ],
+        actions: [
+          'Write down your current situation honestly.',
+          'Identify one behaviour you want to improve.',
+          'Choose one small action you can complete today.',
+        ],
+        takeaways: [
+          'Awareness comes before meaningful change.',
+          'Small actions create evidence that change is possible.',
+          'Reviewing your results helps you build a personal system.',
+        ],
+        quizQuestions: [
+          'What is the most useful first step when improving a personal skill?',
+          'Why is a small repeatable action useful?',
+          'What should you do after testing a new behaviour?',
+        ],
       ),
+
       GrowthLesson(
         id: 'p01-l03',
         title: 'Strengths & Blind Spots',
         duration: '8 min',
-        whyItMatters: 'Strengths & Blind Spots is part of Self-Awareness. Growth becomes easier when you understand the idea and turn it into a repeatable behaviour.',
-        concepts: ['Understand the role of strengths & blind spots in personal growth.', 'Separate what you can control from what you cannot.', 'Use a simple framework instead of relying on motivation alone.'],
-        sections: ['Start with awareness: notice how strengths & blind spots currently shows up in your life.', 'Look for patterns rather than judging yourself from one event.', 'Choose one practical change that can be tested this week.', 'Review the result and keep what works.'],
-        actions: ['Write down your current situation honestly.', 'Identify one behaviour you want to improve.', 'Choose one small action you can complete today.'],
-        takeaways: ['Awareness comes before meaningful change.', 'Small actions create evidence that change is possible.', 'Reviewing your results helps you build a personal system.'],
-        quizQuestions: ['What is the most useful first step when improving a personal skill?', 'Why is a small repeatable action useful?', 'What should you do after testing a new behaviour?'],
+        whyItMatters:
+            'Strengths & Blind Spots is part of Self-Awareness. Growth becomes easier when you understand the idea and turn it into a repeatable behaviour.',
+        concepts: [
+          'Understand the role of strengths & blind spots in personal growth.',
+          'Separate what you can control from what you cannot.',
+          'Use a simple framework instead of relying on motivation alone.',
+        ],
+        sections: [
+          'Start with awareness: notice how strengths & blind spots currently shows up in your life.',
+          'Look for patterns rather than judging yourself from one event.',
+          'Choose one practical change that can be tested this week.',
+          'Review the result and keep what works.',
+        ],
+        actions: [
+          'Write down your current situation honestly.',
+          'Identify one behaviour you want to improve.',
+          'Choose one small action you can complete today.',
+        ],
+        takeaways: [
+          'Awareness comes before meaningful change.',
+          'Small actions create evidence that change is possible.',
+          'Reviewing your results helps you build a personal system.',
+        ],
+        quizQuestions: [
+          'What is the most useful first step when improving a personal skill?',
+          'Why is a small repeatable action useful?',
+          'What should you do after testing a new behaviour?',
+        ],
       ),
+
       GrowthLesson(
         id: 'p01-l04',
         title: 'Emotional Awareness',
         duration: '8 min',
-        whyItMatters: 'Emotional Awareness is part of Self-Awareness. Growth becomes easier when you understand the idea and turn it into a repeatable behaviour.',
-        concepts: ['Understand the role of emotional awareness in personal growth.', 'Separate what you can control from what you cannot.', 'Use a simple framework instead of relying on motivation alone.'],
-        sections: ['Start with awareness: notice how emotional awareness currently shows up in your life.', 'Look for patterns rather than judging yourself from one event.', 'Choose one practical change that can be tested this week.', 'Review the result and keep what works.'],
-        actions: ['Write down your current situation honestly.', 'Identify one behaviour you want to improve.', 'Choose one small action you can complete today.'],
-        takeaways: ['Awareness comes before meaningful change.', 'Small actions create evidence that change is possible.', 'Reviewing your results helps you build a personal system.'],
-        quizQuestions: ['What is the most useful first step when improving a personal skill?', 'Why is a small repeatable action useful?', 'What should you do after testing a new behaviour?'],
+        whyItMatters:
+            'Emotional Awareness is part of Self-Awareness. Growth becomes easier when you understand the idea and turn it into a repeatable behaviour.',
+        concepts: [
+          'Understand the role of emotional awareness in personal growth.',
+          'Separate what you can control from what you cannot.',
+          'Use a simple framework instead of relying on motivation alone.',
+        ],
+        sections: [
+          'Start with awareness: notice how emotional awareness currently shows up in your life.',
+          'Look for patterns rather than judging yourself from one event.',
+          'Choose one practical change that can be tested this week.',
+          'Review the result and keep what works.',
+        ],
+        actions: [
+          'Write down your current situation honestly.',
+          'Identify one behaviour you want to improve.',
+          'Choose one small action you can complete today.',
+        ],
+        takeaways: [
+          'Awareness comes before meaningful change.',
+          'Small actions create evidence that change is possible.',
+          'Reviewing your results helps you build a personal system.',
+        ],
+        quizQuestions: [
+          'What is the most useful first step when improving a personal skill?',
+          'Why is a small repeatable action useful?',
+          'What should you do after testing a new behaviour?',
+        ],
       ),
+
       GrowthLesson(
         id: 'p01-l05',
         title: 'Personal Standards',
         duration: '8 min',
-        whyItMatters: 'Personal Standards is part of Self-Awareness. Growth becomes easier when you understand the idea and turn it into a repeatable behaviour.',
-        concepts: ['Understand the role of personal standards in personal growth.', 'Separate what you can control from what you cannot.', 'Use a simple framework instead of relying on motivation alone.'],
-        sections: ['Start with awareness: notice how personal standards currently shows up in your life.', 'Look for patterns rather than judging yourself from one event.', 'Choose one practical change that can be tested this week.', 'Review the result and keep what works.'],
-        actions: ['Write down your current situation honestly.', 'Identify one behaviour you want to improve.', 'Choose one small action you can complete today.'],
-        takeaways: ['Awareness comes before meaningful change.', 'Small actions create evidence that change is possible.', 'Reviewing your results helps you build a personal system.'],
-        quizQuestions: ['What is the most useful first step when improving a personal skill?', 'Why is a small repeatable action useful?', 'What should you do after testing a new behaviour?'],
+        whyItMatters:
+            'Personal Standards is part of Self-Awareness. Growth becomes easier when you understand the idea and turn it into a repeatable behaviour.',
+        concepts: [
+          'Understand the role of personal standards in personal growth.',
+          'Separate what you can control from what you cannot.',
+          'Use a simple framework instead of relying on motivation alone.',
+        ],
+        sections: [
+          'Start with awareness: notice how personal standards currently shows up in your life.',
+          'Look for patterns rather than judging yourself from one event.',
+          'Choose one practical change that can be tested this week.',
+          'Review the result and keep what works.',
+        ],
+        actions: [
+          'Write down your current situation honestly.',
+          'Identify one behaviour you want to improve.',
+          'Choose one small action you can complete today.',
+        ],
+        takeaways: [
+          'Awareness comes before meaningful change.',
+          'Small actions create evidence that change is possible.',
+          'Reviewing your results helps you build a personal system.',
+        ],
+        quizQuestions: [
+          'What is the most useful first step when improving a personal skill?',
+          'Why is a small repeatable action useful?',
+          'What should you do after testing a new behaviour?',
+        ],
       ),
     ],
   ),
+
+  // KEEP YOUR PILLARS 2–10 HERE EXACTLY AS YOU PASTED THEM.
+];
   GrowthPillar(
     id: 2,
     title: 'Mindset & Resilience',
