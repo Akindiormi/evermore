@@ -1,0 +1,68 @@
+name: Build Evermore Android
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Get Flutter packages
+        run: flutter pub get
+
+      - name: Prepare signing keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.EVERMORE_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.EVERMORE_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.EVERMORE_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.EVERMORE_KEY_PASSWORD }}
+        run: |
+          set -e
+
+          mkdir -p android/app/keystore
+
+          echo "$KEYSTORE_BASE64" | base64 --decode > android/app/keystore/evermore-upload-keystore.jks
+
+          cat > android/key.properties <<EOF
+          storePassword=$KEYSTORE_PASSWORD
+          keyPassword=$KEY_PASSWORD
+          keyAlias=$KEY_ALIAS
+          storeFile=keystore/evermore-upload-keystore.jks
+          EOF
+
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Build AAB
+        run: flutter build appbundle --release
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: evermore-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: evermore-release-aab
+          path: build/app/outputs/bundle/release/app-release.aab
+
+      - name: Remove signing files
+        if: always()
+        run: |
+          rm -f android/key.properties
+          rm -f android/app/keystore/evermore-upload-keystore.jks
