@@ -1,4 +1,5 @@
 import '../models/lesson.dart';
+export '../models/lesson.dart';
 
 const growthPillars = <GrowthPillar>[
   GrowthPillar(
