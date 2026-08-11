@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EvermoreTheme {
-  // Blue system — layered shades used for depth (fill / offset-shadow / tint).
-  static const primary = Color(0xFF0B2E6B);       // deep blue — button fill, headings accent
-  static const primaryDark = Color(0xFF071D45);    // darkest — gradients, pressed states
-  static const primaryLight = Color(0xFF3D6BD1);   // mid blue — offset "shadow" layer on buttons
-  static const primaryTint = Color(0xFFE8EEFC);    // pale blue — soft background tints, chips
+  // Blue system — anchored on the Evermore logo blue (#01339E).
+  static const primary = Color(0xFF01339E);       // logo blue — button fill, headings accent
+  static const primaryDark = Color(0xFF012572);    // darkest — gradients, pressed states
+  static const primaryLight = Color(0xFF5274BD);   // mid blue — offset "shadow" layer on buttons
+  static const primaryTint = Color(0xFFE6EBF5);    // pale blue — soft background tints, chips
 
   static const background = Color(0xFFF2EDE0);     // warm cream app background
   static const surface = Colors.white;
