@@ -3,6 +3,7 @@ import '../../core/theme/evermore_theme.dart';
 import '../../core/widgets/evermore_background.dart';
 import '../../core/widgets/evermore_mark.dart';
 import '../../services/telegram_service.dart';
+import '../challenges/challenges_screen.dart';
 
 class CommunityScreen extends StatelessWidget {
   const CommunityScreen({super.key});
@@ -22,6 +23,18 @@ class CommunityScreen extends StatelessWidget {
     }
   }
 
+  void _openChallenges(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (_) => const ChallengesScreen()));
+  }
+
+  void _openAction(BuildContext context, int index) {
+    if (index == 1) {
+      _openChallenges(context);
+      return;
+    }
+    _join(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return EvermoreBackground(
@@ -29,8 +42,10 @@ class CommunityScreen extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 22, 20, 125),
           children: [
-            const Text('Community', style: TextStyle(fontSize: 29, fontWeight: FontWeight.w800, letterSpacing: -.8)),
-            const SizedBox(height: 7),
+            const Text('COMMUNITY', style: TextStyle(fontSize: 10, letterSpacing: 1.7, fontWeight: FontWeight.w900, color: EvermoreTheme.primary)),
+            const SizedBox(height: 6),
+            const Text('Grow together.', style: TextStyle(fontSize: 30, height: 1, fontWeight: FontWeight.w800, letterSpacing: -.9)),
+            const SizedBox(height: 8),
             const Text('The people layer of Evermore. Learn together, stay accountable and keep moving.', style: TextStyle(color: EvermoreTheme.muted, height: 1.45, fontSize: 13.5)),
             const SizedBox(height: 22),
             Material(
@@ -68,9 +83,12 @@ class CommunityScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 27),
-            const Text("What's happening", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
+            const Text('WHAT’S HAPPENING', style: TextStyle(fontSize: 10, letterSpacing: 1.5, fontWeight: FontWeight.w900, color: EvermoreTheme.primary)),
             const SizedBox(height: 11),
-            ...items.map((item) => _CommunityItem(icon: item.$1, title: item.$2, subtitle: item.$3, onTap: () => _join(context))),
+            ...List.generate(items.length, (index) {
+              final item = items[index];
+              return _CommunityItem(icon: item.$1, title: item.$2, subtitle: item.$3, onTap: () => _openAction(context, index));
+            }),
           ],
         ),
       ),
@@ -101,7 +119,7 @@ class _CommunityItem extends StatelessWidget {
             Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13)),
               const SizedBox(height: 4),
-              Text(subtitle, style: const TextStyle(fontSize: 10.5, height: 1.35, color: EvermoreTheme.muted)),
+              Text(subtitle, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 10.5, height: 1.35, color: EvermoreTheme.muted)),
             ])),
             const Icon(Icons.arrow_outward_rounded, size: 17, color: EvermoreTheme.primary),
           ]),
