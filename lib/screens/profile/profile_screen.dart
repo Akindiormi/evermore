@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/evermore_theme.dart';
+import '../../core/widgets/evermore_background.dart';
+import '../../core/widgets/evermore_mark.dart';
+import '../../data/growth_data.dart';
 import '../../services/progress_service.dart';
 import '../../widgets/avatar_picker.dart';
-import '../../widgets/neo_pill_button.dart';
+import '../challenges/challenges_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -15,6 +18,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   List<String> goals = [];
   String name = '';
   String? photoPath;
+  Set<String> completedLessonIds = {};
 
   @override
   void initState() { super.initState(); _load(); }
@@ -37,6 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         goals = g;
         name = loadedName;
         photoPath = loadedPhoto;
+        completedLessonIds = l;
       });
     }
   }
@@ -49,174 +54,98 @@ class _ProfileScreenState extends State<ProfileScreen> {
     await showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.white,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      backgroundColor: Colors.white.withValues(alpha: .96),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
+      builder: (sheetContext) => StatefulBuilder(
+        builder: (context, setSheetState) => Padding(
+          padding: EdgeInsets.fromLTRB(20, 10, 20, 20 + MediaQuery.of(context).viewInsets.bottom),
+          child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Center(child: Container(width: 40, height: 4, margin: const EdgeInsets.only(bottom: 20), decoration: BoxDecoration(color: EvermoreTheme.divider, borderRadius: BorderRadius.circular(10)))),
+            const Text('Edit profile', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
+            const SizedBox(height: 20),
+            Center(child: AvatarPicker(photoPath: draftPhoto, name: controller.text, size: 96, onChanged: (path) => setSheetState(() => draftPhoto = path))),
+            const SizedBox(height: 20),
+            const Text('Your name', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
+            const SizedBox(height: 8),
+            TextField(controller: controller, textCapitalization: TextCapitalization.words, onChanged: (_) => setSheetState(() {}), decoration: const InputDecoration(hintText: 'e.g. Akin Diormi', prefixIcon: Icon(Icons.badge_outlined))),
+            const SizedBox(height: 18),
+            SizedBox(width: double.infinity, child: FilledButton.icon(
+              onPressed: controller.text.trim().isEmpty ? null : () async {
+                await service.saveProfileName(controller.text.trim());
+                if (draftPhoto != null) await service.saveProfilePhotoPath(draftPhoto!); else await service.clearProfilePhoto();
+                if (sheetContext.mounted) Navigator.pop(sheetContext);
+              },
+              icon: const Icon(Icons.check_rounded, size: 18),
+              label: const Text('Save changes', style: TextStyle(fontWeight: FontWeight.w800)),
+              style: FilledButton.styleFrom(backgroundColor: EvermoreTheme.primary, padding: const EdgeInsets.symmetric(vertical: 15), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(17))),
+            )),
+          ]),
+        ),
       ),
-      builder: (sheetContext) {
-        return StatefulBuilder(
-          builder: (context, setSheetState) {
-            return Padding(
-              padding: EdgeInsets.only(
-                left: 20, right: 20, top: 20,
-                bottom: 20 + MediaQuery.of(context).viewInsets.bottom,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 40, height: 4,
-                    margin: const EdgeInsets.only(bottom: 20),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(color: EvermoreTheme.border, borderRadius: BorderRadius.circular(2)),
-                  ),
-                  const Text('Edit profile', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
-                  const SizedBox(height: 20),
-                  Center(
-                    child: AvatarPicker(
-                      photoPath: draftPhoto,
-                      name: controller.text,
-                      size: 96,
-                      onChanged: (path) => setSheetState(() => draftPhoto = path),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  const Text('Your name', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13)),
-                  const SizedBox(height: 8),
-                  TextField(
-                    controller: controller,
-                    textCapitalization: TextCapitalization.words,
-                    onChanged: (_) => setSheetState(() {}),
-                    style: const TextStyle(fontWeight: FontWeight.w600),
-                    decoration: const InputDecoration(
-                      hintText: 'e.g. Akin Diormi',
-                      prefixIcon: Icon(Icons.badge_outlined),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  NeoPillButton(
-                    label: 'Save changes',
-                    onPressed: controller.text.trim().isEmpty ? null : () async {
-                      await service.saveProfileName(controller.text.trim());
-                      if (draftPhoto != null) {
-                        await service.saveProfilePhotoPath(draftPhoto!);
-                      } else {
-                        await service.clearProfilePhoto();
-                      }
-                      if (context.mounted) Navigator.pop(sheetContext);
-                    },
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      },
     );
+    controller.dispose();
     _load();
   }
 
   @override
   Widget build(BuildContext context) {
     final displayName = name.isEmpty ? 'Evermore member' : name;
+    final totalLessons = growthPillars.expand((p) => p.lessons).length;
+    final overall = totalLessons == 0 ? 0.0 : (lessons / totalLessons).clamp(0.0, 1.0);
 
-    return SafeArea(
-      child: ListView(
-        padding: const EdgeInsets.fromLTRB(20, 22, 20, 30),
-        children: [
-          const Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('My growth', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800)),
-                    SizedBox(height: 7),
-                    Text('Your progress through the Evermore program.', style: TextStyle(color: EvermoreTheme.muted)),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.all(24),
-            decoration: EvermoreTheme.premiumCard(radius: 26),
-            child: Column(
-              children: [
-                AvatarPicker(
-                  photoPath: photoPath,
-                  name: name,
-                  size: 80,
-                  onChanged: (path) async {
-                    final service = ProgressService();
-                    if (path != null) {
-                      await service.saveProfilePhotoPath(path);
-                    } else {
-                      await service.clearProfilePhoto();
-                    }
-                    _load();
-                  },
-                ),
-                const SizedBox(height: 15),
-                Text(displayName, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
+    return EvermoreBackground(
+      child: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 22, 20, 125),
+          children: [
+            const Text('My growth', style: TextStyle(fontSize: 29, fontWeight: FontWeight.w800, letterSpacing: -.8)),
+            const SizedBox(height: 7),
+            const Text('Your progress through the Evermore program.', style: TextStyle(color: EvermoreTheme.muted, fontSize: 13.5)),
+            const SizedBox(height: 22),
+            Container(
+              padding: const EdgeInsets.all(22),
+              decoration: EvermoreTheme.glassCard(radius: 29, color: Colors.white.withValues(alpha: .75)),
+              child: Column(children: [
+                Stack(alignment: Alignment.bottomRight, children: [
+                  Container(width: 92, height: 92, padding: const EdgeInsets.all(3), decoration: BoxDecoration(shape: BoxShape.circle, gradient: EvermoreTheme.logoGradient, boxShadow: EvermoreTheme.floatingShadow), child: AvatarPicker(photoPath: photoPath, name: name, size: 86, onChanged: (path) async { if (path != null) await ProgressService().saveProfilePhotoPath(path); else await ProgressService().clearProfilePhoto(); _load(); })),
+                  Container(width: 28, height: 28, decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle, border: Border.all(color: EvermoreTheme.primary.withValues(alpha: .15))), child: const Icon(Icons.camera_alt_rounded, size: 14, color: EvermoreTheme.primary)),
+                ]),
+                const SizedBox(height: 14),
+                Text(displayName, style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w800)),
                 const SizedBox(height: 5),
-                const Text('Keep learning. Keep applying. Keep becoming.', textAlign: TextAlign.center, style: TextStyle(fontSize: 11, color: EvermoreTheme.muted)),
-                const SizedBox(height: 16),
-                OutlinedButton.icon(
-                  onPressed: _openEditProfile,
-                  icon: const Icon(Icons.edit_outlined, size: 16),
-                  label: const Text('Edit profile', style: TextStyle(fontWeight: FontWeight.w700)),
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: EvermoreTheme.primary,
-                    side: const BorderSide(color: EvermoreTheme.primary),
-                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                  ),
-                ),
-              ],
+                const Text('Keep learning. Keep applying. Keep becoming.', textAlign: TextAlign.center, style: TextStyle(fontSize: 10.5, color: EvermoreTheme.muted)),
+                const SizedBox(height: 15),
+                OutlinedButton.icon(onPressed: _openEditProfile, icon: const Icon(Icons.edit_outlined, size: 16), label: const Text('Edit profile', style: TextStyle(fontWeight: FontWeight.w800)), style: OutlinedButton.styleFrom(foregroundColor: EvermoreTheme.primary, side: BorderSide(color: EvermoreTheme.primary.withValues(alpha: .45)), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)))),
+              ]),
             ),
-          ),
-          const SizedBox(height: 16),
-          Row(children: [
-            Expanded(child: _StatCard(Icons.bolt_outlined, '$xp', 'XP')),
-            const SizedBox(width: 10),
-            Expanded(child: _StatCard(Icons.local_fire_department_outlined, '$streak', 'Day streak')),
-          ]),
-          const SizedBox(height: 10),
-          Row(children: [
-            Expanded(child: _StatCard(Icons.menu_book_outlined, '$lessons', 'Lessons')),
-            const SizedBox(width: 10),
-            Expanded(child: _StatCard(Icons.track_changes_outlined, '$challenges', 'Challenges')),
-          ]),
-          const SizedBox(height: 25),
-          const Text('My focus areas', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
-          const SizedBox(height: 12),
-          Wrap(
-            spacing: 8, runSpacing: 8,
-            children: goals.map((g) => Chip(
-              label: Text(g, style: const TextStyle(fontWeight: FontWeight.w600)),
-              backgroundColor: EvermoreTheme.primary.withValues(alpha: .07),
-              side: BorderSide.none,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            )).toList(),
-          ),
-          const SizedBox(height: 25),
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              gradient: EvermoreTheme.heroGradient,
-              borderRadius: BorderRadius.circular(22),
-              boxShadow: EvermoreTheme.cardShadow,
+            const SizedBox(height: 14),
+            Row(children: [
+              Expanded(child: _StatCard(Icons.bolt_rounded, '$xp', 'XP')),
+              const SizedBox(width: 10),
+              Expanded(child: _StatCard(Icons.local_fire_department_rounded, '$streak', 'Day streak')),
+              const SizedBox(width: 10),
+              Expanded(child: _StatCard(Icons.menu_book_rounded, '$lessons', 'Lessons')),
+            ]),
+            const SizedBox(height: 22),
+            Container(
+              padding: const EdgeInsets.all(18),
+              decoration: EvermoreTheme.glassCard(radius: 24, color: Colors.white.withValues(alpha: .7)),
+              child: Row(children: [
+                SizedBox(width: 62, height: 62, child: TweenAnimationBuilder<double>(tween: Tween(begin: 0, end: overall), duration: const Duration(milliseconds: 900), builder: (_, value, __) => Stack(alignment: Alignment.center, children: [CircularProgressIndicator(value: 1, strokeWidth: 6, color: EvermoreTheme.primary.withValues(alpha: .08)), CircularProgressIndicator(value: value, strokeWidth: 6, strokeCap: StrokeCap.round, color: EvermoreTheme.primary), Text('${(value * 100).round()}%', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w900))]))),
+                const SizedBox(width: 14),
+                const Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('Program completion', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14)), SizedBox(height: 4), Text('Every lesson moves you forward. Keep your streak alive.', style: TextStyle(fontSize: 10.5, color: EvermoreTheme.muted, height: 1.35))])),
+              ]),
             ),
-            child: const Text(
-              'Growth is not one big transformation. It is the result of learning, applying, reflecting and repeating.',
-              style: TextStyle(fontSize: 13, height: 1.55, color: Colors.white, fontWeight: FontWeight.w500),
-            ),
-          ),
-        ],
+            const SizedBox(height: 22),
+            Row(children: [const Expanded(child: Text('My focus areas', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800))), if (goals.isNotEmpty) Text('${goals.length}', style: const TextStyle(color: EvermoreTheme.primary, fontWeight: FontWeight.w800))]),
+            const SizedBox(height: 11),
+            if (goals.isEmpty) const Text('Your focus areas will appear here after onboarding.', style: TextStyle(fontSize: 11, color: EvermoreTheme.muted)) else Wrap(spacing: 8, runSpacing: 8, children: goals.map((g) => Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), decoration: BoxDecoration(color: EvermoreTheme.primary.withValues(alpha: .07), borderRadius: BorderRadius.circular(100), border: Border.all(color: EvermoreTheme.primary.withValues(alpha: .1))), child: Text(g, style: const TextStyle(fontSize: 10.5, color: EvermoreTheme.primary, fontWeight: FontWeight.w700)))).toList()),
+            const SizedBox(height: 22),
+            Material(color: Colors.transparent, child: InkWell(borderRadius: BorderRadius.circular(23), onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const ChallengesScreen())), child: Ink(padding: const EdgeInsets.all(18), decoration: BoxDecoration(gradient: EvermoreTheme.heroGradient, borderRadius: BorderRadius.circular(23)), child: Row(children: [const Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('Keep building', style: TextStyle(color: Colors.white70, fontSize: 9, letterSpacing: 1, fontWeight: FontWeight.w900)), SizedBox(height: 5), Text('Put your learning into action.', style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w800))])), const Icon(Icons.arrow_forward_rounded, color: Colors.white)]))),
+            const SizedBox(height: 20),
+            Container(padding: const EdgeInsets.all(20), decoration: BoxDecoration(gradient: EvermoreTheme.softGradient, borderRadius: BorderRadius.circular(23)), child: const Stack(children: [Positioned(right: -8, bottom: -10, child: Opacity(opacity: .12, child: EvermoreMark(size: 80))), Text('Growth is not one big transformation. It is the result of learning, applying, reflecting and repeating.', style: TextStyle(fontSize: 12, height: 1.55, color: EvermoreTheme.text, fontWeight: FontWeight.w600))])),
+          ],
+        ),
       ),
     );
   }
@@ -224,24 +153,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 class _StatCard extends StatelessWidget {
   final IconData icon;
-  final String value;
-  final String label;
+  final String value, label;
   const _StatCard(this.icon, this.value, this.label);
-
   @override
-  Widget build(BuildContext context) => Container(
-    padding: const EdgeInsets.all(16),
-    decoration: EvermoreTheme.premiumCard(radius: 18),
-    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(color: EvermoreTheme.primary.withValues(alpha: .08), borderRadius: BorderRadius.circular(10)),
-        child: Icon(icon, size: 16, color: EvermoreTheme.primary),
-      ),
-      const SizedBox(height: 12),
-      Text(value, style: const TextStyle(fontSize: 21, fontWeight: FontWeight.w800)),
-      const SizedBox(height: 2),
-      Text(label, style: const TextStyle(fontSize: 10, color: EvermoreTheme.muted)),
-    ]),
-  );
+  Widget build(BuildContext context) => Container(padding: const EdgeInsets.all(12), decoration: EvermoreTheme.glassCard(radius: 18, color: Colors.white.withValues(alpha: .72)), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Container(width: 30, height: 30, decoration: BoxDecoration(gradient: EvermoreTheme.softGradient, borderRadius: BorderRadius.circular(10)), child: Icon(icon, size: 15, color: EvermoreTheme.primary)), const SizedBox(height: 10), Text(value, style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w900)), const SizedBox(height: 2), Text(label, style: const TextStyle(fontSize: 9, color: EvermoreTheme.muted))]));
 }
