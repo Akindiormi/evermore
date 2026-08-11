@@ -125,16 +125,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: ListView(
         padding: const EdgeInsets.fromLTRB(20, 22, 20, 30),
         children: [
-          Row(
+          const Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('My growth', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800)),
-                    const SizedBox(height: 7),
-                    const Text('Your progress through the Evermore program.', style: TextStyle(color: EvermoreTheme.muted)),
+                    Text('My growth', style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800)),
+                    SizedBox(height: 7),
+                    Text('Your progress through the Evermore program.', style: TextStyle(color: EvermoreTheme.muted)),
                   ],
                 ),
               ),
