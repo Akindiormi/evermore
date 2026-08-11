@@ -2,7 +2,7 @@ name: Build Evermore Android
 
 on:
   push:
-    branches: [main]
+    branches: [main, ui/v2-glass-foundation]
   workflow_dispatch:
 
 jobs:
@@ -140,11 +140,7 @@ jobs:
           '''
 
           if 'create("release")' not in text:
-              text = text.replace(
-                  "android {",
-                  "android {\n" + signing,
-                  1
-              )
+              text = text.replace("android {", "android {\n" + signing, 1)
 
           release = '''
                   release {
@@ -154,11 +150,7 @@ jobs:
           '''
 
           if 'signingConfig = signingConfigs.getByName("release")' not in text:
-              text = text.replace(
-                  "buildTypes {",
-                  "buildTypes {\n" + release,
-                  1
-              )
+              text = text.replace("buildTypes {", "buildTypes {\n" + release, 1)
 
           path.write_text(text)
           PY
