@@ -15,6 +15,7 @@ class EvermoreTheme {
   static const glassStrong = Color(0xEEFDFEFF);
   static const text = Color(0xFF10203D);
   static const muted = Color(0xFF71809C);
+  static const ink = Color(0xFF12203A);
   static const border = Color(0xB8FFFFFF);
   static const divider = Color(0xFFE5EAF4);
 
@@ -92,6 +93,7 @@ class EvermoreTheme {
         seedColor: primary,
         brightness: Brightness.light,
       ),
+      splashFactory: InkSparkle.splashFactory,
     );
 
     return base.copyWith(
@@ -108,6 +110,7 @@ class EvermoreTheme {
           fontWeight: FontWeight.w800,
           fontSize: 20,
         ),
+        iconTheme: const IconThemeData(color: text),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
