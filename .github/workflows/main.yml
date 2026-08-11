@@ -62,6 +62,9 @@ jobs:
       - name: Get packages
         run: flutter pub get
 
+      - name: Generate app icons
+        run: dart run flutter_launcher_icons
+
       - name: Prepare release keystore
         env:
           KEYSTORE_BASE64: ${{ secrets.EVERMORE_KEYSTORE_BASE64 }}
