@@ -8,6 +8,7 @@ build/
 .vscode/
 *.iml
 .DS_Store
+*.zip
 
 # Android signing material
 android/key.properties

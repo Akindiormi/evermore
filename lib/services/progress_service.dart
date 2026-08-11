@@ -9,8 +9,35 @@ class ProgressService {
   static const _lastActiveKey = 'last_active';
   static const _completedChallengesKey = 'completed_challenges';
   static const _reflectionsKey = 'reflections';
+  static const _profileNameKey = 'profile_name';
+  static const _profilePhotoKey = 'profile_photo_path';
 
   Future<SharedPreferences> get _prefs async => SharedPreferences.getInstance();
+
+  Future<void> saveProfileName(String name) async {
+    final prefs = await _prefs;
+    await prefs.setString(_profileNameKey, name);
+  }
+
+  Future<String> getProfileName() async {
+    final prefs = await _prefs;
+    return prefs.getString(_profileNameKey) ?? '';
+  }
+
+  Future<void> saveProfilePhotoPath(String path) async {
+    final prefs = await _prefs;
+    await prefs.setString(_profilePhotoKey, path);
+  }
+
+  Future<void> clearProfilePhoto() async {
+    final prefs = await _prefs;
+    await prefs.remove(_profilePhotoKey);
+  }
+
+  Future<String?> getProfilePhotoPath() async {
+    final prefs = await _prefs;
+    return prefs.getString(_profilePhotoKey);
+  }
 
   Future<bool> hasCompletedOnboarding() async {
     final prefs = await _prefs;
