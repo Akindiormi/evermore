@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EvermoreTheme {
-  static const primary = Color(0xFF02349E);
-  static const primaryDark = Color(0xFF01266F);
-  static const primaryLight = Color(0xFF3D5FC4);
-  static const background = Color(0xFFF7F9FC);
+  // Blue system — layered shades used for depth (fill / offset-shadow / tint).
+  static const primary = Color(0xFF0B2E6B);       // deep blue — button fill, headings accent
+  static const primaryDark = Color(0xFF071D45);    // darkest — gradients, pressed states
+  static const primaryLight = Color(0xFF3D6BD1);   // mid blue — offset "shadow" layer on buttons
+  static const primaryTint = Color(0xFFE8EEFC);    // pale blue — soft background tints, chips
+
+  static const background = Color(0xFFF2EDE0);     // warm cream app background
   static const surface = Colors.white;
-  static const text = Color(0xFF111827);
+  static const text = Color(0xFF15181D);
   static const muted = Color(0xFF667085);
-  static const border = Color(0xFFE5E7EB);
-  static const gold = Color(0xFFE8B84B);
+  static const border = Color(0xFFE5E1D3);         // soft border for regular content cards
+  static const ink = Color(0xFF15181D);            // near-black used for bold outlines on CTAs
 
   /// Soft, low-elevation shadow used on premium surface cards.
   static List<BoxShadow> get cardShadow => [
@@ -57,14 +60,19 @@ class EvermoreTheme {
     );
 
     return base.copyWith(
-      textTheme: GoogleFonts.plusJakartaSansTextTheme(base.textTheme).apply(
+      textTheme: GoogleFonts.spaceGroteskTextTheme(base.textTheme).apply(
         bodyColor: text,
         displayColor: text,
       ),
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: background,
         surfaceTintColor: Colors.transparent,
         elevation: 0,
+        titleTextStyle: GoogleFonts.spaceGrotesk(
+          color: text,
+          fontWeight: FontWeight.w800,
+          fontSize: 18,
+        ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
@@ -76,6 +84,10 @@ class EvermoreTheme {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: const BorderSide(color: border),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: primary, width: 1.6),
         ),
       ),
     );

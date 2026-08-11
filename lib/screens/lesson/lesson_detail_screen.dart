@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/theme/evermore_theme.dart';
 import '../../models/lesson.dart';
 import '../../services/progress_service.dart';
+import '../../widgets/neo_pill_button.dart';
 
 class LessonDetailScreen extends StatefulWidget {
   final GrowthLesson lesson;
@@ -92,11 +93,10 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
           const SizedBox(height: 10),
           ...lesson.takeaways.map((text) => _Bullet(text: text)),
           const SizedBox(height: 25),
-          SizedBox(width: double.infinity, child: FilledButton(
+          NeoPillButton(
+            label: completed ? 'Lesson completed' : 'Complete lesson +25 XP',
             onPressed: completed ? null : complete,
-            style: FilledButton.styleFrom(backgroundColor: EvermoreTheme.primary, padding: const EdgeInsets.symmetric(vertical: 16)),
-            child: Text(completed ? 'Lesson completed' : 'Complete lesson +25 XP', style: const TextStyle(fontWeight: FontWeight.w800)),
-          )),
+          ),
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../core/theme/evermore_theme.dart';
 import '../../services/telegram_service.dart';
+import '../../widgets/neo_pill_button.dart';
 
 class CommunityScreen extends StatelessWidget {
   const CommunityScreen({super.key});
@@ -33,11 +34,13 @@ class CommunityScreen extends StatelessWidget {
               const SizedBox(height: 10),
               const Text('Join the Evermore Telegram community for discussions, accountability and live sessions.', style: TextStyle(color: Colors.white70, height: 1.5, fontSize: 13)),
               const SizedBox(height: 19),
-              SizedBox(width: double.infinity, child: FilledButton(
+              NeoPillButton(
+                label: 'Join Telegram',
                 onPressed: TelegramService.openCommunity,
-                style: FilledButton.styleFrom(backgroundColor: Colors.white, foregroundColor: EvermoreTheme.primary, padding: const EdgeInsets.symmetric(vertical: 15)),
-                child: const Text('Join Telegram', style: TextStyle(fontWeight: FontWeight.w800)),
-              )),
+                fillColor: Colors.white,
+                shadowColor: EvermoreTheme.primaryTint,
+                textColor: EvermoreTheme.primary,
+              ),
             ]),
           ),
           const SizedBox(height: 25),

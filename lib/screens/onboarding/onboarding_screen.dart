@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/theme/evermore_theme.dart';
 import '../../services/progress_service.dart';
 import '../../widgets/avatar_picker.dart';
+import '../../widgets/neo_pill_button.dart';
 
 class OnboardingScreen extends StatefulWidget {
   final VoidCallback onComplete;
@@ -62,11 +63,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               const SizedBox(height: 14),
               const Text('A practical growth program for people who want to learn, apply and become better on purpose.', style: TextStyle(fontSize: 15, height: 1.55, color: EvermoreTheme.muted)),
               const Spacer(),
-              SizedBox(width: double.infinity, child: FilledButton(
+              NeoPillButton(
+                label: 'Build my growth path',
                 onPressed: () => setState(() => page = 1),
-                style: FilledButton.styleFrom(backgroundColor: EvermoreTheme.primary, padding: const EdgeInsets.symmetric(vertical: 16)),
-                child: const Text('Build my growth path', style: TextStyle(fontWeight: FontWeight.w800)),
-              )),
+              ),
             ],
           ),
         ),
@@ -116,11 +116,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             );
           }),
           const SizedBox(height: 12),
-          SizedBox(width: double.infinity, child: FilledButton(
+          NeoPillButton(
+            label: 'Continue',
             onPressed: selected.isEmpty ? null : () => setState(() => page = 2),
-            style: FilledButton.styleFrom(backgroundColor: EvermoreTheme.primary, padding: const EdgeInsets.symmetric(vertical: 16)),
-            child: const Text('Continue', style: TextStyle(fontWeight: FontWeight.w800)),
-          )),
+          ),
         ],
       ),
     );
@@ -170,11 +169,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
               ),
               const Spacer(),
-              SizedBox(width: double.infinity, child: FilledButton(
+              NeoPillButton(
+                label: 'Start Evermore',
                 onPressed: canFinish ? finish : null,
-                style: FilledButton.styleFrom(backgroundColor: EvermoreTheme.primary, padding: const EdgeInsets.symmetric(vertical: 16)),
-                child: const Text('Start Evermore', style: TextStyle(fontWeight: FontWeight.w800)),
-              )),
+              ),
             ],
           ),
         ),

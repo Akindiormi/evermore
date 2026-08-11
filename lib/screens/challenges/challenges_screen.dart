@@ -3,6 +3,7 @@ import '../../core/theme/evermore_theme.dart';
 import '../../data/challenge_data.dart';
 import '../../models/challenge.dart';
 import '../../services/progress_service.dart';
+import '../../widgets/neo_pill_button.dart';
 
 class ChallengesScreen extends StatefulWidget {
   const ChallengesScreen({super.key});
@@ -106,11 +107,10 @@ class ChallengeDetailScreen extends StatelessWidget {
             ]),
           )),
           const SizedBox(height: 10),
-          SizedBox(width: double.infinity, child: FilledButton(
+          NeoPillButton(
+            label: alreadyCompleted ? 'Challenge completed' : 'Complete challenge +${challenge.xp} XP',
             onPressed: alreadyCompleted ? null : () => complete(context),
-            style: FilledButton.styleFrom(backgroundColor: EvermoreTheme.primary, padding: const EdgeInsets.symmetric(vertical: 16)),
-            child: Text(alreadyCompleted ? 'Challenge completed' : 'Complete challenge +${challenge.xp} XP', style: const TextStyle(fontWeight: FontWeight.w800)),
-          )),
+          ),
         ],
       ),
     );

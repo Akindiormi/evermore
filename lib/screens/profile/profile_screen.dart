@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/theme/evermore_theme.dart';
 import '../../services/progress_service.dart';
 import '../../widgets/avatar_picker.dart';
+import '../../widgets/neo_pill_button.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -94,21 +95,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    child: FilledButton(
-                      onPressed: controller.text.trim().isEmpty ? null : () async {
-                        await service.saveProfileName(controller.text.trim());
-                        if (draftPhoto != null) {
-                          await service.saveProfilePhotoPath(draftPhoto!);
-                        } else {
-                          await service.clearProfilePhoto();
-                        }
-                        if (context.mounted) Navigator.pop(sheetContext);
-                      },
-                      style: FilledButton.styleFrom(backgroundColor: EvermoreTheme.primary, padding: const EdgeInsets.symmetric(vertical: 15)),
-                      child: const Text('Save changes', style: TextStyle(fontWeight: FontWeight.w800)),
-                    ),
+                  NeoPillButton(
+                    label: 'Save changes',
+                    onPressed: controller.text.trim().isEmpty ? null : () async {
+                      await service.saveProfileName(controller.text.trim());
+                      if (draftPhoto != null) {
+                        await service.saveProfilePhotoPath(draftPhoto!);
+                      } else {
+                        await service.clearProfilePhoto();
+                      }
+                      if (context.mounted) Navigator.pop(sheetContext);
+                    },
                   ),
                 ],
               ),
