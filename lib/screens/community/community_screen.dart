@@ -27,13 +27,13 @@ class CommunityScreen extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(22),
             decoration: BoxDecoration(gradient: const LinearGradient(colors: [EvermoreTheme.primary, EvermoreTheme.primaryDark]), borderRadius: BorderRadius.circular(24)),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              const Icon(Icons.groups_outlined, color: Colors.white, size: 30),
-              const SizedBox(height: 16),
-              const Text('Your growth should not happen alone.', style: TextStyle(color: Colors.white, fontSize: 23, fontWeight: FontWeight.w800, height: 1.15)),
-              const SizedBox(height: 10),
-              const Text('Join the Evermore Telegram community for discussions, accountability and live sessions.', style: TextStyle(color: Colors.white70, height: 1.5, fontSize: 13)),
-              const SizedBox(height: 19),
+            child: const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Icon(Icons.groups_outlined, color: Colors.white, size: 30),
+              SizedBox(height: 16),
+              Text('Your growth should not happen alone.', style: TextStyle(color: Colors.white, fontSize: 23, fontWeight: FontWeight.w800, height: 1.15)),
+              SizedBox(height: 10),
+              Text('Join the Evermore Telegram community for discussions, accountability and live sessions.', style: TextStyle(color: Colors.white70, height: 1.5, fontSize: 13)),
+              SizedBox(height: 19),
               NeoPillButton(
                 label: 'Join Telegram',
                 onPressed: TelegramService.openCommunity,
