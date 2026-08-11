@@ -86,7 +86,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
         children: [
-          _StepIndicator(step: 1, total: 3),
+          const _StepIndicator(step: 1, total: 3),
           const SizedBox(height: 18),
           const Text('What do you want to improve?', style: TextStyle(fontSize: 25, fontWeight: FontWeight.w800)),
           const SizedBox(height: 8),
@@ -141,7 +141,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _StepIndicator(step: 2, total: 3),
+              const _StepIndicator(step: 2, total: 3),
               const SizedBox(height: 18),
               const Text("This is how you'll show up", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w800)),
               const SizedBox(height: 8),
