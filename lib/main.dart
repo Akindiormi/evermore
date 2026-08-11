@@ -6,6 +6,7 @@ import 'screens/home/home_screen.dart';
 import 'screens/learn/learn_screen.dart';
 import 'screens/community/community_screen.dart';
 import 'screens/profile/profile_screen.dart';
+import 'widgets/evermore_navigation.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,9 +50,11 @@ class _AppGateState extends State<AppGate> {
     if (onboarded == null) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
-    return onboarded! ? const MainShell() : OnboardingScreen(onComplete: () {
-      setState(() => onboarded = true);
-    });
+    return onboarded!
+        ? const MainShell()
+        : OnboardingScreen(onComplete: () {
+            setState(() => onboarded = true);
+          });
   }
 }
 
@@ -75,16 +78,11 @@ class _MainShellState extends State<MainShell> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: IndexedStack(index: index, children: screens),
-      bottomNavigationBar: NavigationBar(
+      bottomNavigationBar: EvermoreNavigation(
         selectedIndex: index,
         onDestinationSelected: (value) => setState(() => index = value),
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home_rounded), label: 'Home'),
-          NavigationDestination(icon: Icon(Icons.menu_book_outlined), selectedIcon: Icon(Icons.menu_book_rounded), label: 'Learn'),
-          NavigationDestination(icon: Icon(Icons.groups_outlined), selectedIcon: Icon(Icons.groups_rounded), label: 'Community'),
-          NavigationDestination(icon: Icon(Icons.person_outline_rounded), selectedIcon: Icon(Icons.person_rounded), label: 'Profile'),
-        ],
       ),
     );
   }
