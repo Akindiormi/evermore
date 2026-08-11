@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'core/theme/evermore_theme.dart';
+import 'core/widgets/evermore_background.dart';
+import 'core/widgets/evermore_mark.dart';
 import 'services/progress_service.dart';
 import 'screens/onboarding/onboarding_screen.dart';
 import 'screens/home/home_screen.dart';
@@ -29,7 +31,6 @@ class EvermoreApp extends StatelessWidget {
 
 class AppGate extends StatefulWidget {
   const AppGate({super.key});
-
   @override
   State<AppGate> createState() => _AppGateState();
 }
@@ -48,19 +49,27 @@ class _AppGateState extends State<AppGate> {
   @override
   Widget build(BuildContext context) {
     if (onboarded == null) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      return const Scaffold(
+        body: EvermoreBackground(
+          child: Center(
+            child: SizedBox(
+              width: 76,
+              height: 76,
+              child: DecoratedBox(
+                decoration: BoxDecoration(gradient: EvermoreTheme.logoGradient, borderRadius: BorderRadius.all(Radius.circular(24))),
+                child: Padding(padding: EdgeInsets.all(18), child: EvermoreMark(color: Colors.white)),
+              ),
+            ),
+          ),
+        ),
+      );
     }
-    return onboarded!
-        ? const MainShell()
-        : OnboardingScreen(onComplete: () {
-            setState(() => onboarded = true);
-          });
+    return onboarded! ? const MainShell() : OnboardingScreen(onComplete: () => setState(() => onboarded = true));
   }
 }
 
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
-
   @override
   State<MainShell> createState() => _MainShellState();
 }
@@ -68,22 +77,14 @@ class MainShell extends StatefulWidget {
 class _MainShellState extends State<MainShell> {
   int index = 0;
 
-  final screens = const [
-    HomeScreen(),
-    LearnScreen(),
-    CommunityScreen(),
-    ProfileScreen(),
-  ];
+  final screens = const [HomeScreen(), LearnScreen(), CommunityScreen(), ProfileScreen()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
       body: IndexedStack(index: index, children: screens),
-      bottomNavigationBar: EvermoreNavigation(
-        selectedIndex: index,
-        onDestinationSelected: (value) => setState(() => index = value),
-      ),
+      bottomNavigationBar: EvermoreNavigation(selectedIndex: index, onDestinationSelected: (value) => setState(() => index = value)),
     );
   }
 }
