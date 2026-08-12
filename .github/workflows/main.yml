@@ -23,13 +23,6 @@ jobs:
       - name: Verify Flutter
         run: flutter --version
 
-      - name: Check project
-        run: |
-          echo "Project files:"
-          ls -la
-          echo "Pubspec:"
-          cat pubspec.yaml
-
       - name: Remove old Android files
         run: rm -rf android
 
@@ -43,19 +36,26 @@ jobs:
       - name: Remove generated default test
         run: rm -f test/widget_test.dart
 
+      - name: Configure Android SDK and NDK
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path("android/app/build.gradle.kts")
+          text = path.read_text()
+          text = text.replace('compileSdk = flutter.compileSdkVersion', 'compileSdk = 36')
+          text = text.replace('targetSdk = flutter.targetSdkVersion', 'targetSdk = 36')
+          text = text.replace('ndkVersion = flutter.ndkVersion', 'ndkVersion = "27.0.12077973"')
+          path.write_text(text)
+          PY
+
       - name: Fix missing pillar import
         run: |
           python3 - <<'PY'
           from pathlib import Path
-
           path = Path("lib/screens/learn/learn_screen.dart")
-
           if path.exists():
               text = path.read_text()
-              text = text.replace(
-                  "import 'pillar_detail_screen.dart';\n",
-                  ""
-              )
+              text = text.replace("import 'pillar_detail_screen.dart';\n", "")
               path.write_text(text)
           PY
 
@@ -73,87 +73,61 @@ jobs:
           KEY_PASSWORD: ${{ secrets.EVERMORE_KEY_PASSWORD }}
         run: |
           set -euo pipefail
-
-          test -n "$KEYSTORE_BASE64" || {
-            echo "Missing EVERMORE_KEYSTORE_BASE64"
-            exit 1
-          }
-
-          test -n "$KEYSTORE_PASSWORD" || {
-            echo "Missing EVERMORE_KEYSTORE_PASSWORD"
-            exit 1
-          }
-
-          test -n "$KEY_ALIAS" || {
-            echo "Missing EVERMORE_KEY_ALIAS"
-            exit 1
-          }
-
-          test -n "$KEY_PASSWORD" || {
-            echo "Missing EVERMORE_KEY_PASSWORD"
-            exit 1
-          }
-
+          test -n "$KEYSTORE_BASE64" || { echo "Missing EVERMORE_KEYSTORE_BASE64"; exit 1; }
+          test -n "$KEYSTORE_PASSWORD" || { echo "Missing EVERMORE_KEYSTORE_PASSWORD"; exit 1; }
+          test -n "$KEY_ALIAS" || { echo "Missing EVERMORE_KEY_ALIAS"; exit 1; }
+          test -n "$KEY_PASSWORD" || { echo "Missing EVERMORE_KEY_PASSWORD"; exit 1; }
           mkdir -p android/app/keystore
-
-          echo "$KEYSTORE_BASE64" | base64 --decode \
-            > android/app/keystore/evermore-upload-keystore.jks
-
+          echo "$KEYSTORE_BASE64" | base64 --decode > android/app/keystore/evermore-upload-keystore.jks
+          test -s android/app/keystore/evermore-upload-keystore.jks
           cat > android/key.properties <<EOF
           storePassword=$KEYSTORE_PASSWORD
           keyPassword=$KEY_PASSWORD
           keyAlias=$KEY_ALIAS
-          storeFile=keystore/evermore-upload-keystore.jks
+          storeFile=app/keystore/evermore-upload-keystore.jks
           EOF
 
       - name: Configure release signing
         run: |
           python3 - <<'PY'
           from pathlib import Path
-
           path = Path("android/app/build.gradle.kts")
           text = path.read_text()
-
           if "import java.util.Properties" not in text:
               text = "import java.util.Properties\n" + text
-
           signing = '''
               val keystorePropertiesFile = rootProject.file("key.properties")
               val keystoreProperties = Properties()
-
               if (keystorePropertiesFile.exists()) {
-                  keystorePropertiesFile.inputStream().use {
-                      keystoreProperties.load(it)
-                  }
+                  keystorePropertiesFile.inputStream().use { keystoreProperties.load(it) }
               }
-
               signingConfigs {
-                  create("release") {
+                  create("evermoreRelease") {
                       keyAlias = keystoreProperties["keyAlias"] as String?
                       keyPassword = keystoreProperties["keyPassword"] as String?
-                      storeFile = keystoreProperties["storeFile"]?.let { path ->
-                          rootProject.file(path)
-                      }
+                      storeFile = keystoreProperties["storeFile"]?.let { rootProject.file(it) }
                       storePassword = keystoreProperties["storePassword"] as String?
                   }
               }
           '''
-
-          if 'create("release")' not in text:
+          if 'create("evermoreRelease")' not in text:
               text = text.replace("android {", "android {\n" + signing, 1)
-
-          release = '''
-                  release {
-                      signingConfig =
-                          signingConfigs.getByName("release")
-                  }
-          '''
-
-          if 'signingConfig = signingConfigs.getByName("release")' not in text:
-              text = text.replace("buildTypes {", "buildTypes {\n" + release, 1)
-
+          text = text.replace('signingConfig = signingConfigs.getByName("debug")', 'signingConfig = signingConfigs.getByName("evermoreRelease")')
+          if 'signingConfig = signingConfigs.getByName("evermoreRelease")' not in text:
+              text = text.replace("buildTypes {", 'buildTypes {\n        release {\n            signingConfig = signingConfigs.getByName("evermoreRelease")\n        }', 1)
           path.write_text(text)
           PY
+
+      - name: Verify Android configuration
+        run: |
+          set -euo pipefail
+          grep -nE 'compileSdk|targetSdk|ndkVersion|signingConfig' android/app/build.gradle.kts || true
+          grep -q 'compileSdk = 36' android/app/build.gradle.kts
+          grep -q 'targetSdk = 36' android/app/build.gradle.kts
+          grep -q 'ndkVersion = "27.0.12077973"' android/app/build.gradle.kts
+          grep -q 'signingConfigs.getByName("evermoreRelease")' android/app/build.gradle.kts
+          test "$(grep -c 'signingConfigs.getByName("debug")' android/app/build.gradle.kts || true)" -eq 0
+          test -f android/app/keystore/evermore-upload-keystore.jks
 
       - name: Analyze
         run: flutter analyze
