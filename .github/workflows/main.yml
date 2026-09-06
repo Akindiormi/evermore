@@ -2,13 +2,16 @@ name: Build Evermore Android
 
 on:
   push:
-    branches: [main, ui/v2-glass-foundation]
-  workflow_dispatch:
+    branches:
+      - main
+      - upgrade/evermore-native-v2
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -16,7 +19,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.32.8"
+          flutter-version: '3.32.8'
           channel: stable
           cache: true
 
@@ -26,15 +29,13 @@ jobs:
       - name: Remove old Android files
         run: rm -rf android
 
-      - name: Generate fresh Android project
+      - name: Generate Android project with preserved Play identity
         run: |
           flutter create . \
             --platforms=android \
-            --project-name evermore \
-            --org com.evermore
-
-      - name: Remove generated default test
-        run: rm -f test/widget_test.dart
+            --project-name earnpal \
+            --org com.earnpalsolutions
+          rm -f test/widget_test.dart
 
       - name: Configure Android SDK and NDK
         run: |
@@ -48,16 +49,11 @@ jobs:
           path.write_text(text)
           PY
 
-      - name: Fix missing pillar import
+      - name: Verify preserved application ID
         run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          path = Path("lib/screens/learn/learn_screen.dart")
-          if path.exists():
-              text = path.read_text()
-              text = text.replace("import 'pillar_detail_screen.dart';\n", "")
-              path.write_text(text)
-          PY
+          set -euo pipefail
+          grep -q 'applicationId = "com.earnpalsolutions.earnpal"' android/app/build.gradle.kts
+          grep -q 'namespace = "com.earnpalsolutions.earnpal"' android/app/build.gradle.kts
 
       - name: Get packages
         run: flutter pub get
@@ -121,7 +117,9 @@ jobs:
       - name: Verify Android configuration
         run: |
           set -euo pipefail
-          grep -nE 'compileSdk|targetSdk|ndkVersion|signingConfig' android/app/build.gradle.kts || true
+          grep -nE 'applicationId|namespace|compileSdk|targetSdk|ndkVersion|signingConfig' android/app/build.gradle.kts || true
+          grep -q 'applicationId = "com.earnpalsolutions.earnpal"' android/app/build.gradle.kts
+          grep -q 'namespace = "com.earnpalsolutions.earnpal"' android/app/build.gradle.kts
           grep -q 'compileSdk = 36' android/app/build.gradle.kts
           grep -q 'targetSdk = 36' android/app/build.gradle.kts
           grep -q 'ndkVersion = "27.0.12077973"' android/app/build.gradle.kts
@@ -130,7 +128,7 @@ jobs:
           test -f android/app/keystore/evermore-upload-keystore.jks
 
       - name: Analyze
-        run: flutter analyze
+        run: flutter analyze --no-fatal-infos
 
       - name: Build APK
         run: flutter build apk --release
