@@ -1,0 +1,25 @@
+name: Evermore feature validation
+
+on:
+  push:
+    branches:
+      - feature/complete-user-journey
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.32.8'
+          channel: stable
+          cache: true
+      - name: Run flutter pub get
+        run: flutter pub get
+      - name: Run flutter analyze --no-fatal-infos
+        run: flutter analyze --no-fatal-infos
+      - name: Run flutter test
+        run: flutter test
+      - name: Run flutter build apk --debug
+        run: flutter build apk --debug
