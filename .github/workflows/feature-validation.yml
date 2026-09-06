@@ -37,5 +37,18 @@ jobs:
         run: flutter analyze --no-fatal-infos
       - name: Run flutter test
         run: flutter test --reporter expanded
-      - name: Run flutter build apk --debug
+      - name: Build debug APK
         run: flutter build apk --debug
+      - name: Build release APK
+        run: flutter build apk --release
+      - name: Build release AAB
+        run: flutter build appbundle --release
+      - name: Upload Android artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: evermore-android-builds
+          path: |
+            build/app/outputs/flutter-apk/app-debug.apk
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
+          if-no-files-found: error
