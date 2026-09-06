@@ -1029,13 +1029,14 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Material(
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(24),
         child: Ink(
-      margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: panel,
@@ -1097,6 +1098,7 @@ class ProductCard extends StatelessWidget {
         ],
       ),
         ),
+      ),
       ),
     );
   }
