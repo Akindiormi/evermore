@@ -9,7 +9,6 @@ const everMuted = Color(0xFF6D7890);
 const everSurface = Color(0xFFF6F8FC);
 
 void main() => runApp(const EvermoreApp());
-
 void push(BuildContext context, Widget page) => Navigator.push(context, MaterialPageRoute(builder: (_) => page));
 void replace(BuildContext context, Widget page) => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => page));
 void message(BuildContext context, String text) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
@@ -292,7 +291,7 @@ class BalanceCard extends StatelessWidget {
   Widget build(BuildContext context) => Container(width: double.infinity, padding: const EdgeInsets.all(22), decoration: BoxDecoration(gradient: const LinearGradient(colors: [everBlue, everBlue2]), borderRadius: BorderRadius.circular(26)), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Text('available balance', style: TextStyle(color: Colors.white70)), const SizedBox(height: 8), const Text('₦0.00', style: TextStyle(color: Colors.white, fontSize: 34, fontWeight: FontWeight.w800)), const SizedBox(height: 16),
         FilledButton.tonalIcon(onPressed: () => showWithdrawDialog(context), icon: const Icon(Icons.south_west_rounded), label: const Text('Withdraw')),
-      ]);
+      ]));
 }
 
 class ProductCard extends StatelessWidget {
@@ -319,7 +318,7 @@ class StepCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(padding: const EdgeInsets.all(18), decoration: BoxDecoration(color: everSurface, borderRadius: BorderRadius.circular(20)), child: const Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
         StepItem(icon: Icons.touch_app_outlined, label: 'task'), StepItem(icon: Icons.verified_outlined, label: 'verify'), StepItem(icon: Icons.account_balance_wallet_outlined, label: 'withdraw'),
-      ]);
+      ]));
 }
 class StepItem extends StatelessWidget {
   final IconData icon; final String label;
@@ -338,7 +337,7 @@ class CourseCard extends StatelessWidget {
   const CourseCard({super.key, required this.title, required this.icon});
   @override Widget build(BuildContext context) => Container(padding: const EdgeInsets.all(17), decoration: BoxDecoration(color: everSurface, borderRadius: BorderRadius.circular(20)), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [Icon(icon, color: everBlue), const SizedBox(width: 12), Text(title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16))]), const SizedBox(height: 15), const LinearProgressIndicator(value: 0), const SizedBox(height: 7), const Text('0% complete', style: TextStyle(color: everMuted)),
-      ]);
+      ]));
 }
 class ChoiceTile extends StatelessWidget {
   final String title; final IconData icon; final bool selected; final VoidCallback onTap;
