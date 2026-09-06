@@ -160,6 +160,7 @@ class _ChallengeCard extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             decoration: EvermoreTheme.glassCard(
               radius: 22,
+              color: Colors.white.withValues(alpha: .72),
             ),
             child: Row(
               children: [
@@ -362,6 +363,7 @@ class _ChallengeDetailScreenState extends State<ChallengeDetailScreen> {
                 padding: const EdgeInsets.all(15),
                 decoration: EvermoreTheme.glassCard(
                   radius: 19,
+                  color: Colors.white.withValues(alpha: .72),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,

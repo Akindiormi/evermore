@@ -77,7 +77,7 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
             ...lesson.sections.asMap().entries.map((entry) => Container(
               margin: const EdgeInsets.only(bottom: 11),
               padding: const EdgeInsets.all(16),
-              decoration: EvermoreTheme.glassCard(radius: 20),
+              decoration: EvermoreTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .72)),
               child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text('0${entry.key + 1}', style: const TextStyle(color: EvermoreTheme.primary, fontSize: 10, fontWeight: FontWeight.w900)),
                 const SizedBox(width: 12),
@@ -91,7 +91,7 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
             const SizedBox(height: 14),
             Container(
               padding: const EdgeInsets.all(18),
-              decoration: EvermoreTheme.glassCard(radius: 23),
+              decoration: EvermoreTheme.glassCard(radius: 23, color: Colors.white.withValues(alpha: .72)),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 const Text('Reflection', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
                 const SizedBox(height: 7),

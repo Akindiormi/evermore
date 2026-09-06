@@ -60,7 +60,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     await showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
-      backgroundColor: EvermoreTheme.glassStrong,
+      backgroundColor: Colors.white.withValues(alpha: .96),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
       ),
@@ -199,6 +199,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.all(22),
               decoration: EvermoreTheme.glassCard(
                 radius: 29,
+                color: Colors.white.withValues(alpha: .75),
               ),
               child: Column(
                 children: [
@@ -294,6 +295,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.all(18),
               decoration: EvermoreTheme.glassCard(
                 radius: 24,
+                color: Colors.white.withValues(alpha: .7),
               ),
               child: Row(
                 children: [
@@ -510,6 +512,7 @@ class _StatCard extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       decoration: EvermoreTheme.glassCard(
         radius: 18,
+        color: Colors.white.withValues(alpha: .72),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

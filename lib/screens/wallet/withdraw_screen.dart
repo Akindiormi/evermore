@@ -75,7 +75,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
               ] else ...[
                 Container(
                   padding: const EdgeInsets.all(18),
-                  decoration: EvermoreTheme.glassCard(radius: 20),
+                  decoration: EvermoreTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .72)),
                   child: Row(children: [
                     const Text('Withdrawing', style: TextStyle(color: EvermoreTheme.muted, fontSize: 13)),
                     const Spacer(),

@@ -112,7 +112,7 @@ class _CommunityItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         child: Ink(
           padding: const EdgeInsets.all(15),
-          decoration: EvermoreTheme.glassCard(radius: 20),
+          decoration: EvermoreTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .72)),
           child: Row(children: [
             Container(width: 43, height: 43, decoration: BoxDecoration(gradient: EvermoreTheme.softGradient, borderRadius: BorderRadius.circular(14)), child: Icon(icon, color: EvermoreTheme.primary, size: 19)),
             const SizedBox(width: 12),

@@ -124,7 +124,7 @@ class _TransactionRow extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: Container(
         padding: const EdgeInsets.all(15),
-        decoration: EvermoreTheme.glassCard(radius: 20),
+        decoration: EvermoreTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .72)),
         child: Row(children: [
           Container(
             width: 40,

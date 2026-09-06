@@ -190,7 +190,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       decoration: BoxDecoration(
                         color: isSelected
                             ? EvermoreTheme.primary.withValues(alpha: .075)
-                            : EvermoreTheme.glass,
+                            : Colors.white.withValues(alpha: .72),
                         borderRadius: BorderRadius.circular(18),
                         border: Border.all(
                           color: isSelected
