@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../config/app_config.dart';
 import '../../core/theme/evermore_theme.dart';
 import '../../core/widgets/evermore_background.dart';
@@ -8,25 +9,359 @@ import 'payment_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
-  @override State<RegistrationScreen> createState() => _RegistrationScreenState();
+
+  @override
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
 }
+
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _name = TextEditingController(), _email = TextEditingController(), _phone = TextEditingController(), _password = TextEditingController();
-  String _country = 'Nigeria'; AppPackage? _selected; bool _obscure = true;
-  @override void dispose(){_name.dispose();_email.dispose();_phone.dispose();_password.dispose();super.dispose();}
-  String? _emailValidator(String? value){final v=value?.trim()??'';if(v.isEmpty)return 'Email address is required';if(!RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(v))return 'Enter a valid email address';return null;}
-  String? _phoneValidator(String? value){final digits=(value??'').replaceAll(RegExp(r'\D'),'');if(digits.length<7||digits.length>15)return 'Enter a valid phone number';return null;}
-  String? _passwordValidator(String? value){final v=value??'';if(v.length<8||!RegExp(r'[A-Z]').hasMatch(v)||!RegExp(r'[a-z]').hasMatch(v)||!RegExp(r'\d').hasMatch(v))return 'Password must meet the requirements below';return null;}
-  Future<void> _submit() async{FocusScope.of(context).unfocus();if(!_formKey.currentState!.validate())return;if(_selected==null){ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content:Text('Select a package to continue')));return;}await AccountService().saveAccount(name:_name.text.trim(),email:_email.text.trim(),phone:_phone.text.trim(),country:_country,packageId:_selected!.id);if(!mounted)return;Navigator.pushReplacement(context,MaterialPageRoute(builder:(_)=>PaymentScreen(package:_selected!)));}
-  @override Widget build(BuildContext context)=>Scaffold(appBar:AppBar(title:const Text('Create your account')),body:EvermoreBackground(child:SafeArea(child:Form(key:_formKey,child:ListView(padding:const EdgeInsets.fromLTRB(20,12,20,35),children:[
-    const Text('Activate your account',style:TextStyle(fontSize:28,fontWeight:FontWeight.w800,letterSpacing:-.7)),const SizedBox(height:7),const Text('Create your account first. No OTP or phone/email verification is required.',style:TextStyle(color:EvermoreTheme.muted,fontSize:13.5,height:1.4)),const SizedBox(height:24),
-    _label('Full name'),_field(_name,hint:'Your full name',validator:(v)=>(v?.trim().isEmpty??true)?'Full name is required':null),_label('Email address'),_field(_email,hint:'you@example.com',keyboard:TextInputType.emailAddress,validator:_emailValidator),_label('Phone number'),_field(_phone,hint:'+234 800 000 0000',keyboard:TextInputType.phone,validator:_phoneValidator),_label('Password'),
-    TextFormField(controller:_password,obscureText:_obscure,validator:_passwordValidator,decoration:InputDecoration(hintText:'Create a strong password',suffixIcon:IconButton(icon:Icon(_obscure?Icons.visibility_outlined:Icons.visibility_off_outlined),onPressed:()=>setState(()=>_obscure=!_obscure)))),const SizedBox(height:8),const Text('Password requirements: 8+ characters, uppercase, lowercase and a number.',style:TextStyle(fontSize:11,color:EvermoreTheme.muted,height:1.4)),
-    _label('Country'),DropdownButtonFormField<String>(value:_country,items:const[DropdownMenuItem(value:'Nigeria',child:Text('Nigeria')),DropdownMenuItem(value:'Ghana',child:Text('Ghana')),DropdownMenuItem(value:'Kenya',child:Text('Kenya')),DropdownMenuItem(value:'South Africa',child:Text('South Africa')),DropdownMenuItem(value:'United Kingdom',child:Text('United Kingdom')),DropdownMenuItem(value:'United States',child:Text('United States'))],onChanged:(v)=>setState(()=>_country=v??'Nigeria')),
-    const SizedBox(height:22),const Text('Choose a package',style:TextStyle(fontSize:17,fontWeight:FontWeight.w800)),const SizedBox(height:5),const Text('Select one package before continuing to payment.',style:TextStyle(fontSize:11,color:EvermoreTheme.muted)),const SizedBox(height:12),...AppConfig.packages.map((p)=>_PackageTile(package:p,selected:_selected?.id==p.id,onTap:()=>setState(()=>_selected=p))),const SizedBox(height:18),SizedBox(height:52,child:FilledButton.icon(onPressed:_submit,icon:const Icon(Icons.arrow_forward_rounded),label:const Text('Create Account & Proceed',style:TextStyle(fontWeight:FontWeight.w800)),style:FilledButton.styleFrom(backgroundColor:EvermoreTheme.primary,shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(16))))),
-  ]))));
-  Widget _label(String text)=>Padding(padding:const EdgeInsets.only(top:17,bottom:8),child:Text(text,style:const TextStyle(fontSize:13,fontWeight:FontWeight.w700)));
-  Widget _field(TextEditingController c,{required String hint,TextInputType? keyboard,String? Function(String?)? validator})=>TextFormField(controller:c,keyboardType:keyboard,textCapitalization:TextCapitalization.words,validator:validator,decoration:InputDecoration(hintText:hint));
+  final _name = TextEditingController();
+  final _email = TextEditingController();
+  final _phone = TextEditingController();
+  final _password = TextEditingController();
+
+  String _country = 'Nigeria';
+  AppPackage? _selected;
+  bool _obscure = true;
+
+  @override
+  void dispose() {
+    _name.dispose();
+    _email.dispose();
+    _phone.dispose();
+    _password.dispose();
+    super.dispose();
+  }
+
+  String? _emailValidator(String? value) {
+    final v = value?.trim() ?? '';
+    if (v.isEmpty) return 'Email address is required';
+    if (!RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$').hasMatch(v)) {
+      return 'Enter a valid email address';
+    }
+    return null;
+  }
+
+  String? _phoneValidator(String? value) {
+    final digits = (value ?? '').replaceAll(RegExp(r'\D'), '');
+    if (digits.length < 7 || digits.length > 15) {
+      return 'Enter a valid phone number';
+    }
+    return null;
+  }
+
+  String? _passwordValidator(String? value) {
+    final v = value ?? '';
+    if (v.length < 8 ||
+        !RegExp(r'[A-Z]').hasMatch(v) ||
+        !RegExp(r'[a-z]').hasMatch(v) ||
+        !RegExp(r'\d').hasMatch(v)) {
+      return 'Password must meet the requirements below';
+    }
+    return null;
+  }
+
+  Future<void> _submit() async {
+    FocusScope.of(context).unfocus();
+    if (!_formKey.currentState!.validate()) return;
+
+    if (_selected == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Select a package to continue')),
+      );
+      return;
+    }
+
+    await AccountService().saveAccount(
+      name: _name.text.trim(),
+      email: _email.text.trim(),
+      phone: _phone.text.trim(),
+      country: _country,
+      packageId: _selected!.id,
+    );
+
+    if (!mounted) return;
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (_) => PaymentScreen(package: _selected!),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Create your account')),
+      body: EvermoreBackground(
+        child: SafeArea(
+          child: Form(
+            key: _formKey,
+            child: ListView(
+              padding: const EdgeInsets.fromLTRB(20, 12, 20, 35),
+              children: [
+                const Text(
+                  'Activate your account',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: -.7,
+                  ),
+                ),
+                const SizedBox(height: 7),
+                const Text(
+                  'Create your account first. No OTP or phone/email verification is required.',
+                  style: TextStyle(
+                    color: EvermoreTheme.muted,
+                    fontSize: 13.5,
+                    height: 1.4,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                _label('Full name'),
+                _field(
+                  _name,
+                  hint: 'Your full name',
+                  validator: (v) =>
+                      (v?.trim().isEmpty ?? true)
+                          ? 'Full name is required'
+                          : null,
+                ),
+                _label('Email address'),
+                _field(
+                  _email,
+                  hint: 'you@example.com',
+                  keyboard: TextInputType.emailAddress,
+                  validator: _emailValidator,
+                ),
+                _label('Phone number'),
+                _field(
+                  _phone,
+                  hint: '+234 800 000 0000',
+                  keyboard: TextInputType.phone,
+                  validator: _phoneValidator,
+                ),
+                _label('Password'),
+                TextFormField(
+                  controller: _password,
+                  obscureText: _obscure,
+                  validator: _passwordValidator,
+                  decoration: InputDecoration(
+                    hintText: 'Create a strong password',
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscure
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
+                      ),
+                      onPressed: () => setState(() => _obscure = !_obscure),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  'Password requirements: 8+ characters, uppercase, lowercase and a number.',
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: EvermoreTheme.muted,
+                    height: 1.4,
+                  ),
+                ),
+                _label('Country'),
+                DropdownButtonFormField<String>(
+                  value: _country,
+                  items: const [
+                    DropdownMenuItem(value: 'Nigeria', child: Text('Nigeria')),
+                    DropdownMenuItem(value: 'Ghana', child: Text('Ghana')),
+                    DropdownMenuItem(value: 'Kenya', child: Text('Kenya')),
+                    DropdownMenuItem(
+                      value: 'South Africa',
+                      child: Text('South Africa'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'United Kingdom',
+                      child: Text('United Kingdom'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'United States',
+                      child: Text('United States'),
+                    ),
+                  ],
+                  onChanged: (v) => setState(() => _country = v ?? 'Nigeria'),
+                ),
+                const SizedBox(height: 22),
+                const Text(
+                  'Choose a package',
+                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800),
+                ),
+                const SizedBox(height: 5),
+                const Text(
+                  'Select one package before continuing to payment.',
+                  style: TextStyle(fontSize: 11, color: EvermoreTheme.muted),
+                ),
+                const SizedBox(height: 12),
+                ...AppConfig.packages.map(
+                  (p) => _PackageTile(
+                    package: p,
+                    selected: _selected?.id == p.id,
+                    onTap: () => setState(() => _selected = p),
+                  ),
+                ),
+                const SizedBox(height: 18),
+                SizedBox(
+                  height: 52,
+                  child: FilledButton.icon(
+                    onPressed: _submit,
+                    icon: const Icon(Icons.arrow_forward_rounded),
+                    label: const Text(
+                      'Create Account & Proceed',
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                    ),
+                    style: FilledButton.styleFrom(
+                      backgroundColor: EvermoreTheme.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _label(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 17, bottom: 8),
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
+      ),
+    );
+  }
+
+  Widget _field(
+    TextEditingController controller, {
+    required String hint,
+    TextInputType? keyboard,
+    String? Function(String?)? validator,
+  }) {
+    return TextFormField(
+      controller: controller,
+      keyboardType: keyboard,
+      textCapitalization: TextCapitalization.words,
+      validator: validator,
+      decoration: InputDecoration(hintText: hint),
+    );
+  }
 }
-class _PackageTile extends StatelessWidget{final AppPackage package;final bool selected;final VoidCallback onTap;const _PackageTile({required this.package,required this.selected,required this.onTap});@override Widget build(BuildContext context)=>Padding(padding:const EdgeInsets.only(bottom:10),child:Material(color:Colors.transparent,child:InkWell(borderRadius:BorderRadius.circular(21),onTap:onTap,child:Ink(padding:const EdgeInsets.all(17),decoration:EvermoreTheme.glassCard(radius:21,color:Colors.white.withValues(alpha:.74)),child:Row(crossAxisAlignment:CrossAxisAlignment.start,children:[Icon(selected?Icons.radio_button_checked_rounded:Icons.radio_button_unchecked_rounded,color:selected?EvermoreTheme.primary:EvermoreTheme.muted),const SizedBox(width:12),Expanded(child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Row(children:[Expanded(child:Text(package.name,style:const TextStyle(fontWeight:FontWeight.w800,fontSize:15))),Text(package.formattedPrice,style:const TextStyle(color:EvermoreTheme.primary,fontWeight:FontWeight.w900))]),const SizedBox(height:5),Text(package.description,style:const TextStyle(fontSize:10.5,color:EvermoreTheme.muted,height:1.35)),const SizedBox(height:9),...package.benefits.map((b)=>Padding(padding:const EdgeInsets.only(bottom:3),child:Row(children:[const Icon(Icons.check_rounded,size:14,color:EvermoreTheme.primary),const SizedBox(width:5),Expanded(child:Text(b,style:const TextStyle(fontSize:10.5)))])))]))])))));}
+
+class _PackageTile extends StatelessWidget {
+  final AppPackage package;
+  final bool selected;
+  final VoidCallback onTap;
+
+  const _PackageTile({
+    required this.package,
+    required this.selected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(21),
+          onTap: onTap,
+          child: Ink(
+            padding: const EdgeInsets.all(17),
+            decoration: EvermoreTheme.glassCard(
+              radius: 21,
+              color: Colors.white.withValues(alpha: .74),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  selected
+                      ? Icons.radio_button_checked_rounded
+                      : Icons.radio_button_unchecked_rounded,
+                  color: selected
+                      ? EvermoreTheme.primary
+                      : EvermoreTheme.muted,
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              package.name,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w800,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            package.formattedPrice,
+                            style: const TextStyle(
+                              color: EvermoreTheme.primary,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        package.description,
+                        style: const TextStyle(
+                          fontSize: 10.5,
+                          color: EvermoreTheme.muted,
+                          height: 1.35,
+                        ),
+                      ),
+                      const SizedBox(height: 9),
+                      ...package.benefits.map(
+                        (benefit) => Padding(
+                          padding: const EdgeInsets.only(bottom: 3),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.check_rounded,
+                                size: 14,
+                                color: EvermoreTheme.primary,
+                              ),
+                              const SizedBox(width: 5),
+                              Expanded(
+                                child: Text(
+                                  benefit,
+                                  style: const TextStyle(fontSize: 10.5),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
