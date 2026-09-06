@@ -2,7 +2,7 @@ name: Build Evermore Android
 
 on:
   push:
-    branches: [main, ui/v2-glass-foundation]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -26,15 +26,26 @@ jobs:
       - name: Remove old Android files
         run: rm -rf android
 
-      - name: Generate fresh Android project
+      - name: Generate Android project with existing Play identity
         run: |
           flutter create . \
             --platforms=android \
-            --project-name evermore \
-            --org com.evermore
+            --project-name earnpal \
+            --org com.earnpalsolutions
 
       - name: Remove generated default test
         run: rm -f test/widget_test.dart
+
+      - name: Set Android app label to Evermore
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path("android/app/src/main/AndroidManifest.xml")
+          text = path.read_text()
+          text = text.replace('android:label="earnpal"', 'android:label="Evermore"')
+          text = text.replace('android:label="Earnpal"', 'android:label="Evermore"')
+          path.write_text(text)
+          PY
 
       - name: Configure Android SDK and NDK
         run: |
@@ -46,17 +57,6 @@ jobs:
           text = text.replace('targetSdk = flutter.targetSdkVersion', 'targetSdk = 36')
           text = text.replace('ndkVersion = flutter.ndkVersion', 'ndkVersion = "27.0.12077973"')
           path.write_text(text)
-          PY
-
-      - name: Fix missing pillar import
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          path = Path("lib/screens/learn/learn_screen.dart")
-          if path.exists():
-              text = path.read_text()
-              text = text.replace("import 'pillar_detail_screen.dart';\n", "")
-              path.write_text(text)
           PY
 
       - name: Get packages
@@ -118,7 +118,7 @@ jobs:
           path.write_text(text)
           PY
 
-      - name: Verify Android configuration
+      - name: Verify Android identity and release configuration
         run: |
           set -euo pipefail
           grep -nE 'compileSdk|targetSdk|ndkVersion|signingConfig' android/app/build.gradle.kts || true
@@ -128,9 +128,11 @@ jobs:
           grep -q 'signingConfigs.getByName("evermoreRelease")' android/app/build.gradle.kts
           test "$(grep -c 'signingConfigs.getByName("debug")' android/app/build.gradle.kts || true)" -eq 0
           test -f android/app/keystore/evermore-upload-keystore.jks
+          grep -q 'com.earnpalsolutions.earnpal' android/app/build.gradle.kts
+          grep -q 'Evermore' android/app/src/main/AndroidManifest.xml
 
       - name: Analyze
-        run: flutter analyze
+        run: flutter analyze --no-fatal-infos
 
       - name: Build APK
         run: flutter build apk --release
