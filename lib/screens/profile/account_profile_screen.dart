@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../config/app_config.dart';
 import '../../core/theme/evermore_theme.dart';
 import '../../core/widgets/evermore_background.dart';
@@ -8,36 +9,526 @@ import '../account/registration_screen.dart';
 
 class AccountProfileScreen extends StatefulWidget {
   const AccountProfileScreen({super.key});
-  @override State<AccountProfileScreen> createState() => _AccountProfileScreenState();
-}
-class _AccountProfileScreenState extends State<AccountProfileScreen> {
-  final account = AccountService(); String name='', email='', phone='', country='Nigeria', packageId='', status='not_submitted';
-  @override void initState(){super.initState(); _load();}
-  Future<void> _load() async { name=await account.name; email=await account.email; phone=await account.phone; country=await account.country; packageId=await account.packageId; status=await account.paymentStatus; if(mounted)setState((){}); }
-  @override Widget build(BuildContext context) {
-    final registered = name.isNotEmpty || email.isNotEmpty;
-    final pkg = AppConfig.packages.where((p)=>p.id==packageId).firstOrNull;
-    return Scaffold(body: EvermoreBackground(child: SafeArea(child: ListView(padding: const EdgeInsets.fromLTRB(20,22,20,125), children: [
-      const Text('Profile', style: TextStyle(fontSize:29,fontWeight:FontWeight.w800,letterSpacing:-.8)), const SizedBox(height:7),
-      const Text('Your account, package and payment status.', style: TextStyle(color:EvermoreTheme.muted,fontSize:13.5)), const SizedBox(height:20),
-      if (!registered) _NotRegistered(onTap: ()=>Navigator.push(context,MaterialPageRoute(builder:(_)=>const RegistrationScreen())).then((_){_load();})) else ...[
-        _AccountCard(name:name,email:email), const SizedBox(height:12),
-        _InfoCard(icon:Icons.person_outline_rounded,title:'Account information', rows:[['Full Name',name],['Email',email],['Phone',phone],['Country',country]]), const SizedBox(height:12),
-        _InfoCard(icon:Icons.workspace_premium_outlined,title:'Membership',rows:[['Current Package',pkg?.name ?? 'Not selected'],['Account Status','Registered'],['Payment Status',_status(status)]]), const SizedBox(height:12),
-        _Action(icon:Icons.groups_outlined,title:'Community',subtitle:'Open the Evermore Telegram community',onTap:()=>TelegramService.openCommunity()),
-        _Action(icon:Icons.settings_outlined,title:'Settings',subtitle:'Privacy, terms, account actions and app info',onTap:()=>Navigator.push(context,MaterialPageRoute(builder:(_)=>const SettingsScreen()))),
-      ],
-    ]))));
-  }
-  String _status(String s)=>switch(s){'pending'=>'PENDING / UNDER REVIEW','verified'=>'VERIFIED','approved'=>'APPROVED',_=>'NOT SUBMITTED'};
-}
-class _NotRegistered extends StatelessWidget{final VoidCallback onTap;const _NotRegistered({required this.onTap});@override Widget build(BuildContext context)=>Container(padding:const EdgeInsets.all(22),decoration:EvermoreTheme.glassCard(radius:25,color:Colors.white.withValues(alpha:.75)),child:Column(children:[const Icon(Icons.person_add_alt_1_rounded,size:30,color:EvermoreTheme.primary),const SizedBox(height:12),const Text('Your account is not activated yet',style:TextStyle(fontSize:17,fontWeight:FontWeight.w800)),const SizedBox(height:6),const Text('Create an account whenever you are ready. Home remains available without authentication.',textAlign:TextAlign.center,style:TextStyle(fontSize:11,color:EvermoreTheme.muted,height:1.4)),const SizedBox(height:15),SizedBox(width:double.infinity,height:48,child:FilledButton.icon(onPressed:onTap,icon:const Icon(Icons.arrow_forward_rounded),label:const Text('Activate Your Account',style:TextStyle(fontWeight:FontWeight.w800))))]));}
-class _AccountCard extends StatelessWidget{final String name,email;const _AccountCard({required this.name,required this.email});@override Widget build(BuildContext context)=>Container(padding:const EdgeInsets.all(20),decoration:BoxDecoration(gradient:EvermoreTheme.heroGradient,borderRadius:BorderRadius.circular(26),boxShadow:EvermoreTheme.cardShadow),child:Row(children:[Container(width:52,height:52,decoration:BoxDecoration(color:Colors.white.withValues(alpha:.15),shape:BoxShape.circle),child:const Icon(Icons.person_outline_rounded,color:Colors.white,size:26)),const SizedBox(width:13),Expanded(child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Text(name,style:const TextStyle(color:Colors.white,fontWeight:FontWeight.w800,fontSize:17)),const SizedBox(height:4),Text(email,style:const TextStyle(color:Colors.white70,fontSize:11))]))]));}
-class _InfoCard extends StatelessWidget{final IconData icon;final String title;final List<List<String>> rows;const _InfoCard({required this.icon,required this.title,required this.rows});@override Widget build(BuildContext context)=>Container(padding:const EdgeInsets.all(17),decoration:EvermoreTheme.glassCard(radius:21,color:Colors.white.withValues(alpha:.74)),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Row(children:[Icon(icon,color:EvermoreTheme.primary,size:19),const SizedBox(width:8),Text(title,style:const TextStyle(fontWeight:FontWeight.w800,fontSize:14))]),const SizedBox(height:12),...rows.map((r)=>Padding(padding:const EdgeInsets.only(bottom:9),child:Row(crossAxisAlignment:CrossAxisAlignment.start,children:[SizedBox(width:105,child:Text(r[0],style:const TextStyle(fontSize:10.5,color:EvermoreTheme.muted)),),Expanded(child:Text(r[1],style:const TextStyle(fontSize:11.5,fontWeight:FontWeight.w700)))])))]));}
-class _Action extends StatelessWidget{final IconData icon;final String title,subtitle;final VoidCallback onTap;const _Action({required this.icon,required this.title,required this.subtitle,required this.onTap});@override Widget build(BuildContext context)=>Padding(padding:const EdgeInsets.only(bottom:10),child:ListTile(onTap:onTap,shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(18)),tileColor:Colors.white.withValues(alpha:.72),leading:Icon(icon,color:EvermoreTheme.primary),title:Text(title,style:const TextStyle(fontWeight:FontWeight.w800,fontSize:13)),subtitle:Text(subtitle,style:const TextStyle(fontSize:10,color:EvermoreTheme.muted)),trailing:const Icon(Icons.chevron_right_rounded)));}
 
-class SettingsScreen extends StatelessWidget{const SettingsScreen({super.key});@override Widget build(BuildContext context)=>Scaffold(appBar:AppBar(title:const Text('Settings')),body:EvermoreBackground(child:ListView(padding:const EdgeInsets.fromLTRB(20,15,20,35),children:[_Setting(icon:Icons.person_outline_rounded,title:'Account information',subtitle:'View the details stored on this device',onTap:()=>Navigator.pop(context)),_Setting(icon:Icons.groups_outlined,title:'Community',subtitle:'Open Telegram',onTap:()=>TelegramService.openCommunity()),_Setting(icon:Icons.privacy_tip_outlined,title:'Privacy information',subtitle:'How account information is handled',onTap:()=>_page(context,'Privacy information','Evermore stores the account fields needed by this local/demo experience. A production backend should apply its own access controls, retention rules and privacy policy.')), _Setting(icon:Icons.description_outlined,title:'Terms',subtitle:'Service terms and limitations',onTap:()=>_page(context,'Terms','Use of this demo does not constitute payment verification, guaranteed earnings or a promise of returns.')), _Setting(icon:Icons.delete_outline_rounded,title:'Delete account',subtitle:'Remove locally stored account information',onTap:()=>_delete(context)), const SizedBox(height:20), const Center(child:Text('Evermore • version 1.0.0',style:TextStyle(fontSize:10,color:EvermoreTheme.muted))) ]));}
-void _page(BuildContext c,String t,String b)=>Navigator.push(c,MaterialPageRoute(builder:(_)=>Scaffold(appBar:AppBar(title:Text(t)),body:EvermoreBackground(child:Padding(padding:const EdgeInsets.all(22),child:Text(b,style:const TextStyle(fontSize:13,height:1.55,color:EvermoreTheme.muted))))));
-Future<void> _delete(BuildContext context)async{final ok=await showDialog<bool>(context:context,builder:(_)=>AlertDialog(title:const Text('Delete local account?'),content:const Text('This removes the account and payment state stored on this device. It does not cancel or reverse any external bank transfer.'),actions:[TextButton(onPressed:()=>Navigator.pop(context,false),child:const Text('Cancel')),FilledButton(onPressed:()=>Navigator.pop(context,true),child:const Text('Delete'))]));if(ok==true){await AccountService().clearAccount();if(context.mounted)Navigator.pop(context);}}
+  @override
+  State<AccountProfileScreen> createState() => _AccountProfileScreenState();
 }
-class _Setting extends StatelessWidget{final IconData icon;final String title,subtitle;final VoidCallback onTap;const _Setting({required this.icon,required this.title,required this.subtitle,required this.onTap});@override Widget build(BuildContext context)=>Padding(padding:const EdgeInsets.only(bottom:10),child:ListTile(onTap:onTap,shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(18)),tileColor:Colors.white.withValues(alpha:.72),leading:Icon(icon,color:EvermoreTheme.primary),title:Text(title,style:const TextStyle(fontWeight:FontWeight.w800,fontSize:13)),subtitle:Text(subtitle,style:const TextStyle(fontSize:10,color:EvermoreTheme.muted)),trailing:const Icon(Icons.chevron_right_rounded)));}
+
+class _AccountProfileScreenState extends State<AccountProfileScreen> {
+  final account = AccountService();
+  String name = '';
+  String email = '';
+  String phone = '';
+  String country = 'Nigeria';
+  String packageId = '';
+  String status = 'not_submitted';
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load() async {
+    name = await account.name;
+    email = await account.email;
+    phone = await account.phone;
+    country = await account.country;
+    packageId = await account.packageId;
+    status = await account.paymentStatus;
+    if (mounted) setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final registered = name.isNotEmpty || email.isNotEmpty;
+    final matchingPackages = AppConfig.packages.where(
+      (package) => package.id == packageId,
+    );
+    final pkg = matchingPackages.isEmpty ? null : matchingPackages.first;
+
+    return Scaffold(
+      body: EvermoreBackground(
+        child: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.fromLTRB(20, 22, 20, 125),
+            children: [
+              const Text(
+                'Profile',
+                style: TextStyle(
+                  fontSize: 29,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: -.8,
+                ),
+              ),
+              const SizedBox(height: 7),
+              const Text(
+                'Your account, package and payment status.',
+                style: TextStyle(
+                  color: EvermoreTheme.muted,
+                  fontSize: 13.5,
+                ),
+              ),
+              const SizedBox(height: 20),
+              if (!registered)
+                _NotRegistered(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const RegistrationScreen(),
+                      ),
+                    ).then((_) => _load());
+                  },
+                )
+              else ...[
+                _AccountCard(name: name, email: email),
+                const SizedBox(height: 12),
+                _InfoCard(
+                  icon: Icons.person_outline_rounded,
+                  title: 'Account information',
+                  rows: [
+                    ['Full Name', name],
+                    ['Email', email],
+                    ['Phone', phone],
+                    ['Country', country],
+                  ],
+                ),
+                const SizedBox(height: 12),
+                _InfoCard(
+                  icon: Icons.workspace_premium_outlined,
+                  title: 'Membership',
+                  rows: [
+                    ['Current Package', pkg?.name ?? 'Not selected'],
+                    ['Account Status', 'Registered'],
+                    ['Payment Status', _status(status)],
+                  ],
+                ),
+                const SizedBox(height: 2),
+                _Action(
+                  icon: Icons.groups_outlined,
+                  title: 'Community',
+                  subtitle: 'Open the Evermore Telegram community',
+                  onTap: () => TelegramService.openCommunity(),
+                ),
+                _Action(
+                  icon: Icons.settings_outlined,
+                  title: 'Settings',
+                  subtitle: 'Privacy, terms, account actions and app info',
+                  onTap: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const SettingsScreen(),
+                      ),
+                    );
+                    await _load();
+                  },
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  String _status(String value) {
+    return switch (value) {
+      'pending' => 'PENDING / UNDER REVIEW',
+      'verified' => 'VERIFIED',
+      'approved' => 'APPROVED',
+      _ => 'NOT SUBMITTED',
+    };
+  }
+}
+
+class _NotRegistered extends StatelessWidget {
+  final VoidCallback onTap;
+
+  const _NotRegistered({required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(22),
+      decoration: EvermoreTheme.glassCard(
+        radius: 25,
+        color: Colors.white.withValues(alpha: .75),
+      ),
+      child: Column(
+        children: [
+          const Icon(
+            Icons.person_add_alt_1_rounded,
+            size: 30,
+            color: EvermoreTheme.primary,
+          ),
+          const SizedBox(height: 12),
+          const Text(
+            'Your account is not activated yet',
+            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800),
+          ),
+          const SizedBox(height: 6),
+          const Text(
+            'Create an account whenever you are ready. Home remains available without authentication.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 11,
+              color: EvermoreTheme.muted,
+              height: 1.4,
+            ),
+          ),
+          const SizedBox(height: 15),
+          SizedBox(
+            width: double.infinity,
+            height: 48,
+            child: FilledButton.icon(
+              onPressed: onTap,
+              icon: const Icon(Icons.arrow_forward_rounded),
+              label: const Text(
+                'Activate Your Account',
+                style: TextStyle(fontWeight: FontWeight.w800),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _AccountCard extends StatelessWidget {
+  final String name;
+  final String email;
+
+  const _AccountCard({required this.name, required this.email});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: EvermoreTheme.heroGradient,
+        borderRadius: BorderRadius.circular(26),
+        boxShadow: EvermoreTheme.cardShadow,
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 52,
+            height: 52,
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: .15),
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.person_outline_rounded,
+              color: Colors.white,
+              size: 26,
+            ),
+          ),
+          const SizedBox(width: 13),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 17,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  email,
+                  style: const TextStyle(
+                    color: Colors.white70,
+                    fontSize: 11,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _InfoCard extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final List<List<String>> rows;
+
+  const _InfoCard({
+    required this.icon,
+    required this.title,
+    required this.rows,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(17),
+      decoration: EvermoreTheme.glassCard(
+        radius: 21,
+        color: Colors.white.withValues(alpha: .74),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, color: EvermoreTheme.primary, size: 19),
+              const SizedBox(width: 8),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 14,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          ...rows.map(
+            (row) => Padding(
+              padding: const EdgeInsets.only(bottom: 9),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 105,
+                    child: Text(
+                      row[0],
+                      style: const TextStyle(
+                        fontSize: 10.5,
+                        color: EvermoreTheme.muted,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      row[1],
+                      style: const TextStyle(
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Action extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  const _Action({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: ListTile(
+        onTap: onTap,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
+        ),
+        tileColor: Colors.white.withValues(alpha: .72),
+        leading: Icon(icon, color: EvermoreTheme.primary),
+        title: Text(
+          title,
+          style: const TextStyle(
+            fontWeight: FontWeight.w800,
+            fontSize: 13,
+          ),
+        ),
+        subtitle: Text(
+          subtitle,
+          style: const TextStyle(
+            fontSize: 10,
+            color: EvermoreTheme.muted,
+          ),
+        ),
+        trailing: const Icon(Icons.chevron_right_rounded),
+      ),
+    );
+  }
+}
+
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Settings')),
+      body: EvermoreBackground(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 15, 20, 35),
+          children: [
+            _Setting(
+              icon: Icons.person_outline_rounded,
+              title: 'Account information',
+              subtitle: 'View the details stored on this device',
+              onTap: () => Navigator.pop(context),
+            ),
+            _Setting(
+              icon: Icons.groups_outlined,
+              title: 'Community',
+              subtitle: 'Open Telegram',
+              onTap: () => TelegramService.openCommunity(),
+            ),
+            _Setting(
+              icon: Icons.privacy_tip_outlined,
+              title: 'Privacy information',
+              subtitle: 'How account information is handled',
+              onTap: () => _page(
+                context,
+                'Privacy information',
+                'Evermore stores the account fields needed by this local/demo experience. A production backend should apply its own access controls, retention rules and privacy policy.',
+              ),
+            ),
+            _Setting(
+              icon: Icons.description_outlined,
+              title: 'Terms',
+              subtitle: 'Service terms and limitations',
+              onTap: () => _page(
+                context,
+                'Terms',
+                'Use of this demo does not constitute payment verification, guaranteed earnings or a promise of returns.',
+              ),
+            ),
+            _Setting(
+              icon: Icons.delete_outline_rounded,
+              title: 'Delete account',
+              subtitle: 'Remove locally stored account information',
+              onTap: () => _delete(context),
+            ),
+            const SizedBox(height: 20),
+            const Center(
+              child: Text(
+                'Evermore • version 1.0.0',
+                style: TextStyle(
+                  fontSize: 10,
+                  color: EvermoreTheme.muted,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _page(BuildContext context, String title, String body) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => Scaffold(
+          appBar: AppBar(title: Text(title)),
+          body: EvermoreBackground(
+            child: Padding(
+              padding: const EdgeInsets.all(22),
+              child: Text(
+                body,
+                style: const TextStyle(
+                  fontSize: 13,
+                  height: 1.55,
+                  color: EvermoreTheme.muted,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _delete(BuildContext context) async {
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Delete local account?'),
+        content: const Text(
+          'This removes the account and payment state stored on this device. It does not cancel or reverse any external bank transfer.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+
+    if (ok == true) {
+      await AccountService().clearAccount();
+      if (context.mounted) Navigator.pop(context);
+    }
+  }
+}
+
+class _Setting extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  const _Setting({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: ListTile(
+        onTap: onTap,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(18),
+        ),
+        tileColor: Colors.white.withValues(alpha: .72),
+        leading: Icon(icon, color: EvermoreTheme.primary),
+        title: Text(
+          title,
+          style: const TextStyle(
+            fontWeight: FontWeight.w800,
+            fontSize: 13,
+          ),
+        ),
+        subtitle: Text(
+          subtitle,
+          style: const TextStyle(
+            fontSize: 10,
+            color: EvermoreTheme.muted,
+          ),
+        ),
+        trailing: const Icon(Icons.chevron_right_rounded),
+      ),
+    );
+  }
+}
