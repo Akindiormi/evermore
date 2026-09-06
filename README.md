@@ -32,10 +32,8 @@ Community areas:
 - Community announcements
 - Live sessions
 
-The current Telegram destination is intentionally left as the placeholder:
-`https://t.me/evermorecommunity`
-
-Replace it later with the real community URL.
+The Telegram community destination:
+`https://t.me/evermorecommunity1`
 
 ## Design
 

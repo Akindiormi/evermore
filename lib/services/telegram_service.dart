@@ -1,7 +1,7 @@
 import 'package:url_launcher/url_launcher.dart';
 
 class TelegramService {
-  static const communityUrl = 'https://t.me/evermorecommunity';
+  static const communityUrl = 'https://t.me/evermorecommunity1';
 
   static Future<bool> openCommunity() async {
     final uri = Uri.parse(communityUrl);
