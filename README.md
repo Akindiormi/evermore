@@ -33,7 +33,7 @@ Community areas:
 - Live sessions
 
 The Telegram community destination:
-`https://t.me/evermorecommunity1`
+`https://t.me/earnpalnet`
 
 ## Design
 
