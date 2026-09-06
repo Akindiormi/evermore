@@ -11,7 +11,6 @@ void main() => runApp(const EvermoreApp());
 
 class EvermoreApp extends StatelessWidget {
   const EvermoreApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     final base = GoogleFonts.manropeTextTheme();
@@ -42,7 +41,6 @@ class BrandMark extends StatelessWidget {
   final double size;
   final bool inverse;
   const BrandMark({super.key, this.size = 48, this.inverse = false});
-
   @override
   Widget build(BuildContext context) => Container(
         width: size,
@@ -147,7 +145,7 @@ class CommunityIntroScreen extends StatelessWidget {
     const Spacer(), Center(child: Container(width: 92, height: 92, decoration: BoxDecoration(color: Color(0xFFEAF1FF), shape: BoxShape.circle), child: const Icon(Icons.forum_outlined, size: 42, color: everBlue))),
     const SizedBox(height: 28), Text('join the Evermore community', textAlign: TextAlign.center, style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800)),
     const SizedBox(height: 14), Text('Get guidance on tasks, learn how Evermore works, stay updated and connect with the community on Telegram.', textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: everMuted, height: 1.55)),
-    const Spacer(), _PrimaryButton(label: 'Join community', icon: Icons.telegram, onTap: _join), const SizedBox(height: 10),
+    const Spacer(), _PrimaryButton(label: 'Join community', icon: Icons.send_rounded, onTap: _join), const SizedBox(height: 10),
     Center(child: TextButton(onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const MainShell())), child: const Text('Skip for now'))),
   ])));
 }
@@ -172,12 +170,12 @@ class HomeScreen extends StatelessWidget {
     Row(children: [const BrandMark(size: 42), const Spacer(), _CircleIcon(icon: Icons.notifications_none_rounded, onTap: () {})]),
     const SizedBox(height: 26), Text('good morning, Akin', style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800, letterSpacing: -.5)),
     const SizedBox(height: 5), Text('ready to make progress today?', style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: everMuted)),
-    const SizedBox(height: 20), _WalletCard(),
+    const SizedBox(height: 20), const _WalletCard(),
     const SizedBox(height: 26), _SectionHeader(title: 'earn with Evermore', action: 'view all', onTap: () {}), const SizedBox(height: 12),
     Row(children: [Expanded(child: _ProductCard(title: 'EverAI', subtitle: 'Train AI with verified tasks', icon: Icons.auto_awesome_outlined)), const SizedBox(width: 12), Expanded(child: _ProductCard(title: 'Click n Earn', subtitle: 'Complete simple tasks', icon: Icons.ads_click_rounded))]),
-    const SizedBox(height: 12), _ProductWideCard(title: 'EverMusic', subtitle: 'Review and engage with music', icon: Icons.graphic_eq_rounded),
-    const SizedBox(height: 26), _SectionHeader(title: 'learn with Evermore', action: 'open academy', onTap: () {}), const SizedBox(height: 12), _AcademyCard(),
-    const SizedBox(height: 22), _CommunityBanner(),
+    const SizedBox(height: 12), const _ProductWideCard(title: 'EverMusic', subtitle: 'Review and engage with music', icon: Icons.graphic_eq_rounded),
+    const SizedBox(height: 26), _SectionHeader(title: 'learn with Evermore', action: 'open academy', onTap: () {}), const SizedBox(height: 12), const _AcademyCard(),
+    const SizedBox(height: 22), const _CommunityBanner(),
   ]);
 }
 
@@ -189,8 +187,8 @@ class _ProductWideCard extends StatelessWidget { final String title, subtitle; f
 class _AcademyCard extends StatelessWidget { const _AcademyCard(); @override Widget build(BuildContext context) => Container(padding: const EdgeInsets.all(19), decoration: BoxDecoration(gradient: const LinearGradient(colors: [Color(0xFFF0F5FF), Color(0xFFFFFFFF)]), borderRadius: BorderRadius.circular(24), border: Border.all(color: const Color(0xFFE3EAF8))), child: Row(children: [Container(width: 54, height: 54, decoration: BoxDecoration(color: everBlue, borderRadius: BorderRadius.circular(17)), child: const Icon(Icons.school_outlined, color: Colors.white)), const SizedBox(width: 14), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('Evermore Academy', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800)), const SizedBox(height: 4), Text('Build practical skills and track your progress.', style: TextStyle(color: everMuted, height: 1.3))])), const Icon(Icons.chevron_right_rounded, color: everBlue)])); }
 class _CommunityBanner extends StatelessWidget { const _CommunityBanner(); @override Widget build(BuildContext context) => Container(padding: const EdgeInsets.all(18), decoration: BoxDecoration(color: everInk, borderRadius: BorderRadius.circular(24)), child: Row(children: [Container(width: 44, height: 44, decoration: BoxDecoration(color: Colors.white.withOpacity(.1), borderRadius: BorderRadius.circular(14)), child: const Icon(Icons.forum_outlined, color: Colors.white)), const SizedBox(width: 13), const Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text('Need help?', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800)), SizedBox(height: 3), Text('Ask the Evermore community.', style: TextStyle(color: Color(0xFFB9C3D8)))])), const Icon(Icons.arrow_forward_rounded, color: Colors.white)])); }
 
-class EarnScreen extends StatelessWidget { const EarnScreen({super.key}); @override Widget build(BuildContext context) => _Page(title: 'earn with Evermore', subtitle: 'Complete verified opportunities and build your balance.', children: [const _ProductWideCard(title: 'EverAI', subtitle: 'Train and evaluate AI responses.', icon: Icons.auto_awesome_outlined), const SizedBox(height: 12), const _ProductWideCard(title: 'Click n Earn', subtitle: 'Complete available micro tasks.', icon: Icons.ads_click_rounded), const SizedBox(height: 12), const _ProductWideCard(title: 'EverMusic', subtitle: 'Review and engage with music.', icon: Icons.graphic_eq_rounded), const SizedBox(height: 24), _InfoCard(icon: Icons.verified_outlined, title: 'verified earnings', text: 'Only completed and verified tasks are credited to your Evermore wallet.')]); }
-class LearnScreen extends StatelessWidget { const LearnScreen({super.key}); @override Widget build(BuildContext context) => _Page(title: 'Evermore Academy', subtitle: 'Learn practical skills at your own pace.', children: [const _CourseCard(title: 'Digital Skills', progress: .0, icon: Icons.laptop_mac_outlined), const SizedBox(height: 12), const _CourseCard(title: 'Financial Literacy', progress: .0, icon: Icons.account_balance_outlined), const SizedBox(height: 12), const _CourseCard(title: 'Career Growth', progress: .0, icon: Icons.trending_up_rounded), const SizedBox(height: 24), _InfoCard(icon: Icons.auto_graph_rounded, title: 'your progress', text: 'Courses, lessons, XP, streaks and achievements will live here as you learn.')]); }
+class EarnScreen extends StatelessWidget { const EarnScreen({super.key}); @override Widget build(BuildContext context) => _Page(title: 'earn with Evermore', subtitle: 'Complete verified opportunities and build your balance.', children: [const _ProductWideCard(title: 'EverAI', subtitle: 'Train and evaluate AI responses.', icon: Icons.auto_awesome_outlined), const SizedBox(height: 12), const _ProductWideCard(title: 'Click n Earn', subtitle: 'Complete available micro tasks.', icon: Icons.ads_click_rounded), const SizedBox(height: 12), const _ProductWideCard(title: 'EverMusic', subtitle: 'Review and engage with music.', icon: Icons.graphic_eq_rounded), const SizedBox(height: 24), const _InfoCard(icon: Icons.verified_outlined, title: 'verified earnings', text: 'Only completed and verified tasks are credited to your Evermore wallet.')]); }
+class LearnScreen extends StatelessWidget { const LearnScreen({super.key}); @override Widget build(BuildContext context) => _Page(title: 'Evermore Academy', subtitle: 'Learn practical skills at your own pace.', children: [const _CourseCard(title: 'Digital Skills', progress: .0, icon: Icons.laptop_mac_outlined), const SizedBox(height: 12), const _CourseCard(title: 'Financial Literacy', progress: .0, icon: Icons.account_balance_outlined), const SizedBox(height: 12), const _CourseCard(title: 'Career Growth', progress: .0, icon: Icons.trending_up_rounded), const SizedBox(height: 24), const _InfoCard(icon: Icons.auto_graph_rounded, title: 'your progress', text: 'Courses, lessons, XP, streaks and achievements will live here as you learn.')]); }
 class _CourseCard extends StatelessWidget { final String title; final double progress; final IconData icon; const _CourseCard({required this.title, required this.progress, required this.icon}); @override Widget build(BuildContext context) => Container(padding: const EdgeInsets.all(18), decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(22), border: Border.all(color: const Color(0xFFE8ECF4))), child: Row(children: [Container(width: 48, height: 48, decoration: BoxDecoration(color: const Color(0xFFEAF1FF), borderRadius: BorderRadius.circular(15)), child: Icon(icon, color: everBlue)), const SizedBox(width: 14), Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(title, style: const TextStyle(fontWeight: FontWeight.w800)), const SizedBox(height: 10), LinearProgressIndicator(value: progress, minHeight: 5, borderRadius: BorderRadius.circular(8), backgroundColor: const Color(0xFFE9EDF5), color: everBlue)])), const SizedBox(width: 12), const Icon(Icons.chevron_right_rounded, color: everMuted)])); }
 
 class WalletScreen extends StatelessWidget { const WalletScreen({super.key}); @override Widget build(BuildContext context) => _Page(title: 'wallet', subtitle: 'Track earnings and manage withdrawals.', children: [const _WalletCard(), const SizedBox(height: 26), _SectionHeader(title: 'recent activity', action: 'see all', onTap: () {}), const SizedBox(height: 12), const _EmptyState(icon: Icons.receipt_long_outlined, title: 'No transactions yet', text: 'Your verified earnings and withdrawals will appear here.'), const SizedBox(height: 18), const _InfoCard(icon: Icons.security_outlined, title: 'secure withdrawals', text: 'Add your bank details when you are ready to make your first withdrawal.')]); }
