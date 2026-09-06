@@ -477,7 +477,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         const SizedBox(height: 14),
         const FieldLabel('Country'),
         DropdownButtonFormField<String>(
-          initialValue: country,
+          value: country,
           dropdownColor: panel,
           items: const [
             DropdownMenuItem(value: 'Nigeria', child: Text('Nigeria')),
@@ -830,12 +830,12 @@ class DemoBalanceCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           const Text(
-            '≈ ₦1,905,000 — sample trainer wallet',
+            r'≈ ₦1,905,000 — sample trainer wallet',
             style: TextStyle(color: body, fontSize: 12),
           ),
           const SizedBox(height: 5),
           const Text(
-            '+$0.25 credited — EverAI memory review passed',
+            r'+$0.25 credited — EverAI memory review passed',
             style: TextStyle(color: green, fontSize: 12, fontWeight: FontWeight.w700),
           ),
           const SizedBox(height: 18),
@@ -1032,7 +1032,7 @@ class PromoCard extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           const Text(
-            'Earn Up To $18.6/Hour Doing Simple Remote Tasks.',
+            r'Earn Up To $18.6/Hour Doing Simple Remote Tasks.',
             style: TextStyle(color: body, fontSize: 14, height: 1.45),
           ),
           const SizedBox(height: 18),
