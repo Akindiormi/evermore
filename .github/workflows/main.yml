@@ -46,10 +46,22 @@ jobs:
           path = Path("lib/main.dart")
           text = path.read_text()
           text = text.replace("initialValue: country,", "value: country,")
-          text = text.replace("'≈ ₦1,905,000 — sample trainer wallet'", "r'≈ ₦1,905,000 — sample trainer wallet'")
-          text = text.replace("'+$0.25 credited — EverAI memory review passed'", "r'+$0.25 credited — EverAI memory review passed'")
-          text = text.replace("'Earn Up To $18.6/Hour Doing Simple Remote Tasks.'", "r'Earn Up To $18.6/Hour Doing Simple Remote Tasks.'")
-          text = text.replace("r'r'", "r'")
+
+          # Only add the r-prefix to these literals if they aren't already
+          # raw strings — otherwise this turns a valid r'...' into an
+          # invalid rr'...' every time this script re-runs on already-patched
+          # source (this previously broke the build).
+          literals = [
+              "'≈ ₦1,905,000 — sample trainer wallet'",
+              "'+$0.25 credited — EverAI memory review passed'",
+              "'Earn Up To $18.6/Hour Doing Simple Remote Tasks.'",
+          ]
+          for lit in literals:
+              raw = "r" + lit
+              if raw in text:
+                  continue  # already raw, nothing to do
+              if lit in text:
+                  text = text.replace(lit, raw)
           path.write_text(text)
           PY
           if git diff --quiet -- lib/main.dart; then
