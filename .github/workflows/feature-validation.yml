@@ -21,6 +21,7 @@ jobs:
             --platforms=android \
             --project-name evermore \
             --org com.earnpalsolutions
+          rm -f test/widget_test.dart
       - name: Set Android app label
         run: |
           python3 - <<'PY'
@@ -28,7 +29,6 @@ jobs:
           path = Path('android/app/src/main/AndroidManifest.xml')
           text = path.read_text()
           text = text.replace('android:label="evermore"', 'android:label="Evermore"')
-          text = text.replace('android:label="Evermore"', 'android:label="Evermore"')
           path.write_text(text)
           PY
       - name: Run flutter pub get
