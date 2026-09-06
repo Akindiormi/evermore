@@ -158,7 +158,18 @@ jobs:
           grep -q 'Evermore' android/app/src/main/AndroidManifest.xml
 
       - name: Analyze
-        run: flutter analyze --no-fatal-infos
+        run: |
+          set +e
+          flutter analyze --no-fatal-infos > analyze_output.txt 2>&1
+          status=$?
+          cat analyze_output.txt
+          if [ $status -ne 0 ]; then
+            while IFS= read -r line; do
+              esc=$(printf '%s' "$line" | sed 's/%/%25/g; s/\r/%0D/g; s/\n/%0A/g')
+              echo "::error::${esc}"
+            done < analyze_output.txt
+            exit $status
+          fi
 
       - name: Build APK
         run: flutter build apk --release
