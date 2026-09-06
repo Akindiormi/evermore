@@ -12,6 +12,7 @@ class EvermoreNavigation extends StatelessWidget {
   static const _items = [
     (Icons.home_rounded, Icons.home_outlined, 'Home'),
     (Icons.menu_book_rounded, Icons.menu_book_outlined, 'Learn'),
+    (Icons.payments_rounded, Icons.payments_outlined, 'Earn'),
     (Icons.groups_rounded, Icons.groups_outlined, 'Community'),
     (Icons.person_rounded, Icons.person_outline_rounded, 'Profile'),
   ];

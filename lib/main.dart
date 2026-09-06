@@ -6,6 +6,7 @@ import 'services/progress_service.dart';
 import 'screens/onboarding/onboarding_screen.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/learn/learn_screen.dart';
+import 'screens/earn/earn_screen.dart';
 import 'screens/community/community_screen.dart';
 import 'screens/profile/profile_screen.dart';
 import 'widgets/evermore_navigation.dart';
@@ -93,6 +94,7 @@ class _MainShellState extends State<MainShell> {
   final screens = const [
     HomeScreen(),
     LearnScreen(),
+    EarnScreen(),
     CommunityScreen(),
     ProfileScreen(),
   ];
