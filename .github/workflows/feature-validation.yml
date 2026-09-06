@@ -15,11 +15,27 @@ jobs:
           flutter-version: '3.32.8'
           channel: stable
           cache: true
+      - name: Generate Android project for validation
+        run: |
+          flutter create . \
+            --platforms=android \
+            --project-name evermore \
+            --org com.earnpalsolutions
+      - name: Set Android app label
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('android/app/src/main/AndroidManifest.xml')
+          text = path.read_text()
+          text = text.replace('android:label="evermore"', 'android:label="Evermore"')
+          text = text.replace('android:label="Evermore"', 'android:label="Evermore"')
+          path.write_text(text)
+          PY
       - name: Run flutter pub get
         run: flutter pub get
       - name: Run flutter analyze --no-fatal-infos
         run: flutter analyze --no-fatal-infos
       - name: Run flutter test
-        run: flutter test
+        run: flutter test --reporter expanded
       - name: Run flutter build apk --debug
         run: flutter build apk --debug
