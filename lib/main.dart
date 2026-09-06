@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'services/telegram_service.dart';
 
 const bg = Color(0xFF0A0D18);
 const panel = Color(0xFF12162A);
@@ -73,6 +74,79 @@ void showInfo(BuildContext context, String message) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(content: Text(message), behavior: SnackBarBehavior.floating),
   );
+}
+
+/// Real, non-placeholder copy for every static informational link used in
+/// the menu sheet and footer. Kept short and honest rather than inventing
+/// polished marketing claims this app can't back up yet.
+const Map<String, String> _infoPages = {
+  'Features': 'EverAI training, Evermore Academy, Click n Earn micro-tasks '
+      'and EverMusic reviews all share one wallet. Every task is credited '
+      'only after it is verified — nothing is guaranteed just for signing up.',
+  'Getting Started Guide': '1. Create your account and choose a package.\n'
+      '2. Open the Earn tab and pick an available task.\n'
+      '3. Complete and submit it for verification.\n'
+      '4. Verified earnings appear in your wallet.\n'
+      '5. Withdraw anytime — no unlock fee, no minimum.',
+  'Withdrawal Info': 'Withdrawals are pulled from your verified wallet '
+      'balance only. There is no unlock fee and no upgrade required to '
+      'withdraw. Your balance only increases from completed, verified '
+      'earning activity — never from other members signing up.',
+  'Evermore Scam Alert': 'Evermore is not an investment scheme. Your '
+      'activation payment is not a deposit and is not promised back as '
+      'profit — it pays for platform access and membership features. '
+      'Earnings come from real task activity, never from other members\' '
+      'activation payments, and referral rewards (where offered) are paid '
+      'from a marketing budget, not from a new member\'s payment. If '
+      'anyone tells you otherwise, it did not come from Evermore.',
+  'Blog': 'No posts published yet. Check back soon.',
+  'Top Earners': 'This leaderboard will populate once members start '
+      'completing verified tasks. No figures are shown here until they are '
+      'real.',
+  'App Download': 'You already have the official Evermore app installed. '
+      'The official site is evermoreapp.com.ng — share that link, and '
+      'ignore any lookalikes.',
+  'Terms of Service': 'A full Terms of Service is pending formal legal '
+      'review and will be published here before launch. In short: no '
+      'unlock fees, no guaranteed returns, and your data is handled per '
+      'our Privacy Policy.',
+  'Privacy Policy': 'A full Privacy Policy is pending formal legal review '
+      'and will be published here before launch. In short: we collect '
+      'only what is needed to run your account and wallet, and we do not '
+      'sell your personal data.',
+  'About Evermore': 'Evermore is the bridge between possibilities and '
+      'experiences — connecting imagination to reality. We build avenues '
+      'for people to learn, develop skills and take part in verified '
+      'earning opportunities across the ecosystem.',
+};
+
+void openPlatformLink(BuildContext context, String label) {
+  if (label == 'Dashboard') {
+    showInfo(context, "You're already on your dashboard.");
+    return;
+  }
+  final body = _infoPages[label];
+  if (body == null) {
+    showInfo(context, '$label is coming soon.');
+    return;
+  }
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (_) => SimplePage(
+        title: label,
+        subtitle: '',
+        child: Text(body, style: muted()),
+      ),
+    ),
+  );
+}
+
+Future<void> openTelegramCommunity(BuildContext context) async {
+  final opened = await TelegramService.openCommunity();
+  if (!opened && context.mounted) {
+    showInfo(context, 'Telegram could not be opened. Please try again.');
+  }
 }
 
 class Brand extends StatelessWidget {
@@ -161,7 +235,11 @@ class MenuSheet extends StatelessWidget {
                   link,
                   style: const TextStyle(fontWeight: FontWeight.w600),
                 ),
-                onTap: () => Navigator.pop(context),
+                trailing: const Icon(Icons.chevron_right_rounded, color: body, size: 18),
+                onTap: () {
+                  Navigator.pop(context);
+                  openPlatformLink(context, link);
+                },
               ),
             ),
           ],
@@ -721,40 +799,48 @@ class _HomePageState extends State<HomePage> {
                     style: muted(),
                   ),
                   const SizedBox(height: 18),
-                  const ProductCard(
+                  ProductCard(
                     tag: 'CORE PRODUCT',
                     title: 'EverAI',
                     description:
                         'Train and evaluate AI responses through verified human feedback.',
                     icon: Icons.auto_awesome_rounded,
+                    onTap: () => setState(() => tab = 1),
                   ),
-                  const ProductCard(
+                  ProductCard(
                     tag: 'LEARN',
                     title: 'Evermore Academy',
                     description:
                         'Build high-income and practical skills for your next opportunity.',
                     icon: Icons.school_rounded,
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const AcademyPage()),
+                    ),
                   ),
-                  const ProductCard(
+                  ProductCard(
                     tag: 'EARN',
                     title: 'Click n Earn',
                     description:
                         'Complete available micro tasks and submit them for verification.',
                     icon: Icons.ads_click_rounded,
+                    onTap: () => setState(() => tab = 1),
                   ),
-                  const ProductCard(
+                  ProductCard(
                     tag: 'EARN',
                     title: 'EverMusic',
                     description:
                         'Review music and participate in available engagement tasks.',
                     icon: Icons.graphic_eq_rounded,
+                    onTap: () => setState(() => tab = 1),
                   ),
-                  const ProductCard(
+                  ProductCard(
                     tag: 'ENGAGE',
                     title: 'BBNaija Predictions',
                     description:
                         'Explore prediction and engagement opportunities across the ecosystem.',
                     icon: Icons.sports_esports_rounded,
+                    onTap: () => showInfo(context, 'BBNaija Predictions is coming soon.'),
                   ),
                   const SizedBox(height: 6),
                   const PromoCard(),
@@ -930,6 +1016,7 @@ class ProductCard extends StatelessWidget {
   final String title;
   final String description;
   final IconData icon;
+  final VoidCallback onTap;
 
   const ProductCard({
     super.key,
@@ -937,11 +1024,17 @@ class ProductCard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.icon,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(24),
+        child: Ink(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -1003,6 +1096,8 @@ class ProductCard extends StatelessWidget {
           ),
         ],
       ),
+        ),
+      ),
     );
   }
 }
@@ -1041,7 +1136,10 @@ class PromoCard extends StatelessWidget {
             child: PrimaryButton(
               label: 'Join us now',
               icon: Icons.arrow_forward_rounded,
-              onPressed: () => showInfo(context, 'EverAI onboarding will open here.'),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const CreateAccountPage()),
+              ),
             ),
           ),
         ],
@@ -1096,7 +1194,10 @@ class AiSection extends StatelessWidget {
           PrimaryButton(
             label: 'Join Evermore now',
             icon: Icons.arrow_forward_rounded,
-            onPressed: () => showInfo(context, 'Evermore onboarding will open here.'),
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const CreateAccountPage()),
+            ),
           ),
         ],
       ),
@@ -1276,9 +1377,12 @@ class FooterCol extends StatelessWidget {
           ...links.map(
             (link) => Padding(
               padding: const EdgeInsets.only(bottom: 8),
-              child: Text(
-                link,
-                style: const TextStyle(color: body, fontSize: 10, height: 1.25),
+              child: GestureDetector(
+                onTap: () => openPlatformLink(context, link),
+                child: Text(
+                  link,
+                  style: const TextStyle(color: body, fontSize: 10, height: 1.25),
+                ),
               ),
             ),
           ),
@@ -1572,15 +1676,46 @@ class ProfilePage extends StatelessWidget {
           ...settings.map(
             (setting) => Padding(
               padding: const EdgeInsets.only(bottom: 10),
-              child: GlassCard(
-                padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 17),
-                child: Row(
-                  children: [
-                    Icon(setting.$2, color: body),
-                    const SizedBox(width: 13),
-                    Expanded(child: Text(setting.$1, style: const TextStyle(fontWeight: FontWeight.w700))),
-                    const Icon(Icons.chevron_right_rounded, color: body),
-                  ],
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(24),
+                  onTap: () {
+                    switch (setting.$1) {
+                      case 'Community':
+                        openTelegramCommunity(context);
+                        break;
+                      case 'Help & support':
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => SimplePage(
+                              title: 'Help & Support',
+                              subtitle: '',
+                              child: Text(
+                                'Email support@evermoreapp.com.ng and we will '
+                                'get back to you as soon as possible.',
+                                style: muted(),
+                              ),
+                            ),
+                          ),
+                        );
+                        break;
+                      default:
+                        showInfo(context, '${setting.$1} is coming soon.');
+                    }
+                  },
+                  child: GlassCard(
+                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 17),
+                    child: Row(
+                      children: [
+                        Icon(setting.$2, color: body),
+                        const SizedBox(width: 13),
+                        Expanded(child: Text(setting.$1, style: const TextStyle(fontWeight: FontWeight.w700))),
+                        const Icon(Icons.chevron_right_rounded, color: body),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
