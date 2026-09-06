@@ -50,7 +50,7 @@ class AvatarPicker extends StatelessWidget {
     final picker = ImagePicker();
     await showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.white,
+      backgroundColor: EvermoreTheme.glassStrong,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
@@ -65,7 +65,7 @@ class AvatarPicker extends StatelessWidget {
                 height: 4,
                 margin: const EdgeInsets.only(bottom: 12),
                 decoration: BoxDecoration(
-                  color: EvermoreTheme.border,
+                  color: EvermoreTheme.divider,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),

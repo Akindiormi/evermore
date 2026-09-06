@@ -82,7 +82,7 @@ class _Filter extends StatelessWidget {
       duration: const Duration(milliseconds: 240),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
       decoration: BoxDecoration(
-        color: selected ? EvermoreTheme.primary : Colors.white.withValues(alpha: .68),
+        color: selected ? EvermoreTheme.primary : EvermoreTheme.glass,
         borderRadius: BorderRadius.circular(100),
         border: Border.all(color: selected ? EvermoreTheme.primary : EvermoreTheme.divider),
         boxShadow: selected ? [BoxShadow(color: EvermoreTheme.primary.withValues(alpha: .16), blurRadius: 15, offset: const Offset(0, 7), spreadRadius: -5)] : const [],
@@ -111,7 +111,7 @@ class _PillarCard extends StatelessWidget {
           onTap: onTap,
           child: Ink(
             padding: const EdgeInsets.all(16),
-            decoration: EvermoreTheme.glassCard(radius: 24, color: Colors.white.withValues(alpha: .72)),
+            decoration: EvermoreTheme.glassCard(radius: 24),
             child: Row(children: [
               Container(
                 width: 52,
@@ -199,7 +199,7 @@ class PillarDetailScreen extends StatelessWidget {
                     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LessonDetailScreen(lesson: lesson))),
                     child: Ink(
                       padding: const EdgeInsets.all(15),
-                      decoration: EvermoreTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .74)),
+                      decoration: EvermoreTheme.glassCard(radius: 20),
                       child: Row(children: [
                         Container(width: 40, height: 40, decoration: BoxDecoration(color: EvermoreTheme.primary.withValues(alpha: .08), shape: BoxShape.circle), child: Center(child: Text('${entry.key + 1}', style: const TextStyle(color: EvermoreTheme.primary, fontWeight: FontWeight.w900)))),
                         const SizedBox(width: 12),

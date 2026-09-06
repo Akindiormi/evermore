@@ -44,7 +44,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                 const Spacer(),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(color: EvermoreTheme.primaryLight, borderRadius: BorderRadius.circular(20)),
+                  decoration: BoxDecoration(color: EvermoreTheme.primaryTint, borderRadius: BorderRadius.circular(20)),
                   child: Text(task.category, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: EvermoreTheme.primary)),
                 ),
               ]),
@@ -55,7 +55,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
               const SizedBox(height: 22),
               Container(
                 padding: const EdgeInsets.all(18),
-                decoration: EvermoreTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .72)),
+                decoration: EvermoreTheme.glassCard(radius: 20),
                 child: Row(children: [
                   const Icon(Icons.payments_rounded, color: EvermoreTheme.primary),
                   const SizedBox(width: 10),

@@ -130,7 +130,7 @@ class _MiniStat extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-    decoration: EvermoreTheme.glassCard(radius: 15, color: Colors.white.withValues(alpha: .72)),
+    decoration: EvermoreTheme.glassCard(radius: 15),
     child: Row(children: [
       Icon(icon, size: 15, color: EvermoreTheme.primary),
       const SizedBox(width: 4),
@@ -149,7 +149,7 @@ class _ProgressCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.all(19),
-    decoration: EvermoreTheme.glassCard(radius: 24, color: Colors.white.withValues(alpha: .72)),
+    decoration: EvermoreTheme.glassCard(radius: 24),
     child: Row(children: [
       SizedBox(
         width: 68,
@@ -255,7 +255,7 @@ class _ActionCard extends StatelessWidget {
       onTap: onTap,
       child: Ink(
         padding: const EdgeInsets.all(15),
-        decoration: EvermoreTheme.glassCard(radius: 22, color: Colors.white.withValues(alpha: .72)),
+        decoration: EvermoreTheme.glassCard(radius: 22),
         child: Row(children: [
           Container(width: 48, height: 48, decoration: BoxDecoration(gradient: EvermoreTheme.softGradient, borderRadius: BorderRadius.circular(16)), child: Icon(icon, color: EvermoreTheme.primary)),
           const SizedBox(width: 13),

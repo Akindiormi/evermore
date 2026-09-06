@@ -38,9 +38,9 @@ class EvermoreNavigation extends StatelessWidget {
               height: 78,
               padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 7),
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: .76),
+                color: EvermoreTheme.glassStrong,
                 borderRadius: BorderRadius.circular(34),
-                border: Border.all(color: Colors.white.withValues(alpha: .95)),
+                border: Border.all(color: EvermoreTheme.border),
                 boxShadow: EvermoreTheme.floatingShadow,
               ),
               child: Row(

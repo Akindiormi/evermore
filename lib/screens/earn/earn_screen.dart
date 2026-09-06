@@ -111,7 +111,7 @@ class _TaskCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           child: Ink(
             padding: const EdgeInsets.all(15),
-            decoration: EvermoreTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .72)),
+            decoration: EvermoreTheme.glassCard(radius: 20),
             child: Row(children: [
               Container(
                 width: 43,
