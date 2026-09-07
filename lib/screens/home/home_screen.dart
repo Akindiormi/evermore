@@ -11,7 +11,10 @@ import '../challenges/challenges_screen.dart';
 import '../community/community_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final VoidCallback? onActivate;
+
+  const HomeScreen({super.key, this.onActivate});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -73,6 +76,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 pillar: currentPillar,
                 onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PillarDetailScreen(pillar: currentPillar))),
               ),
+              if (widget.onActivate != null) ...[
+                const SizedBox(height: 10),
+                _ActivationAction(onTap: widget.onActivate!),
+              ],
               const SizedBox(height: 27),
               const _SectionTitle('Next lesson', eyebrow: 'KEEP THE MOMENTUM'),
               const SizedBox(height: 12),
@@ -103,6 +110,30 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
+
+class _ActivationAction extends StatelessWidget {
+  final VoidCallback onTap;
+  const _ActivationAction({required this.onTap});
+
+  @override
+  Widget build(BuildContext context) => Material(
+    color: Colors.transparent,
+    child: InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(17),
+      child: Ink(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
+        decoration: EvermoreTheme.glassCard(radius: 17, color: Colors.white.withValues(alpha: .68)),
+        child: Row(children: [
+          const Icon(Icons.person_add_alt_1_rounded, color: EvermoreTheme.primary, size: 18),
+          const SizedBox(width: 9),
+          const Expanded(child: Text('Ready to activate your account?', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w800))),
+          const Icon(Icons.arrow_forward_rounded, color: EvermoreTheme.primary, size: 17),
+        ]),
+      ),
+    ),
+  );
 }
 
 class _SectionTitle extends StatelessWidget {
