@@ -1,7 +1,7 @@
 name: evermore
 description: Evermore - a practical personal growth program.
 publish_to: 'none'
-version: 1.0.0+1
+version: 3.0.0+6
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
@@ -27,10 +27,3 @@ flutter:
 
   assets:
     - assets/evermore_icon.png
-
-flutter_launcher_icons:
-  android: true
-  ios: false
-  image_path: assets/evermore_icon.png
-  adaptive_icon_background: "#01339E"
-  adaptive_icon_foreground: assets/evermore_icon.png
