@@ -39,26 +39,15 @@ class _AppShellState extends State<AppShell> {
 
   @override
   Widget build(BuildContext context) {
-    final home = HomeScreen();
     final screens = [
-      home,
+      HomeScreen(onActivate: registered ? null : _activate),
       const CourseCatalogScreen(),
       const CommunityScreen(),
       const AccountProfileScreen(),
     ];
 
     return Scaffold(
-      body: index == 0 && !registered
-          ? Column(
-              children: [
-                const Expanded(child: HomeScreen()),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
-                  child: ActivationPrompt(onTap: _activate),
-                ),
-              ],
-            )
-          : screens[index],
+      body: screens[index],
       bottomNavigationBar: NavigationBar(
         selectedIndex: index,
         onDestinationSelected: (i) => setState(() => index = i),
@@ -87,69 +76,6 @@ class _AppShellState extends State<AppShell> {
             label: 'Profile',
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ActivationPrompt extends StatelessWidget {
-  final VoidCallback onTap;
-
-  const ActivationPrompt({super.key, required this.onTap});
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(20),
-        child: Ink(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
-          decoration: EvermoreTheme.glassCard(
-            radius: 20,
-            color: Colors.white.withValues(alpha: .82),
-          ),
-          child: Row(
-            children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  gradient: EvermoreTheme.softGradient,
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: const Icon(
-                  Icons.person_add_alt_1_rounded,
-                  color: EvermoreTheme.primary,
-                  size: 19,
-                ),
-              ),
-              const SizedBox(width: 12),
-              const Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Ready to activate?',
-                      style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      'Create your account and continue to payment.',
-                      style: TextStyle(color: EvermoreTheme.muted, fontSize: 9.5),
-                    ),
-                  ],
-                ),
-              ),
-              const Icon(
-                Icons.arrow_forward_rounded,
-                color: EvermoreTheme.primary,
-                size: 19,
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
