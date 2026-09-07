@@ -1,8 +1,9 @@
-name: Evermore feature validation
+name: Evermore Android validation
 
 on:
   push:
     branches:
+      - main
       - feature/complete-user-journey
 
 jobs:
@@ -10,11 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.32.8'
           channel: stable
           cache: true
+
       - name: Generate Android project for validation
         run: |
           flutter create . \
@@ -22,6 +25,46 @@ jobs:
             --project-name evermore \
             --org com.earnpalsolutions
           rm -f test/widget_test.dart
+
+      - name: Configure release signing
+        env:
+          KEYSTORE_BASE64: ${{ secrets.EVERMORE_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.EVERMORE_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.EVERMORE_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.EVERMORE_KEY_PASSWORD }}
+        run: |
+          printf '%s' "$KEYSTORE_BASE64" | base64 --decode > android/app/evermore-upload-key.jks
+          cat > android/key.properties <<EOF
+          storePassword=$KEYSTORE_PASSWORD
+          keyPassword=$KEY_PASSWORD
+          keyAlias=$KEY_ALIAS
+          storeFile=evermore-upload-key.jks
+          EOF
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('android/app/build.gradle.kts')
+          text = path.read_text()
+          signing = '''\n\n    signingConfigs {\n        create("release") {\n            val keystoreProperties = java.util.Properties()\n            val keystorePropertiesFile = rootProject.file("key.properties")\n            if (keystorePropertiesFile.exists()) {\n                keystorePropertiesFile.inputStream().use { keystoreProperties.load(it) }\n            }\n            storeFile = file(keystoreProperties.getProperty("storeFile"))\n            storePassword = keystoreProperties.getProperty("storePassword")\n            keyAlias = keystoreProperties.getProperty("keyAlias")\n            keyPassword = keystoreProperties.getProperty("keyPassword")\n        }\n    }\n'''
+          marker = '\n    defaultConfig {'
+          if 'signingConfigs {' not in text:
+              text = text.replace(marker, signing + marker, 1)
+          release_marker = '\n    buildTypes {'
+          release_block = '''\n    buildTypes {\n        getByName("release") {\n            signingConfig = signingConfigs.getByName("release")\n        }\n    }\n'''
+          if release_marker in text:
+              start = text.index(release_marker)
+              depth = 0
+              end = None
+              for i in range(start, len(text)):
+                  if text[i] == '{': depth += 1
+                  elif text[i] == '}':\n                      depth -= 1
+                      if depth == 0:\n                          end = i + 1\n                          break
+              text = text[:start] + release_block.rstrip() + text[end:]
+          else:
+              insert_at = text.index('\n}\n\nflutter {')
+              text = text[:insert_at] + release_block + text[insert_at:]
+          path.write_text(text)
+          PY
+
       - name: Set Android app label
         run: |
           python3 - <<'PY'
@@ -31,18 +74,25 @@ jobs:
           text = text.replace('android:label="evermore"', 'android:label="Evermore"')
           path.write_text(text)
           PY
+
       - name: Run flutter pub get
         run: flutter pub get
+
       - name: Run flutter analyze --no-fatal-infos
         run: flutter analyze --no-fatal-infos
+
       - name: Run flutter test
         run: flutter test --reporter expanded
+
       - name: Build debug APK
         run: flutter build apk --debug
+
       - name: Build release APK
         run: flutter build apk --release
+
       - name: Build release AAB
         run: flutter build appbundle --release
+
       - name: Upload Android artifacts
         uses: actions/upload-artifact@v4
         with:
