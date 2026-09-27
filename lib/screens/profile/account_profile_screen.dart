@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../config/app_config.dart';
 import '../../core/theme/evermore_theme.dart';
 import '../../core/widgets/evermore_background.dart';
 import '../../services/account_service.dart';
@@ -20,8 +19,6 @@ class _AccountProfileScreenState extends State<AccountProfileScreen> {
   String email = '';
   String phone = '';
   String country = 'Nigeria';
-  String packageId = '';
-  String status = 'not_submitted';
 
   @override
   void initState() {
@@ -34,19 +31,12 @@ class _AccountProfileScreenState extends State<AccountProfileScreen> {
     email = await account.email;
     phone = await account.phone;
     country = await account.country;
-    packageId = await account.packageId;
-    status = await account.paymentStatus;
     if (mounted) setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     final registered = name.isNotEmpty || email.isNotEmpty;
-    final matchingPackages = AppConfig.packages.where(
-      (package) => package.id == packageId,
-    );
-    final pkg = matchingPackages.isEmpty ? null : matchingPackages.first;
-
     return Scaffold(
       body: EvermoreBackground(
         child: SafeArea(
@@ -63,7 +53,7 @@ class _AccountProfileScreenState extends State<AccountProfileScreen> {
               ),
               const SizedBox(height: 7),
               const Text(
-                'Your account, package and payment status.',
+                'Your Evermore account and activation status.',
                 style: TextStyle(
                   color: EvermoreTheme.muted,
                   fontSize: 13.5,
@@ -96,12 +86,12 @@ class _AccountProfileScreenState extends State<AccountProfileScreen> {
                 ),
                 const SizedBox(height: 12),
                 _InfoCard(
-                  icon: Icons.workspace_premium_outlined,
-                  title: 'Membership',
+                  icon: Icons.verified_user_outlined,
+                  title: 'Activation',
                   rows: [
-                    ['Current Package', pkg?.name ?? 'Not selected'],
                     ['Account Status', 'Registered'],
-                    ['Payment Status', _status(status)],
+                    ['Activation', 'Request submitted'],
+                    ['Payment', 'Not required'],
                   ],
                 ),
                 const SizedBox(height: 2),
@@ -133,14 +123,6 @@ class _AccountProfileScreenState extends State<AccountProfileScreen> {
     );
   }
 
-  String _status(String value) {
-    return switch (value) {
-      'pending' => 'PENDING / UNDER REVIEW',
-      'verified' => 'VERIFIED',
-      'approved' => 'APPROVED',
-      _ => 'NOT SUBMITTED',
-    };
-  }
 }
 
 class _NotRegistered extends StatelessWidget {
@@ -467,7 +449,7 @@ class SettingsScreen extends StatelessWidget {
       builder: (_) => AlertDialog(
         title: const Text('Delete local account?'),
         content: const Text(
-          'This removes the account and payment state stored on this device. It does not cancel or reverse any external bank transfer.',
+          'This removes the account information stored on this device.',
         ),
         actions: [
           TextButton(
