@@ -112,27 +112,139 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class _ActivationAction extends StatelessWidget {
+class _ActivationAction extends StatefulWidget {
   final VoidCallback onTap;
   const _ActivationAction({required this.onTap});
 
   @override
-  Widget build(BuildContext context) => Material(
-    color: Colors.transparent,
-    child: InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(17),
-      child: Ink(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
-        decoration: EvermoreTheme.glassCard(radius: 17, color: Colors.white.withValues(alpha: .68)),
-        child: Row(children: [
-          const Icon(Icons.person_add_alt_1_rounded, color: EvermoreTheme.primary, size: 18),
-          const SizedBox(width: 9),
-          const Expanded(child: Text('Ready to activate your account?', style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w800))),
-          const Icon(Icons.arrow_forward_rounded, color: EvermoreTheme.primary, size: 17),
-        ]),
-      ),
-    ),
+  State<_ActivationAction> createState() => _ActivationActionState();
+}
+
+class _ActivationActionState extends State<_ActivationAction>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 2200),
+  )..repeat(reverse: true);
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => AnimatedBuilder(
+    animation: _controller,
+    builder: (_, __) {
+      final lift = Curves.easeInOut.transform(_controller.value) * 2;
+      return Transform.translate(
+        offset: Offset(0, -lift),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: widget.onTap,
+            borderRadius: BorderRadius.circular(22),
+            child: Ink(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: const [
+                    EvermoreTheme.primary,
+                    EvermoreTheme.primaryMid,
+                    EvermoreTheme.violet,
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(22),
+                boxShadow: [
+                  BoxShadow(
+                    color: EvermoreTheme.primary.withValues(alpha: .22),
+                    blurRadius: 24,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 46,
+                    height: 46,
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: .16),
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(color: Colors.white24),
+                    ),
+                    child: const Icon(
+                      Icons.rocket_launch_rounded,
+                      color: Colors.white,
+                      size: 22,
+                    ),
+                  ),
+                  const SizedBox(width: 13),
+                  const Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'READY TO ACTIVATE?',
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 9,
+                            letterSpacing: 1.3,
+                            fontWeight: FontWeight.w900,
+                          ),
+                        ),
+                        SizedBox(height: 3),
+                        Text(
+                          'Set up your Evermore account',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: -.15,
+                          ),
+                        ),
+                        SizedBox(height: 3),
+                        Text(
+                          'One quick step to get started.',
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 10.5,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: .12),
+                          blurRadius: 12,
+                          offset: const Offset(0, 5),
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.arrow_forward_rounded,
+                      color: EvermoreTheme.primary,
+                      size: 20,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    },
   );
 }
 
