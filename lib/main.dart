@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'app/app_shell.dart';
 import 'core/theme/evermore_theme.dart';
 
-void main() => runApp(const EvermoreApp());
+void main() => runApp(const ForgeXApp());
 
-class EvermoreApp extends StatelessWidget {
-  const EvermoreApp({super.key});
+class ForgeXApp extends StatelessWidget {
+  const ForgeXApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Evermore',
-      theme: EvermoreTheme.theme(),
+      title: 'ForgeX',
+      theme: ForgeXTheme.theme(),
       home: const AppShell(),
     );
   }

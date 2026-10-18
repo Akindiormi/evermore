@@ -43,7 +43,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return EvermoreBackground(
+    return ForgeXBackground(
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
@@ -61,25 +61,25 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                 const SizedBox(height: 16),
                 const Text('Withdrawal requested', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800)),
                 const SizedBox(height: 8),
-                Text('₦${widget.balance} is on its way to your bank account. No fee was charged.', style: const TextStyle(color: EvermoreTheme.muted, height: 1.4)),
+                Text('₦${widget.balance} is on its way to your bank account. No fee was charged.', style: const TextStyle(color: ForgeXTheme.muted, height: 1.4)),
                 const SizedBox(height: 24),
                 SizedBox(
                   width: double.infinity,
                   height: 52,
                   child: ElevatedButton(
                     onPressed: () => Navigator.pop(context),
-                    style: ElevatedButton.styleFrom(backgroundColor: EvermoreTheme.primary, foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
+                    style: ElevatedButton.styleFrom(backgroundColor: ForgeXTheme.primary, foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))),
                     child: const Text('Done', style: TextStyle(fontWeight: FontWeight.w800)),
                   ),
                 ),
               ] else ...[
                 Container(
                   padding: const EdgeInsets.all(18),
-                  decoration: EvermoreTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .72)),
+                  decoration: ForgeXTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .72)),
                   child: Row(children: [
-                    const Text('Withdrawing', style: TextStyle(color: EvermoreTheme.muted, fontSize: 13)),
+                    const Text('Withdrawing', style: TextStyle(color: ForgeXTheme.muted, fontSize: 13)),
                     const Spacer(),
-                    Text('₦${widget.balance}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: EvermoreTheme.primary)),
+                    Text('₦${widget.balance}', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: ForgeXTheme.primary)),
                   ]),
                 ),
                 const SizedBox(height: 20),
@@ -91,14 +91,14 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                 const SizedBox(height: 6),
                 TextField(controller: _accountNumberController, keyboardType: TextInputType.number, decoration: const InputDecoration(hintText: '10-digit NUBAN')),
                 const SizedBox(height: 22),
-                const Text('Full balance is transferred — no withdrawal fee, no minimum, no upgrade required.', style: TextStyle(fontSize: 11.5, color: EvermoreTheme.muted)),
+                const Text('Full balance is transferred — no withdrawal fee, no minimum, no upgrade required.', style: TextStyle(fontSize: 11.5, color: ForgeXTheme.muted)),
                 const Spacer(),
                 SizedBox(
                   width: double.infinity,
                   height: 54,
                   child: ElevatedButton(
                     onPressed: _submitting ? null : _submit,
-                    style: ElevatedButton.styleFrom(backgroundColor: EvermoreTheme.primary, foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))),
+                    style: ElevatedButton.styleFrom(backgroundColor: ForgeXTheme.primary, foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18))),
                     child: _submitting
                         ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
                         : const Text('Confirm withdrawal', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14)),

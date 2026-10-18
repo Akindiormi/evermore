@@ -1,3 +1,3 @@
 class AppConfig {
-  static const telegramUrl = 'https://t.me/earnpalnet';
+  static const telegramUrl = 'https://t.me/forgeXplatform';
 }

@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class EvermoreTheme {
-  // Brand-led light glass system, built around the Evermore logo blue.
-  static const primary = Color(0xFF00339E);
-  static const primaryDark = Color(0xFF00256F);
-  static const primaryMid = Color(0xFF0B4BC4);
-  static const electric = Color(0xFF2D6BFF);
-  static const violet = Color(0xFF7357F6);
-  static const primaryLight = Color(0xFFE7EEFF);
-  static const background = Color(0xFFF5F7FC);
+class ForgeXTheme {
+  // Light glass system built on the ForgeX logo colors: orange, amber and black.
+  static const primary = Color(0xFFC94A00);
+  static const primaryDark = Color(0xFF9E3A00);
+  static const primaryMid = Color(0xFFFF6A00);
+  static const electric = Color(0xFFFF8A00);
+  static const violet = Color(0xFFFFB800);
+  static const primaryLight = Color(0xFFFFEFE2);
+  static const background = Color(0xFFFAF8F6);
   static const surface = Colors.white;
   static const glass = Color(0xDFFFFFFF);
   static const glassStrong = Color(0xEEFDFEFF);
-  static const text = Color(0xFF10203D);
-  static const muted = Color(0xFF71809C);
-  static const ink = Color(0xFF12203A);
+  static const text = Color(0xFF0A0A0B);
+  static const muted = Color(0xFF6B6B73);
+  static const ink = Color(0xFF0A0A0B);
   static const border = Color(0xB8FFFFFF);
-  static const divider = Color(0xFFE5EAF4);
+  static const divider = Color(0xFFECE7E2);
 
   static List<BoxShadow> get cardShadow => [
     BoxShadow(
@@ -69,7 +69,7 @@ class EvermoreTheme {
   static LinearGradient get heroGradient => const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [primary, primaryMid, violet],
+    colors: [primary, primaryMid, electric],
     stops: [0.0, 0.58, 1.0],
   );
 
@@ -82,7 +82,7 @@ class EvermoreTheme {
   static LinearGradient get softGradient => const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [Color(0xFFEAF0FF), Color(0xFFF4F1FF)],
+    colors: [Color(0xFFFFEFE2), Color(0xFFFFF7E6)],
   );
 
   static ThemeData theme() {

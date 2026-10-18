@@ -53,7 +53,7 @@ class _AppShellState extends State<AppShell> {
         onDestinationSelected: (i) => setState(() => index = i),
         backgroundColor: Colors.white.withValues(alpha: .94),
         elevation: 0,
-        indicatorColor: EvermoreTheme.primaryLight,
+        indicatorColor: ForgeXTheme.primaryLight,
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.home_outlined),

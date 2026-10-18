@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../core/theme/evermore_theme.dart';
 
-class EvermoreNavigation extends StatelessWidget {
-  const EvermoreNavigation({super.key, required this.selectedIndex, required this.onDestinationSelected});
+class ForgeXNavigation extends StatelessWidget {
+  const ForgeXNavigation({super.key, required this.selectedIndex, required this.onDestinationSelected});
 
   final int selectedIndex;
   final ValueChanged<int> onDestinationSelected;
@@ -41,7 +41,7 @@ class EvermoreNavigation extends StatelessWidget {
                 color: Colors.white.withValues(alpha: .76),
                 borderRadius: BorderRadius.circular(34),
                 border: Border.all(color: Colors.white.withValues(alpha: .95)),
-                boxShadow: EvermoreTheme.floatingShadow,
+                boxShadow: ForgeXTheme.floatingShadow,
               ),
               child: Row(
                 children: List.generate(_items.length, (index) {
@@ -69,9 +69,9 @@ class EvermoreNavigation extends StatelessWidget {
                                 height: selected ? 56 : 44,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  gradient: selected ? EvermoreTheme.logoGradient : null,
+                                  gradient: selected ? ForgeXTheme.logoGradient : null,
                                   color: selected ? null : Colors.transparent,
-                                  boxShadow: selected ? EvermoreTheme.floatingShadow : const [],
+                                  boxShadow: selected ? ForgeXTheme.floatingShadow : const [],
                                 ),
                                 child: AnimatedSwitcher(
                                   duration: const Duration(milliseconds: 220),
@@ -80,7 +80,7 @@ class EvermoreNavigation extends StatelessWidget {
                                     selected ? item.$1 : item.$2,
                                     key: ValueKey('$index-$selected'),
                                     size: selected ? 24 : 23,
-                                    color: selected ? Colors.white : EvermoreTheme.muted,
+                                    color: selected ? Colors.white : ForgeXTheme.muted,
                                   ),
                                 ),
                               ),
@@ -93,7 +93,7 @@ class EvermoreNavigation extends StatelessWidget {
                                     fontSize: 9.5,
                                     height: 1,
                                     fontWeight: selected ? FontWeight.w800 : FontWeight.w600,
-                                    color: selected ? EvermoreTheme.primary : EvermoreTheme.muted,
+                                    color: selected ? ForgeXTheme.primary : ForgeXTheme.muted,
                                   ),
                                 ),
                               ),

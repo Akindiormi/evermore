@@ -39,9 +39,9 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Growth challenges')),
-      body: EvermoreBackground(
+      body: ForgeXBackground(
         child: RefreshIndicator(
-          color: EvermoreTheme.primary,
+          color: ForgeXTheme.primary,
           onRefresh: _load,
           child: ListView(
             physics: const AlwaysScrollableScrollPhysics(),
@@ -50,9 +50,9 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
               Container(
                 padding: const EdgeInsets.all(22),
                 decoration: BoxDecoration(
-                  gradient: EvermoreTheme.heroGradient,
+                  gradient: ForgeXTheme.heroGradient,
                   borderRadius: BorderRadius.circular(28),
-                  boxShadow: EvermoreTheme.cardShadow,
+                  boxShadow: ForgeXTheme.cardShadow,
                 ),
                 child: Stack(
                   children: [
@@ -61,7 +61,7 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
                       top: -12,
                       child: Opacity(
                         opacity: .12,
-                        child: EvermoreMark(size: 95, color: Colors.white),
+                        child: ForgeXMark(size: 95, color: Colors.white),
                       ),
                     ),
                     Column(
@@ -158,7 +158,7 @@ class _ChallengeCard extends StatelessWidget {
           onTap: onTap,
           child: Ink(
             padding: const EdgeInsets.all(16),
-            decoration: EvermoreTheme.glassCard(
+            decoration: ForgeXTheme.glassCard(
               radius: 22,
               color: Colors.white.withValues(alpha: .72),
             ),
@@ -169,13 +169,13 @@ class _ChallengeCard extends StatelessWidget {
                   height: 48,
                   decoration: BoxDecoration(
                     gradient: done
-                        ? EvermoreTheme.logoGradient
-                        : EvermoreTheme.softGradient,
+                        ? ForgeXTheme.logoGradient
+                        : ForgeXTheme.softGradient,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Icon(
                     done ? Icons.check_rounded : Icons.track_changes_rounded,
-                    color: done ? Colors.white : EvermoreTheme.primary,
+                    color: done ? Colors.white : ForgeXTheme.primary,
                   ),
                 ),
                 const SizedBox(width: 13),
@@ -188,7 +188,7 @@ class _ChallengeCard extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 8.5,
                           letterSpacing: .9,
-                          color: EvermoreTheme.primary,
+                          color: ForgeXTheme.primary,
                           fontWeight: FontWeight.w900,
                         ),
                       ),
@@ -208,7 +208,7 @@ class _ChallengeCard extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 10.5,
                           height: 1.35,
-                          color: EvermoreTheme.muted,
+                          color: ForgeXTheme.muted,
                         ),
                       ),
                     ],
@@ -220,7 +220,7 @@ class _ChallengeCard extends StatelessWidget {
                     Text(
                       '+${challenge.xp}',
                       style: const TextStyle(
-                        color: EvermoreTheme.primary,
+                        color: ForgeXTheme.primary,
                         fontSize: 10,
                         fontWeight: FontWeight.w900,
                       ),
@@ -228,7 +228,7 @@ class _ChallengeCard extends StatelessWidget {
                     const SizedBox(height: 3),
                     const Icon(
                       Icons.chevron_right_rounded,
-                      color: EvermoreTheme.primary,
+                      color: ForgeXTheme.primary,
                       size: 19,
                     ),
                   ],
@@ -294,16 +294,16 @@ class _ChallengeDetailScreenState extends State<ChallengeDetailScreen> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Challenge')),
-      body: EvermoreBackground(
+      body: ForgeXBackground(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 8, 20, 35),
           children: [
             Container(
               padding: const EdgeInsets.all(22),
               decoration: BoxDecoration(
-                gradient: EvermoreTheme.heroGradient,
+                gradient: ForgeXTheme.heroGradient,
                 borderRadius: BorderRadius.circular(28),
-                boxShadow: EvermoreTheme.cardShadow,
+                boxShadow: ForgeXTheme.cardShadow,
               ),
               child: Stack(
                 children: [
@@ -312,7 +312,7 @@ class _ChallengeDetailScreenState extends State<ChallengeDetailScreen> {
                     top: -12,
                     child: Opacity(
                       opacity: .12,
-                      child: EvermoreMark(size: 95, color: Colors.white),
+                      child: ForgeXMark(size: 95, color: Colors.white),
                     ),
                   ),
                   Column(
@@ -361,7 +361,7 @@ class _ChallengeDetailScreenState extends State<ChallengeDetailScreen> {
               (entry) => Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 padding: const EdgeInsets.all(15),
-                decoration: EvermoreTheme.glassCard(
+                decoration: ForgeXTheme.glassCard(
                   radius: 19,
                   color: Colors.white.withValues(alpha: .72),
                 ),
@@ -372,14 +372,14 @@ class _ChallengeDetailScreenState extends State<ChallengeDetailScreen> {
                       width: 30,
                       height: 30,
                       decoration: BoxDecoration(
-                        color: EvermoreTheme.primary.withValues(alpha: .08),
+                        color: ForgeXTheme.primary.withValues(alpha: .08),
                         shape: BoxShape.circle,
                       ),
                       child: Center(
                         child: Text(
                           '${entry.key + 1}',
                           style: const TextStyle(
-                            color: EvermoreTheme.primary,
+                            color: ForgeXTheme.primary,
                             fontWeight: FontWeight.w900,
                             fontSize: 10,
                           ),

@@ -37,16 +37,16 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
 
     return Scaffold(
       appBar: AppBar(title: Text(widget.course.title)),
-      body: EvermoreBackground(
+      body: ForgeXBackground(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 12, 20, 35),
           children: [
             Container(
               padding: const EdgeInsets.all(22),
               decoration: BoxDecoration(
-                gradient: EvermoreTheme.heroGradient,
+                gradient: ForgeXTheme.heroGradient,
                 borderRadius: BorderRadius.circular(28),
-                boxShadow: EvermoreTheme.cardShadow,
+                boxShadow: ForgeXTheme.cardShadow,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,7 +122,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                   children: [
                     const Icon(
                       Icons.check_circle_outline_rounded,
-                      color: EvermoreTheme.primary,
+                      color: ForgeXTheme.primary,
                       size: 17,
                     ),
                     const SizedBox(width: 8),
@@ -164,7 +164,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                     },
                     child: Ink(
                       padding: const EdgeInsets.all(15),
-                      decoration: EvermoreTheme.glassCard(
+                      decoration: ForgeXTheme.glassCard(
                         radius: 20,
                         color: Colors.white.withValues(alpha: .74),
                       ),
@@ -174,14 +174,14 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                             width: 42,
                             height: 42,
                             decoration: BoxDecoration(
-                              color: EvermoreTheme.primary.withValues(alpha: .08),
+                              color: ForgeXTheme.primary.withValues(alpha: .08),
                               shape: BoxShape.circle,
                             ),
                             child: Icon(
                               isDone
                                   ? Icons.check_rounded
                                   : Icons.play_arrow_rounded,
-                              color: EvermoreTheme.primary,
+                              color: ForgeXTheme.primary,
                             ),
                           ),
                           const SizedBox(width: 12),
@@ -201,7 +201,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                                   lesson.summary,
                                   style: const TextStyle(
                                     fontSize: 10.5,
-                                    color: EvermoreTheme.muted,
+                                    color: ForgeXTheme.muted,
                                   ),
                                 ),
                               ],
@@ -209,7 +209,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                           ),
                           const Icon(
                             Icons.chevron_right_rounded,
-                            color: EvermoreTheme.primary,
+                            color: ForgeXTheme.primary,
                           ),
                         ],
                       ),
@@ -264,7 +264,7 @@ class _CourseLessonScreenState extends State<CourseLessonScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.course.title)),
-      body: EvermoreBackground(
+      body: ForgeXBackground(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 12, 20, 35),
           children: [
@@ -274,7 +274,7 @@ class _CourseLessonScreenState extends State<CourseLessonScreen> {
                 fontSize: 9,
                 letterSpacing: 1.4,
                 fontWeight: FontWeight.w900,
-                color: EvermoreTheme.primary,
+                color: ForgeXTheme.primary,
               ),
             ),
             const SizedBox(height: 7),
@@ -289,7 +289,7 @@ class _CourseLessonScreenState extends State<CourseLessonScreen> {
             const SizedBox(height: 12),
             Container(
               padding: const EdgeInsets.all(18),
-              decoration: EvermoreTheme.glassCard(
+              decoration: ForgeXTheme.glassCard(
                 radius: 22,
                 color: Colors.white.withValues(alpha: .75),
               ),
@@ -298,7 +298,7 @@ class _CourseLessonScreenState extends State<CourseLessonScreen> {
                 style: const TextStyle(
                   fontSize: 13,
                   height: 1.65,
-                  color: EvermoreTheme.text,
+                  color: ForgeXTheme.text,
                 ),
               ),
             ),
@@ -317,7 +317,7 @@ class _CourseLessonScreenState extends State<CourseLessonScreen> {
                   style: const TextStyle(fontWeight: FontWeight.w800),
                 ),
                 style: FilledButton.styleFrom(
-                  backgroundColor: EvermoreTheme.primary,
+                  backgroundColor: ForgeXTheme.primary,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),

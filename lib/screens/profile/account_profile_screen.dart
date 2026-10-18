@@ -38,7 +38,7 @@ class _AccountProfileScreenState extends State<AccountProfileScreen> {
   Widget build(BuildContext context) {
     final registered = name.isNotEmpty || email.isNotEmpty;
     return Scaffold(
-      body: EvermoreBackground(
+      body: ForgeXBackground(
         child: SafeArea(
           child: ListView(
             padding: const EdgeInsets.fromLTRB(20, 22, 20, 125),
@@ -53,9 +53,9 @@ class _AccountProfileScreenState extends State<AccountProfileScreen> {
               ),
               const SizedBox(height: 7),
               const Text(
-                'Your Evermore account and activation status.',
+                'Your ForgeX account and activation status.',
                 style: TextStyle(
-                  color: EvermoreTheme.muted,
+                  color: ForgeXTheme.muted,
                   fontSize: 13.5,
                 ),
               ),
@@ -98,7 +98,7 @@ class _AccountProfileScreenState extends State<AccountProfileScreen> {
                 _Action(
                   icon: Icons.groups_outlined,
                   title: 'Community',
-                  subtitle: 'Open the Evermore Telegram community',
+                  subtitle: 'Open the ForgeX Telegram community',
                   onTap: () => TelegramService.openCommunity(),
                 ),
                 _Action(
@@ -134,7 +134,7 @@ class _NotRegistered extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(22),
-      decoration: EvermoreTheme.glassCard(
+      decoration: ForgeXTheme.glassCard(
         radius: 25,
         color: Colors.white.withValues(alpha: .75),
       ),
@@ -143,7 +143,7 @@ class _NotRegistered extends StatelessWidget {
           const Icon(
             Icons.person_add_alt_1_rounded,
             size: 30,
-            color: EvermoreTheme.primary,
+            color: ForgeXTheme.primary,
           ),
           const SizedBox(height: 12),
           const Text(
@@ -156,7 +156,7 @@ class _NotRegistered extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 11,
-              color: EvermoreTheme.muted,
+              color: ForgeXTheme.muted,
               height: 1.4,
             ),
           ),
@@ -190,9 +190,9 @@ class _AccountCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: EvermoreTheme.heroGradient,
+        gradient: ForgeXTheme.heroGradient,
         borderRadius: BorderRadius.circular(26),
-        boxShadow: EvermoreTheme.cardShadow,
+        boxShadow: ForgeXTheme.cardShadow,
       ),
       child: Row(
         children: [
@@ -254,7 +254,7 @@ class _InfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(17),
-      decoration: EvermoreTheme.glassCard(
+      decoration: ForgeXTheme.glassCard(
         radius: 21,
         color: Colors.white.withValues(alpha: .74),
       ),
@@ -263,7 +263,7 @@ class _InfoCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(icon, color: EvermoreTheme.primary, size: 19),
+              Icon(icon, color: ForgeXTheme.primary, size: 19),
               const SizedBox(width: 8),
               Text(
                 title,
@@ -287,7 +287,7 @@ class _InfoCard extends StatelessWidget {
                       row[0],
                       style: const TextStyle(
                         fontSize: 10.5,
-                        color: EvermoreTheme.muted,
+                        color: ForgeXTheme.muted,
                       ),
                     ),
                   ),
@@ -333,7 +333,7 @@ class _Action extends StatelessWidget {
           borderRadius: BorderRadius.circular(18),
         ),
         tileColor: Colors.white.withValues(alpha: .72),
-        leading: Icon(icon, color: EvermoreTheme.primary),
+        leading: Icon(icon, color: ForgeXTheme.primary),
         title: Text(
           title,
           style: const TextStyle(
@@ -345,7 +345,7 @@ class _Action extends StatelessWidget {
           subtitle,
           style: const TextStyle(
             fontSize: 10,
-            color: EvermoreTheme.muted,
+            color: ForgeXTheme.muted,
           ),
         ),
         trailing: const Icon(Icons.chevron_right_rounded),
@@ -361,7 +361,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Settings')),
-      body: EvermoreBackground(
+      body: ForgeXBackground(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 15, 20, 35),
           children: [
@@ -384,7 +384,7 @@ class SettingsScreen extends StatelessWidget {
               onTap: () => _page(
                 context,
                 'Privacy information',
-                'Evermore stores the account fields needed by this local/demo experience. A production backend should apply its own access controls, retention rules and privacy policy.',
+                'ForgeX stores the account fields needed by this local/demo experience. A production backend should apply its own access controls, retention rules and privacy policy.',
               ),
             ),
             _Setting(
@@ -406,10 +406,10 @@ class SettingsScreen extends StatelessWidget {
             const SizedBox(height: 20),
             const Center(
               child: Text(
-                'Evermore • version 1.0.0',
+                'ForgeX • version 1.0.0',
                 style: TextStyle(
                   fontSize: 10,
-                  color: EvermoreTheme.muted,
+                  color: ForgeXTheme.muted,
                 ),
               ),
             ),
@@ -425,7 +425,7 @@ class SettingsScreen extends StatelessWidget {
       MaterialPageRoute(
         builder: (_) => Scaffold(
           appBar: AppBar(title: Text(title)),
-          body: EvermoreBackground(
+          body: ForgeXBackground(
             child: Padding(
               padding: const EdgeInsets.all(22),
               child: Text(
@@ -433,7 +433,7 @@ class SettingsScreen extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 13,
                   height: 1.55,
-                  color: EvermoreTheme.muted,
+                  color: ForgeXTheme.muted,
                 ),
               ),
             ),
@@ -494,7 +494,7 @@ class _Setting extends StatelessWidget {
           borderRadius: BorderRadius.circular(18),
         ),
         tileColor: Colors.white.withValues(alpha: .72),
-        leading: Icon(icon, color: EvermoreTheme.primary),
+        leading: Icon(icon, color: ForgeXTheme.primary),
         title: Text(
           title,
           style: const TextStyle(
@@ -506,7 +506,7 @@ class _Setting extends StatelessWidget {
           subtitle,
           style: const TextStyle(
             fontSize: 10,
-            color: EvermoreTheme.muted,
+            color: ForgeXTheme.muted,
           ),
         ),
         trailing: const Icon(Icons.chevron_right_rounded),

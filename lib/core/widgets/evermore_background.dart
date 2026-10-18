@@ -2,25 +2,25 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../theme/evermore_theme.dart';
 
-class EvermoreBackground extends StatelessWidget {
+class ForgeXBackground extends StatelessWidget {
   final Widget child;
-  const EvermoreBackground({super.key, required this.child});
+  const ForgeXBackground({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       fit: StackFit.expand,
       children: [
-        Container(color: EvermoreTheme.background),
+        Container(color: ForgeXTheme.background),
         Positioned(
           top: -90,
           right: -70,
-          child: _Glow(size: 220, color: EvermoreTheme.primary.withValues(alpha: .075)),
+          child: _Glow(size: 220, color: ForgeXTheme.primary.withValues(alpha: .075)),
         ),
         Positioned(
           top: 330,
           left: -120,
-          child: _Glow(size: 240, color: EvermoreTheme.violet.withValues(alpha: .045)),
+          child: _Glow(size: 240, color: ForgeXTheme.violet.withValues(alpha: .045)),
         ),
         child,
       ],

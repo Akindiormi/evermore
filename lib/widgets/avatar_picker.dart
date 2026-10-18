@@ -65,12 +65,12 @@ class AvatarPicker extends StatelessWidget {
                 height: 4,
                 margin: const EdgeInsets.only(bottom: 12),
                 decoration: BoxDecoration(
-                  color: EvermoreTheme.border,
+                  color: ForgeXTheme.border,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
               ListTile(
-                leading: const Icon(Icons.photo_library_outlined, color: EvermoreTheme.primary),
+                leading: const Icon(Icons.photo_library_outlined, color: ForgeXTheme.primary),
                 title: const Text('Choose from gallery', style: TextStyle(fontWeight: FontWeight.w600)),
                 onTap: () async {
                   Navigator.pop(sheetContext);
@@ -82,7 +82,7 @@ class AvatarPicker extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.photo_camera_outlined, color: EvermoreTheme.primary),
+                leading: const Icon(Icons.photo_camera_outlined, color: ForgeXTheme.primary),
                 title: const Text('Take a photo', style: TextStyle(fontWeight: FontWeight.w600)),
                 onTap: () async {
                   Navigator.pop(sheetContext);
@@ -123,11 +123,11 @@ class AvatarPicker extends StatelessWidget {
             height: size,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              gradient: hasPhoto ? null : EvermoreTheme.heroGradient,
+              gradient: hasPhoto ? null : ForgeXTheme.heroGradient,
               image: hasPhoto
                   ? DecorationImage(image: FileImage(File(photoPath!)), fit: BoxFit.cover)
                   : null,
-              boxShadow: EvermoreTheme.cardShadow,
+              boxShadow: ForgeXTheme.cardShadow,
             ),
             child: hasPhoto
                 ? null
@@ -150,7 +150,7 @@ class AvatarPicker extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: EvermoreTheme.primary,
+                color: ForgeXTheme.primary,
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.white, width: 2.5),
               ),

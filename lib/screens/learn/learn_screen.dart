@@ -32,10 +32,10 @@ class _LearnScreenState extends State<LearnScreen> {
       return true;
     }).toList();
 
-    return EvermoreBackground(
+    return ForgeXBackground(
       child: SafeArea(
         child: RefreshIndicator(
-          color: EvermoreTheme.primary,
+          color: ForgeXTheme.primary,
           onRefresh: _load,
           child: ListView(
             physics: const AlwaysScrollableScrollPhysics(),
@@ -43,7 +43,7 @@ class _LearnScreenState extends State<LearnScreen> {
             children: [
               const Text('Learn', style: TextStyle(fontSize: 29, fontWeight: FontWeight.w800, letterSpacing: -.8)),
               const SizedBox(height: 7),
-              const Text('Ten areas of growth. Fifty practical lessons.', style: TextStyle(color: EvermoreTheme.muted, fontSize: 13.5, height: 1.4)),
+              const Text('Ten areas of growth. Fifty practical lessons.', style: TextStyle(color: ForgeXTheme.muted, fontSize: 13.5, height: 1.4)),
               const SizedBox(height: 20),
               Row(children: [
                 _Filter(label: 'All', selected: filter == 0, onTap: () => setState(() => filter = 0)),
@@ -82,12 +82,12 @@ class _Filter extends StatelessWidget {
       duration: const Duration(milliseconds: 240),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
       decoration: BoxDecoration(
-        color: selected ? EvermoreTheme.primary : Colors.white.withValues(alpha: .68),
+        color: selected ? ForgeXTheme.primary : Colors.white.withValues(alpha: .68),
         borderRadius: BorderRadius.circular(100),
-        border: Border.all(color: selected ? EvermoreTheme.primary : EvermoreTheme.divider),
-        boxShadow: selected ? [BoxShadow(color: EvermoreTheme.primary.withValues(alpha: .16), blurRadius: 15, offset: const Offset(0, 7), spreadRadius: -5)] : const [],
+        border: Border.all(color: selected ? ForgeXTheme.primary : ForgeXTheme.divider),
+        boxShadow: selected ? [BoxShadow(color: ForgeXTheme.primary.withValues(alpha: .16), blurRadius: 15, offset: const Offset(0, 7), spreadRadius: -5)] : const [],
       ),
-      child: Text(label, style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.w800, color: selected ? Colors.white : EvermoreTheme.muted)),
+      child: Text(label, style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.w800, color: selected ? Colors.white : ForgeXTheme.muted)),
     ),
   );
 }
@@ -111,28 +111,28 @@ class _PillarCard extends StatelessWidget {
           onTap: onTap,
           child: Ink(
             padding: const EdgeInsets.all(16),
-            decoration: EvermoreTheme.glassCard(radius: 24, color: Colors.white.withValues(alpha: .72)),
+            decoration: ForgeXTheme.glassCard(radius: 24, color: Colors.white.withValues(alpha: .72)),
             child: Row(children: [
               Container(
                 width: 52,
                 height: 52,
-                decoration: BoxDecoration(gradient: progress > 0 ? EvermoreTheme.logoGradient : EvermoreTheme.softGradient, borderRadius: BorderRadius.circular(17)),
-                child: Center(child: Text('${pillar.id}'.padLeft(2, '0'), style: TextStyle(fontWeight: FontWeight.w900, color: progress > 0 ? Colors.white : EvermoreTheme.primary))),
+                decoration: BoxDecoration(gradient: progress > 0 ? ForgeXTheme.logoGradient : ForgeXTheme.softGradient, borderRadius: BorderRadius.circular(17)),
+                child: Center(child: Text('${pillar.id}'.padLeft(2, '0'), style: TextStyle(fontWeight: FontWeight.w900, color: progress > 0 ? Colors.white : ForgeXTheme.primary))),
               ),
               const SizedBox(width: 14),
               Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text(pillar.title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14)),
                 const SizedBox(height: 4),
-                Text(pillar.description, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 10.5, height: 1.35, color: EvermoreTheme.muted)),
+                Text(pillar.description, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 10.5, height: 1.35, color: ForgeXTheme.muted)),
                 const SizedBox(height: 9),
                 Row(children: [
-                  Expanded(child: ClipRRect(borderRadius: BorderRadius.circular(20), child: LinearProgressIndicator(value: progress, minHeight: 4, color: EvermoreTheme.primary, backgroundColor: EvermoreTheme.primary.withValues(alpha: .08)))),
+                  Expanded(child: ClipRRect(borderRadius: BorderRadius.circular(20), child: LinearProgressIndicator(value: progress, minHeight: 4, color: ForgeXTheme.primary, backgroundColor: ForgeXTheme.primary.withValues(alpha: .08)))),
                   const SizedBox(width: 8),
-                  Text('$done/${pillar.lessons.length}', style: const TextStyle(fontSize: 9.5, color: EvermoreTheme.primary, fontWeight: FontWeight.w800)),
+                  Text('$done/${pillar.lessons.length}', style: const TextStyle(fontSize: 9.5, color: ForgeXTheme.primary, fontWeight: FontWeight.w800)),
                 ]),
               ])),
               const SizedBox(width: 8),
-              const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: EvermoreTheme.primary),
+              const Icon(Icons.arrow_forward_ios_rounded, size: 14, color: ForgeXTheme.primary),
             ]),
           ),
         ),
@@ -149,13 +149,13 @@ class _EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.all(24),
-    decoration: EvermoreTheme.glassCard(radius: 24),
+    decoration: ForgeXTheme.glassCard(radius: 24),
     child: Column(children: [
-      const Icon(Icons.auto_awesome_rounded, size: 28, color: EvermoreTheme.primary),
+      const Icon(Icons.auto_awesome_rounded, size: 28, color: ForgeXTheme.primary),
       const SizedBox(height: 12),
       Text(filter == 2 ? 'Nothing completed yet' : 'Nothing in progress yet', style: const TextStyle(fontWeight: FontWeight.w800)),
       const SizedBox(height: 5),
-      const Text('Start a lesson and your progress will appear here.', textAlign: TextAlign.center, style: TextStyle(fontSize: 11, color: EvermoreTheme.muted)),
+      const Text('Start a lesson and your progress will appear here.', textAlign: TextAlign.center, style: TextStyle(fontSize: 11, color: ForgeXTheme.muted)),
       const SizedBox(height: 14),
       TextButton(onPressed: onReset, child: const Text('View all lessons')),
     ]),
@@ -170,13 +170,13 @@ class PillarDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(pillar.title)),
-      body: EvermoreBackground(
+      body: ForgeXBackground(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 8, 20, 35),
           children: [
             Container(
               padding: const EdgeInsets.all(22),
-              decoration: BoxDecoration(gradient: EvermoreTheme.heroGradient, borderRadius: BorderRadius.circular(28), boxShadow: EvermoreTheme.cardShadow),
+              decoration: BoxDecoration(gradient: ForgeXTheme.heroGradient, borderRadius: BorderRadius.circular(28), boxShadow: ForgeXTheme.cardShadow),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Text('PILLAR ${pillar.id.toString().padLeft(2, '0')}', style: const TextStyle(color: Colors.white70, fontSize: 9, letterSpacing: 1.3, fontWeight: FontWeight.w900)),
                 const SizedBox(height: 9),
@@ -199,12 +199,12 @@ class PillarDetailScreen extends StatelessWidget {
                     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => LessonDetailScreen(lesson: lesson))),
                     child: Ink(
                       padding: const EdgeInsets.all(15),
-                      decoration: EvermoreTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .74)),
+                      decoration: ForgeXTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .74)),
                       child: Row(children: [
-                        Container(width: 40, height: 40, decoration: BoxDecoration(color: EvermoreTheme.primary.withValues(alpha: .08), shape: BoxShape.circle), child: Center(child: Text('${entry.key + 1}', style: const TextStyle(color: EvermoreTheme.primary, fontWeight: FontWeight.w900)))),
+                        Container(width: 40, height: 40, decoration: BoxDecoration(color: ForgeXTheme.primary.withValues(alpha: .08), shape: BoxShape.circle), child: Center(child: Text('${entry.key + 1}', style: const TextStyle(color: ForgeXTheme.primary, fontWeight: FontWeight.w900)))),
                         const SizedBox(width: 12),
-                        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(lesson.title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13)), const SizedBox(height: 4), Text(lesson.duration, style: const TextStyle(fontSize: 10, color: EvermoreTheme.muted))])),
-                        const Icon(Icons.arrow_forward_rounded, size: 18, color: EvermoreTheme.primary),
+                        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(lesson.title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13)), const SizedBox(height: 4), Text(lesson.duration, style: const TextStyle(fontSize: 10, color: ForgeXTheme.muted))])),
+                        const Icon(Icons.arrow_forward_rounded, size: 18, color: ForgeXTheme.primary),
                       ]),
                     ),
                   ),

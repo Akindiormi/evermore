@@ -51,15 +51,15 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
     final lesson = widget.lesson;
     return Scaffold(
       appBar: AppBar(title: const Text('Lesson')),
-      body: EvermoreBackground(
+      body: ForgeXBackground(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 8, 20, 35),
           children: [
             Container(
               padding: const EdgeInsets.all(22),
-              decoration: BoxDecoration(gradient: EvermoreTheme.heroGradient, borderRadius: BorderRadius.circular(28), boxShadow: EvermoreTheme.cardShadow),
+              decoration: BoxDecoration(gradient: ForgeXTheme.heroGradient, borderRadius: BorderRadius.circular(28), boxShadow: ForgeXTheme.cardShadow),
               child: Stack(children: [
-                const Positioned(right: -10, top: -12, child: Opacity(opacity: .12, child: EvermoreMark(size: 95, color: Colors.white))),
+                const Positioned(right: -10, top: -12, child: Opacity(opacity: .12, child: ForgeXMark(size: 95, color: Colors.white))),
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(lesson.duration.toUpperCase(), style: const TextStyle(color: Colors.white70, fontSize: 9, letterSpacing: 1.1, fontWeight: FontWeight.w900)),
                   const SizedBox(height: 10),
@@ -77,9 +77,9 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
             ...lesson.sections.asMap().entries.map((entry) => Container(
               margin: const EdgeInsets.only(bottom: 11),
               padding: const EdgeInsets.all(16),
-              decoration: EvermoreTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .72)),
+              decoration: ForgeXTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .72)),
               child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text('0${entry.key + 1}', style: const TextStyle(color: EvermoreTheme.primary, fontSize: 10, fontWeight: FontWeight.w900)),
+                Text('0${entry.key + 1}', style: const TextStyle(color: ForgeXTheme.primary, fontSize: 10, fontWeight: FontWeight.w900)),
                 const SizedBox(width: 12),
                 Expanded(child: Text(entry.value, style: const TextStyle(fontSize: 13, height: 1.55))),
               ]),
@@ -91,11 +91,11 @@ class _LessonDetailScreenState extends State<LessonDetailScreen> {
             const SizedBox(height: 14),
             Container(
               padding: const EdgeInsets.all(18),
-              decoration: EvermoreTheme.glassCard(radius: 23, color: Colors.white.withValues(alpha: .72)),
+              decoration: ForgeXTheme.glassCard(radius: 23, color: Colors.white.withValues(alpha: .72)),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 const Text('Reflection', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800)),
                 const SizedBox(height: 7),
-                const Text('What did this lesson make you realise, and what will you do differently?', style: TextStyle(fontSize: 11, color: EvermoreTheme.muted, height: 1.45)),
+                const Text('What did this lesson make you realise, and what will you do differently?', style: TextStyle(fontSize: 11, color: ForgeXTheme.muted, height: 1.45)),
                 const SizedBox(height: 11),
                 TextField(controller: reflectionController, maxLines: 5, textInputAction: TextInputAction.newline, decoration: const InputDecoration(hintText: 'Write your reflection...', alignLabelWithHint: true)),
               ]),
@@ -133,5 +133,5 @@ class _Bullet extends StatelessWidget {
   final String text;
   const _Bullet({required this.text});
   @override
-  Widget build(BuildContext context) => Padding(padding: const EdgeInsets.only(bottom: 9), child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [Container(width: 22, height: 22, decoration: BoxDecoration(color: EvermoreTheme.primary.withValues(alpha: .08), shape: BoxShape.circle), child: const Icon(Icons.check_rounded, size: 14, color: EvermoreTheme.primary)), const SizedBox(width: 9), Expanded(child: Text(text, style: const TextStyle(fontSize: 12.5, height: 1.45)))]));
+  Widget build(BuildContext context) => Padding(padding: const EdgeInsets.only(bottom: 9), child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [Container(width: 22, height: 22, decoration: BoxDecoration(color: ForgeXTheme.primary.withValues(alpha: .08), shape: BoxShape.circle), child: const Icon(Icons.check_rounded, size: 14, color: ForgeXTheme.primary)), const SizedBox(width: 9), Expanded(child: Text(text, style: const TextStyle(fontSize: 12.5, height: 1.45)))]));
 }

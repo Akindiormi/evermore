@@ -111,7 +111,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Create your account')),
-      body: EvermoreBackground(
+      body: ForgeXBackground(
         child: SafeArea(
           child: Form(
             key: _formKey,
@@ -130,7 +130,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 const Text(
                   'Enter your details to request account activation. No payment is required in the app.',
                   style: TextStyle(
-                    color: EvermoreTheme.muted,
+                    color: ForgeXTheme.muted,
                     fontSize: 13.5,
                     height: 1.4,
                   ),
@@ -180,7 +180,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   'Password requirements: 8+ characters, uppercase, lowercase and a number.',
                   style: TextStyle(
                     fontSize: 11,
-                    color: EvermoreTheme.muted,
+                    color: ForgeXTheme.muted,
                     height: 1.4,
                   ),
                 ),
@@ -219,7 +219,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       style: const TextStyle(fontWeight: FontWeight.w800),
                     ),
                     style: FilledButton.styleFrom(
-                      backgroundColor: EvermoreTheme.primary,
+                      backgroundColor: ForgeXTheme.primary,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),

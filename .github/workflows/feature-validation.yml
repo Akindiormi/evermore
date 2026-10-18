@@ -1,4 +1,4 @@
-name: Evermore Android validation
+name: ForgeX Android validation
 
 on:
   push:
@@ -71,7 +71,7 @@ jobs:
           from pathlib import Path
           path = Path('android/app/src/main/AndroidManifest.xml')
           text = path.read_text()
-          text = text.replace('android:label="evermore"', 'android:label="Evermore"')
+          text = text.replace('android:label="evermore"', 'android:label="ForgeX"')
           path.write_text(text)
           PY
 

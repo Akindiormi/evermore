@@ -1,6 +1,6 @@
-# Evermore
+# ForgeX
 
-Evermore is a practical personal growth program delivered through a learning app and a Telegram community.
+ForgeX is a practical personal growth program delivered through a learning app and a Telegram community.
 
 ## Program
 
@@ -37,7 +37,7 @@ The Telegram community destination:
 
 ## Design
 
-Evermore uses a blue visual system based on the supplied Evermore icon and Plus Jakarta Sans.
+ForgeX uses a blue visual system based on the supplied ForgeX icon and Plus Jakarta Sans.
 
 ## Build
 

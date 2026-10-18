@@ -1,4 +1,4 @@
-name: Build Evermore Android
+name: Build ForgeX Android
 
 on:
   push:
@@ -74,14 +74,14 @@ jobs:
             git push origin HEAD:main
           fi
 
-      - name: Set Android app label to Evermore
+      - name: Set Android app label to ForgeX
         run: |
           python3 - <<'PY'
           from pathlib import Path
           path = Path("android/app/src/main/AndroidManifest.xml")
           text = path.read_text()
-          text = text.replace('android:label="earnpal"', 'android:label="Evermore"')
-          text = text.replace('android:label="Earnpal"', 'android:label="Evermore"')
+          text = text.replace('android:label="earnpal"', 'android:label="ForgeX"')
+          text = text.replace('android:label="Earnpal"', 'android:label="ForgeX"')
           path.write_text(text)
           PY
 
@@ -167,7 +167,7 @@ jobs:
           test "$(grep -c 'signingConfigs.getByName("debug")' android/app/build.gradle.kts || true)" -eq 0
           test -f android/app/keystore/evermore-upload-keystore.jks
           grep -q 'com.earnpalsolutions.earnpal' android/app/build.gradle.kts
-          grep -q 'Evermore' android/app/src/main/AndroidManifest.xml
+          grep -q 'ForgeX' android/app/src/main/AndroidManifest.xml
 
       - name: Analyze
         run: |

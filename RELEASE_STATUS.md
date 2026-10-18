@@ -1,9 +1,9 @@
 # Release status
 
-This source package is prepared as an Evermore MVP/release-candidate project.
+This source package is prepared as an ForgeX MVP/release-candidate project.
 
 Included:
-- Evermore blue design system
+- ForgeX blue design system
 - Plus Jakarta Sans
 - onboarding
 - 10 growth pillars / 50 lessons
@@ -15,7 +15,7 @@ Included:
 - Telegram community deep-link
 - GitHub Actions APK/AAB build
 - GitHub Actions upload-key signing
-- Evermore launcher icon source
+- ForgeX launcher icon source
 
 Still required before Google Play submission:
 - real privacy policy URL
