@@ -93,6 +93,7 @@ jobs:
           text = path.read_text()
           text = text.replace('compileSdk = flutter.compileSdkVersion', 'compileSdk = 36')
           text = text.replace('targetSdk = flutter.targetSdkVersion', 'targetSdk = 36')
+          text = text.replace('minSdk = flutter.minSdkVersion', 'minSdk = 24')
           text = text.replace('ndkVersion = flutter.ndkVersion', 'ndkVersion = "27.0.12077973"')
           path.write_text(text)
           PY
@@ -163,6 +164,7 @@ jobs:
           grep -q 'compileSdk = 36' android/app/build.gradle.kts
           grep -q 'targetSdk = 36' android/app/build.gradle.kts
           grep -q 'ndkVersion = "27.0.12077973"' android/app/build.gradle.kts
+          grep -q 'minSdk = 24' android/app/build.gradle.kts
           grep -q 'signingConfigs.getByName("evermoreRelease")' android/app/build.gradle.kts
           test "$(grep -c 'signingConfigs.getByName("debug")' android/app/build.gradle.kts || true)" -eq 0
           test -f android/app/keystore/evermore-upload-keystore.jks
