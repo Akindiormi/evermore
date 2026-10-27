@@ -84,7 +84,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 4,
                       margin: const EdgeInsets.only(bottom: 20),
                       decoration: BoxDecoration(
-                        color: ForgeXTheme.divider,
+                        color: LioraTheme.divider,
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
@@ -140,7 +140,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         style: TextStyle(fontWeight: FontWeight.w800),
                       ),
                       style: FilledButton.styleFrom(
-                        backgroundColor: ForgeXTheme.primary,
+                        backgroundColor: LioraTheme.primary,
                         padding: const EdgeInsets.symmetric(vertical: 15),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(17),
@@ -171,7 +171,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final displayName = name.isEmpty ? 'ForgeX member' : name;
+    final displayName = name.isEmpty ? 'Liora member' : name;
     final totalLessons = growthPillars.fold<int>(
       0,
       (sum, pillar) => sum + pillar.lessons.length,
@@ -180,7 +180,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ? 0.0
         : (lessons / totalLessons).clamp(0.0, 1.0).toDouble();
 
-    return ForgeXBackground(
+    return LioraBackground(
       child: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 22, 20, 125),
@@ -191,13 +191,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             const SizedBox(height: 7),
             const Text(
-              'Your progress through the ForgeX program.',
-              style: TextStyle(color: ForgeXTheme.muted, fontSize: 13.5),
+              'Your progress through the Liora program.',
+              style: TextStyle(color: LioraTheme.muted, fontSize: 13.5),
             ),
             const SizedBox(height: 22),
             Container(
               padding: const EdgeInsets.all(22),
-              decoration: ForgeXTheme.glassCard(
+              decoration: LioraTheme.glassCard(
                 radius: 29,
                 color: Colors.white.withValues(alpha: .75),
               ),
@@ -212,8 +212,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         padding: const EdgeInsets.all(3),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          gradient: ForgeXTheme.logoGradient,
-                          boxShadow: ForgeXTheme.floatingShadow,
+                          gradient: LioraTheme.logoGradient,
+                          boxShadow: LioraTheme.floatingShadow,
                         ),
                         child: AvatarPicker(
                           photoPath: photoPath,
@@ -229,13 +229,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           color: Colors.white,
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: ForgeXTheme.primary.withValues(alpha: .15),
+                            color: LioraTheme.primary.withValues(alpha: .15),
                           ),
                         ),
                         child: const Icon(
                           Icons.camera_alt_rounded,
                           size: 14,
-                          color: ForgeXTheme.primary,
+                          color: LioraTheme.primary,
                         ),
                       ),
                     ],
@@ -249,7 +249,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const Text(
                     'Keep learning. Keep applying. Keep becoming.',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 10.5, color: ForgeXTheme.muted),
+                    style: TextStyle(fontSize: 10.5, color: LioraTheme.muted),
                   ),
                   const SizedBox(height: 15),
                   OutlinedButton.icon(
@@ -260,9 +260,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       style: TextStyle(fontWeight: FontWeight.w800),
                     ),
                     style: OutlinedButton.styleFrom(
-                      foregroundColor: ForgeXTheme.primary,
+                      foregroundColor: LioraTheme.primary,
                       side: BorderSide(
-                        color: ForgeXTheme.primary.withValues(alpha: .45),
+                        color: LioraTheme.primary.withValues(alpha: .45),
                       ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(14),
@@ -293,7 +293,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const SizedBox(height: 22),
             Container(
               padding: const EdgeInsets.all(18),
-              decoration: ForgeXTheme.glassCard(
+              decoration: LioraTheme.glassCard(
                 radius: 24,
                 color: Colors.white.withValues(alpha: .7),
               ),
@@ -312,13 +312,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             CircularProgressIndicator(
                               value: 1,
                               strokeWidth: 6,
-                              color: ForgeXTheme.primary.withValues(alpha: .08),
+                              color: LioraTheme.primary.withValues(alpha: .08),
                             ),
                             CircularProgressIndicator(
                               value: value,
                               strokeWidth: 6,
                               strokeCap: StrokeCap.round,
-                              color: ForgeXTheme.primary,
+                              color: LioraTheme.primary,
                             ),
                             Text(
                               '${(value * 100).round()}%',
@@ -346,7 +346,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           'Every lesson moves you forward. Keep your streak alive.',
                           style: TextStyle(
                             fontSize: 10.5,
-                            color: ForgeXTheme.muted,
+                            color: LioraTheme.muted,
                             height: 1.35,
                           ),
                         ),
@@ -369,7 +369,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Text(
                     '${goals.length}',
                     style: const TextStyle(
-                      color: ForgeXTheme.primary,
+                      color: LioraTheme.primary,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -379,7 +379,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             if (goals.isEmpty)
               const Text(
                 'Your focus areas will appear here after onboarding.',
-                style: TextStyle(fontSize: 11, color: ForgeXTheme.muted),
+                style: TextStyle(fontSize: 11, color: LioraTheme.muted),
               )
             else
               Wrap(
@@ -393,17 +393,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           vertical: 8,
                         ),
                         decoration: BoxDecoration(
-                          color: ForgeXTheme.primary.withValues(alpha: .07),
+                          color: LioraTheme.primary.withValues(alpha: .07),
                           borderRadius: BorderRadius.circular(100),
                           border: Border.all(
-                            color: ForgeXTheme.primary.withValues(alpha: .1),
+                            color: LioraTheme.primary.withValues(alpha: .1),
                           ),
                         ),
                         child: Text(
                           goal,
                           style: const TextStyle(
                             fontSize: 10.5,
-                            color: ForgeXTheme.primary,
+                            color: LioraTheme.primary,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -427,7 +427,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Ink(
                   padding: const EdgeInsets.all(18),
                   decoration: BoxDecoration(
-                    gradient: ForgeXTheme.heroGradient,
+                    gradient: LioraTheme.heroGradient,
                     borderRadius: BorderRadius.circular(23),
                   ),
                   child: const Row(
@@ -467,7 +467,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Container(
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                gradient: ForgeXTheme.softGradient,
+                gradient: LioraTheme.softGradient,
                 borderRadius: BorderRadius.circular(23),
               ),
               child: const Stack(
@@ -477,7 +477,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     bottom: -10,
                     child: Opacity(
                       opacity: .12,
-                      child: ForgeXMark(size: 80),
+                      child: LioraMark(size: 80),
                     ),
                   ),
                   Text(
@@ -485,7 +485,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: TextStyle(
                       fontSize: 12,
                       height: 1.55,
-                      color: ForgeXTheme.text,
+                      color: LioraTheme.text,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -510,7 +510,7 @@ class _StatCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(12),
-      decoration: ForgeXTheme.glassCard(
+      decoration: LioraTheme.glassCard(
         radius: 18,
         color: Colors.white.withValues(alpha: .72),
       ),
@@ -521,10 +521,10 @@ class _StatCard extends StatelessWidget {
             width: 30,
             height: 30,
             decoration: BoxDecoration(
-              gradient: ForgeXTheme.softGradient,
+              gradient: LioraTheme.softGradient,
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Icon(icon, size: 15, color: ForgeXTheme.primary),
+            child: Icon(icon, size: 15, color: LioraTheme.primary),
           ),
           const SizedBox(height: 10),
           Text(
@@ -534,7 +534,7 @@ class _StatCard extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             label,
-            style: const TextStyle(fontSize: 9, color: ForgeXTheme.muted),
+            style: const TextStyle(fontSize: 9, color: LioraTheme.muted),
           ),
         ],
       ),

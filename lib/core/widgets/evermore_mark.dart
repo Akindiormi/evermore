@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-/// ForgeX logo mark (the F icon), shown at any size.
-class ForgeXMark extends StatelessWidget {
+/// Liora logo mark (gold icon), shown at any size.
+class LioraMark extends StatelessWidget {
   final double size;
   final Color? color; // kept for compatibility, unused
-  const ForgeXMark({super.key, this.size = 28, this.color});
+  const LioraMark({super.key, this.size = 28, this.color});
 
   @override
   Widget build(BuildContext context) => ClipRRect(

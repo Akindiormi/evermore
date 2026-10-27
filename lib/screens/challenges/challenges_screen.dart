@@ -39,9 +39,9 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Growth challenges')),
-      body: ForgeXBackground(
+      body: LioraBackground(
         child: RefreshIndicator(
-          color: ForgeXTheme.primary,
+          color: LioraTheme.primary,
           onRefresh: _load,
           child: ListView(
             physics: const AlwaysScrollableScrollPhysics(),
@@ -50,9 +50,9 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
               Container(
                 padding: const EdgeInsets.all(22),
                 decoration: BoxDecoration(
-                  gradient: ForgeXTheme.heroGradient,
+                  gradient: LioraTheme.heroGradient,
                   borderRadius: BorderRadius.circular(28),
-                  boxShadow: ForgeXTheme.cardShadow,
+                  boxShadow: LioraTheme.cardShadow,
                 ),
                 child: Stack(
                   children: [
@@ -61,7 +61,7 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
                       top: -12,
                       child: Opacity(
                         opacity: .12,
-                        child: ForgeXMark(size: 95, color: Colors.white),
+                        child: LioraMark(size: 95, color: Colors.white),
                       ),
                     ),
                     Column(
@@ -158,7 +158,7 @@ class _ChallengeCard extends StatelessWidget {
           onTap: onTap,
           child: Ink(
             padding: const EdgeInsets.all(16),
-            decoration: ForgeXTheme.glassCard(
+            decoration: LioraTheme.glassCard(
               radius: 22,
               color: Colors.white.withValues(alpha: .72),
             ),
@@ -169,13 +169,13 @@ class _ChallengeCard extends StatelessWidget {
                   height: 48,
                   decoration: BoxDecoration(
                     gradient: done
-                        ? ForgeXTheme.logoGradient
-                        : ForgeXTheme.softGradient,
+                        ? LioraTheme.logoGradient
+                        : LioraTheme.softGradient,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Icon(
                     done ? Icons.check_rounded : Icons.track_changes_rounded,
-                    color: done ? Colors.white : ForgeXTheme.primary,
+                    color: done ? Colors.white : LioraTheme.primary,
                   ),
                 ),
                 const SizedBox(width: 13),
@@ -188,7 +188,7 @@ class _ChallengeCard extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 8.5,
                           letterSpacing: .9,
-                          color: ForgeXTheme.primary,
+                          color: LioraTheme.primary,
                           fontWeight: FontWeight.w900,
                         ),
                       ),
@@ -208,7 +208,7 @@ class _ChallengeCard extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 10.5,
                           height: 1.35,
-                          color: ForgeXTheme.muted,
+                          color: LioraTheme.muted,
                         ),
                       ),
                     ],
@@ -220,7 +220,7 @@ class _ChallengeCard extends StatelessWidget {
                     Text(
                       '+${challenge.xp}',
                       style: const TextStyle(
-                        color: ForgeXTheme.primary,
+                        color: LioraTheme.primary,
                         fontSize: 10,
                         fontWeight: FontWeight.w900,
                       ),
@@ -228,7 +228,7 @@ class _ChallengeCard extends StatelessWidget {
                     const SizedBox(height: 3),
                     const Icon(
                       Icons.chevron_right_rounded,
-                      color: ForgeXTheme.primary,
+                      color: LioraTheme.primary,
                       size: 19,
                     ),
                   ],
@@ -294,16 +294,16 @@ class _ChallengeDetailScreenState extends State<ChallengeDetailScreen> {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Challenge')),
-      body: ForgeXBackground(
+      body: LioraBackground(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 8, 20, 35),
           children: [
             Container(
               padding: const EdgeInsets.all(22),
               decoration: BoxDecoration(
-                gradient: ForgeXTheme.heroGradient,
+                gradient: LioraTheme.heroGradient,
                 borderRadius: BorderRadius.circular(28),
-                boxShadow: ForgeXTheme.cardShadow,
+                boxShadow: LioraTheme.cardShadow,
               ),
               child: Stack(
                 children: [
@@ -312,7 +312,7 @@ class _ChallengeDetailScreenState extends State<ChallengeDetailScreen> {
                     top: -12,
                     child: Opacity(
                       opacity: .12,
-                      child: ForgeXMark(size: 95, color: Colors.white),
+                      child: LioraMark(size: 95, color: Colors.white),
                     ),
                   ),
                   Column(
@@ -361,7 +361,7 @@ class _ChallengeDetailScreenState extends State<ChallengeDetailScreen> {
               (entry) => Container(
                 margin: const EdgeInsets.only(bottom: 10),
                 padding: const EdgeInsets.all(15),
-                decoration: ForgeXTheme.glassCard(
+                decoration: LioraTheme.glassCard(
                   radius: 19,
                   color: Colors.white.withValues(alpha: .72),
                 ),
@@ -372,14 +372,14 @@ class _ChallengeDetailScreenState extends State<ChallengeDetailScreen> {
                       width: 30,
                       height: 30,
                       decoration: BoxDecoration(
-                        color: ForgeXTheme.primary.withValues(alpha: .08),
+                        color: LioraTheme.primary.withValues(alpha: .08),
                         shape: BoxShape.circle,
                       ),
                       child: Center(
                         child: Text(
                           '${entry.key + 1}',
                           style: const TextStyle(
-                            color: ForgeXTheme.primary,
+                            color: LioraTheme.primary,
                             fontWeight: FontWeight.w900,
                             fontSize: 10,
                           ),

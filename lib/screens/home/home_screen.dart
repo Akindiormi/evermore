@@ -40,10 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final nextLesson = currentPillar.lessons[completedLessons % currentPillar.lessons.length];
     final progress = totalLessons == 0 ? 0.0 : (completedLessons / totalLessons).clamp(0.0, 1.0);
 
-    return ForgeXBackground(
+    return LioraBackground(
       child: SafeArea(
         child: RefreshIndicator(
-          color: ForgeXTheme.primary,
+          color: LioraTheme.primary,
           onRefresh: _load,
           child: ListView(
             physics: const AlwaysScrollableScrollPhysics(),
@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('FORGEX', style: TextStyle(fontSize: 10, letterSpacing: 1.8, fontWeight: FontWeight.w900, color: ForgeXTheme.primary)),
+                        Text('LIORA', style: TextStyle(fontSize: 10, letterSpacing: 1.8, fontWeight: FontWeight.w900, color: LioraTheme.primary)),
                         SizedBox(height: 5),
                         Text('Keep becoming.', style: TextStyle(fontSize: 28, height: 1.05, fontWeight: FontWeight.w800, letterSpacing: -.8)),
                       ],
@@ -152,15 +152,15 @@ class _ActivationActionState extends State<_ActivationAction>
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: const [
-                    ForgeXTheme.primary,
-                    ForgeXTheme.primaryMid,
-                    ForgeXTheme.violet,
+                    LioraTheme.primary,
+                    LioraTheme.primaryMid,
+                    LioraTheme.violet,
                   ],
                 ),
                 borderRadius: BorderRadius.circular(22),
                 boxShadow: [
                   BoxShadow(
-                    color: ForgeXTheme.primary.withValues(alpha: .22),
+                    color: LioraTheme.primary.withValues(alpha: .22),
                     blurRadius: 24,
                     offset: const Offset(0, 10),
                   ),
@@ -198,7 +198,7 @@ class _ActivationActionState extends State<_ActivationAction>
                         ),
                         SizedBox(height: 3),
                         Text(
-                          'Set up your ForgeX account',
+                          'Set up your Liora account',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 14,
@@ -234,7 +234,7 @@ class _ActivationActionState extends State<_ActivationAction>
                     ),
                     child: const Icon(
                       Icons.arrow_forward_rounded,
-                      color: ForgeXTheme.primary,
+                      color: LioraTheme.primary,
                       size: 20,
                     ),
                   ),
@@ -257,7 +257,7 @@ class _SectionTitle extends StatelessWidget {
   Widget build(BuildContext context) => Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(eyebrow, style: const TextStyle(fontSize: 9, letterSpacing: 1.2, fontWeight: FontWeight.w900, color: ForgeXTheme.primary)),
+      Text(eyebrow, style: const TextStyle(fontSize: 9, letterSpacing: 1.2, fontWeight: FontWeight.w900, color: LioraTheme.primary)),
       const SizedBox(height: 4),
       Text(text, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, letterSpacing: -.2)),
     ],
@@ -273,13 +273,13 @@ class _MiniStat extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-    decoration: ForgeXTheme.glassCard(radius: 15, color: Colors.white.withValues(alpha: .72)),
+    decoration: LioraTheme.glassCard(radius: 15, color: Colors.white.withValues(alpha: .72)),
     child: Row(children: [
-      Icon(icon, size: 15, color: ForgeXTheme.primary),
+      Icon(icon, size: 15, color: LioraTheme.primary),
       const SizedBox(width: 4),
       Text(value, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w900)),
       const SizedBox(width: 3),
-      Text(label, style: const TextStyle(fontSize: 9, color: ForgeXTheme.muted, fontWeight: FontWeight.w600)),
+      Text(label, style: const TextStyle(fontSize: 9, color: LioraTheme.muted, fontWeight: FontWeight.w600)),
     ]),
   );
 }
@@ -292,7 +292,7 @@ class _ProgressCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.all(19),
-    decoration: ForgeXTheme.glassCard(radius: 24, color: Colors.white.withValues(alpha: .72)),
+    decoration: LioraTheme.glassCard(radius: 24, color: Colors.white.withValues(alpha: .72)),
     child: Row(children: [
       SizedBox(
         width: 68,
@@ -304,8 +304,8 @@ class _ProgressCard extends StatelessWidget {
           builder: (_, value, __) => Stack(
             alignment: Alignment.center,
             children: [
-              CircularProgressIndicator(value: 1, strokeWidth: 7, color: ForgeXTheme.primary.withValues(alpha: .08)),
-              CircularProgressIndicator(value: value, strokeWidth: 7, strokeCap: StrokeCap.round, color: ForgeXTheme.primary),
+              CircularProgressIndicator(value: 1, strokeWidth: 7, color: LioraTheme.primary.withValues(alpha: .08)),
+              CircularProgressIndicator(value: value, strokeWidth: 7, strokeCap: StrokeCap.round, color: LioraTheme.primary),
               Text('${(value * 100).round()}%', style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w900)),
             ],
           ),
@@ -315,14 +315,14 @@ class _ProgressCard extends StatelessWidget {
       Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Text('Program progress', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14)),
         const SizedBox(height: 5),
-        Text('$done of $total lessons completed', style: const TextStyle(fontSize: 11, color: ForgeXTheme.muted)),
+        Text('$done of $total lessons completed', style: const TextStyle(fontSize: 11, color: LioraTheme.muted)),
         const SizedBox(height: 11),
         ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: TweenAnimationBuilder<double>(
             tween: Tween(begin: 0, end: progress),
             duration: const Duration(milliseconds: 900),
-            builder: (_, value, __) => LinearProgressIndicator(value: value, minHeight: 6, color: ForgeXTheme.primary, backgroundColor: ForgeXTheme.primary.withValues(alpha: .08)),
+            builder: (_, value, __) => LinearProgressIndicator(value: value, minHeight: 6, color: LioraTheme.primary, backgroundColor: LioraTheme.primary.withValues(alpha: .08)),
           ),
         ),
       ])),
@@ -356,13 +356,13 @@ class _AnimatedHeroCardState extends State<_AnimatedHeroCard> with SingleTickerP
           gradient: LinearGradient(
             begin: Alignment(-1 + controller.value * .25, -1),
             end: Alignment(1, 1 - controller.value * .2),
-            colors: const [ForgeXTheme.primary, ForgeXTheme.primaryMid, ForgeXTheme.violet],
+            colors: const [LioraTheme.primary, LioraTheme.primaryMid, LioraTheme.violet],
           ),
           borderRadius: BorderRadius.circular(29),
-          boxShadow: [BoxShadow(color: ForgeXTheme.primary.withValues(alpha: .22), blurRadius: 32, offset: const Offset(0, 16), spreadRadius: -9)],
+          boxShadow: [BoxShadow(color: LioraTheme.primary.withValues(alpha: .22), blurRadius: 32, offset: const Offset(0, 16), spreadRadius: -9)],
         ),
         child: Stack(children: [
-          const Positioned(right: -8, top: -15, child: Opacity(opacity: .12, child: ForgeXMark(size: 105, color: Colors.white))),
+          const Positioned(right: -8, top: -15, child: Opacity(opacity: .12, child: LioraMark(size: 105, color: Colors.white))),
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text('PILLAR ${widget.pillar.id.toString().padLeft(2, '0')}', style: const TextStyle(color: Colors.white70, fontSize: 9, letterSpacing: 1.4, fontWeight: FontWeight.w900)),
             const SizedBox(height: 10),
@@ -398,19 +398,19 @@ class _ActionCard extends StatelessWidget {
       onTap: onTap,
       child: Ink(
         padding: const EdgeInsets.all(15),
-        decoration: ForgeXTheme.glassCard(radius: 22, color: Colors.white.withValues(alpha: .72)),
+        decoration: LioraTheme.glassCard(radius: 22, color: Colors.white.withValues(alpha: .72)),
         child: Row(children: [
-          Container(width: 48, height: 48, decoration: BoxDecoration(gradient: ForgeXTheme.softGradient, borderRadius: BorderRadius.circular(16)), child: Icon(icon, color: ForgeXTheme.primary)),
+          Container(width: 48, height: 48, decoration: BoxDecoration(gradient: LioraTheme.softGradient, borderRadius: BorderRadius.circular(16)), child: Icon(icon, color: LioraTheme.primary)),
           const SizedBox(width: 13),
           Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14)),
             const SizedBox(height: 4),
-            Text(subtitle, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 10.5, height: 1.35, color: ForgeXTheme.muted)),
+            Text(subtitle, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 10.5, height: 1.35, color: LioraTheme.muted)),
           ])),
           const SizedBox(width: 8),
-          Text(trailing, style: const TextStyle(color: ForgeXTheme.primary, fontSize: 11, fontWeight: FontWeight.w800)),
+          Text(trailing, style: const TextStyle(color: LioraTheme.primary, fontSize: 11, fontWeight: FontWeight.w800)),
           const SizedBox(width: 3),
-          const Icon(Icons.chevron_right_rounded, size: 19, color: ForgeXTheme.primary),
+          const Icon(Icons.chevron_right_rounded, size: 19, color: LioraTheme.primary),
         ]),
       ),
     ),
@@ -429,16 +429,16 @@ class _CommunityBanner extends StatelessWidget {
       borderRadius: BorderRadius.circular(22),
       child: Ink(
         padding: const EdgeInsets.all(18),
-        decoration: BoxDecoration(color: ForgeXTheme.primary.withValues(alpha: .065), borderRadius: BorderRadius.circular(22), border: Border.all(color: ForgeXTheme.primary.withValues(alpha: .12))),
+        decoration: BoxDecoration(color: LioraTheme.primary.withValues(alpha: .065), borderRadius: BorderRadius.circular(22), border: Border.all(color: LioraTheme.primary.withValues(alpha: .12))),
         child: Row(children: [
-          Container(width: 44, height: 44, decoration: BoxDecoration(color: ForgeXTheme.primary, borderRadius: BorderRadius.circular(14)), child: const Icon(Icons.groups_rounded, color: Colors.white)),
+          Container(width: 44, height: 44, decoration: BoxDecoration(color: LioraTheme.primary, borderRadius: BorderRadius.circular(14)), child: const Icon(Icons.groups_rounded, color: Colors.white)),
           const SizedBox(width: 12),
           const Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text('Grow with people', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 14)),
             SizedBox(height: 4),
-            Text('Open the ForgeX community and stay accountable.', style: TextStyle(fontSize: 10.5, color: ForgeXTheme.muted, height: 1.35)),
+            Text('Open the Liora community and stay accountable.', style: TextStyle(fontSize: 10.5, color: LioraTheme.muted, height: 1.35)),
           ])),
-          const Icon(Icons.arrow_forward_rounded, size: 18, color: ForgeXTheme.primary),
+          const Icon(Icons.arrow_forward_rounded, size: 18, color: LioraTheme.primary),
         ]),
       ),
     ),

@@ -67,7 +67,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Widget _welcomePage() {
     return Scaffold(
-      body: ForgeXBackground(
+      body: LioraBackground(
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 24, 24, 28),
@@ -81,11 +81,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     height: 116,
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
-                      gradient: ForgeXTheme.logoGradient,
+                      gradient: LioraTheme.logoGradient,
                       borderRadius: BorderRadius.circular(34),
-                      boxShadow: ForgeXTheme.floatingShadow,
+                      boxShadow: LioraTheme.floatingShadow,
                     ),
-                    child: const ForgeXMark(
+                    child: const LioraMark(
                       size: 68,
                       color: Colors.white,
                     ),
@@ -93,12 +93,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
                 const SizedBox(height: 40),
                 const Text(
-                  'FORGEX',
+                  'LIORA',
                   style: TextStyle(
                     letterSpacing: 2,
                     fontSize: 11,
                     fontWeight: FontWeight.w900,
-                    color: ForgeXTheme.primary,
+                    color: LioraTheme.primary,
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -117,7 +117,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   style: TextStyle(
                     fontSize: 14,
                     height: 1.55,
-                    color: ForgeXTheme.muted,
+                    color: LioraTheme.muted,
                   ),
                 ),
                 const Spacer(),
@@ -143,7 +143,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           onPressed: () => setState(() => page = 0),
         ),
       ),
-      body: ForgeXBackground(
+      body: LioraBackground(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
           children: [
@@ -159,9 +159,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
             const SizedBox(height: 8),
             const Text(
-              'Choose as many as you want. ForgeX will use them to shape your learning experience.',
+              'Choose as many as you want. Liora will use them to shape your learning experience.',
               style: TextStyle(
-                color: ForgeXTheme.muted,
+                color: LioraTheme.muted,
                 height: 1.45,
                 fontSize: 12.5,
               ),
@@ -189,16 +189,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       padding: const EdgeInsets.all(15),
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? ForgeXTheme.primary.withValues(alpha: .075)
+                            ? LioraTheme.primary.withValues(alpha: .075)
                             : Colors.white.withValues(alpha: .72),
                         borderRadius: BorderRadius.circular(18),
                         border: Border.all(
                           color: isSelected
-                              ? ForgeXTheme.primary
-                              : ForgeXTheme.divider,
+                              ? LioraTheme.primary
+                              : LioraTheme.divider,
                         ),
                         boxShadow: isSelected
-                            ? ForgeXTheme.cardShadow
+                            ? LioraTheme.cardShadow
                             : const [],
                       ),
                       child: Row(
@@ -217,8 +217,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 ? Icons.check_circle_rounded
                                 : Icons.radio_button_unchecked_rounded,
                             color: isSelected
-                                ? ForgeXTheme.primary
-                                : ForgeXTheme.muted,
+                                ? LioraTheme.primary
+                                : LioraTheme.muted,
                           ),
                         ],
                       ),
@@ -252,7 +252,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           onPressed: saving ? null : () => setState(() => page = 1),
         ),
       ),
-      body: ForgeXBackground(
+      body: LioraBackground(
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 10, 20, 24),
@@ -273,7 +273,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 const Text(
                   "Add your name and, if you'd like, a photo. This stays on your device only.",
                   style: TextStyle(
-                    color: ForgeXTheme.muted,
+                    color: LioraTheme.muted,
                     height: 1.45,
                     fontSize: 12.5,
                   ),
@@ -305,7 +305,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
                 const Spacer(),
                 NeoPillButton(
-                  label: saving ? 'Creating your path...' : 'Start ForgeX',
+                  label: saving ? 'Creating your path...' : 'Start Liora',
                   icon: Icons.arrow_forward_rounded,
                   onPressed: canFinish ? finish : null,
                 ),
@@ -335,8 +335,8 @@ class _StepIndicator extends StatelessWidget {
             height: 4,
             decoration: BoxDecoration(
               color: i <= step
-                  ? ForgeXTheme.primary
-                  : ForgeXTheme.primary.withValues(alpha: .10),
+                  ? LioraTheme.primary
+                  : LioraTheme.primary.withValues(alpha: .10),
               borderRadius: BorderRadius.circular(2),
             ),
           ),

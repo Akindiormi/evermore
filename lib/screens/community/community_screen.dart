@@ -37,16 +37,16 @@ class CommunityScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ForgeXBackground(
+    return LioraBackground(
       child: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 22, 20, 125),
           children: [
-            const Text('COMMUNITY', style: TextStyle(fontSize: 10, letterSpacing: 1.7, fontWeight: FontWeight.w900, color: ForgeXTheme.primary)),
+            const Text('COMMUNITY', style: TextStyle(fontSize: 10, letterSpacing: 1.7, fontWeight: FontWeight.w900, color: LioraTheme.primary)),
             const SizedBox(height: 6),
             const Text('Grow together.', style: TextStyle(fontSize: 30, height: 1, fontWeight: FontWeight.w800, letterSpacing: -.9)),
             const SizedBox(height: 8),
-            const Text('The people layer of ForgeX. Learn together, stay accountable and keep moving.', style: TextStyle(color: ForgeXTheme.muted, height: 1.45, fontSize: 13.5)),
+            const Text('The people layer of Liora. Learn together, stay accountable and keep moving.', style: TextStyle(color: LioraTheme.muted, height: 1.45, fontSize: 13.5)),
             const SizedBox(height: 22),
             Material(
               color: Colors.transparent,
@@ -55,26 +55,26 @@ class CommunityScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(29),
                 child: Ink(
                   padding: const EdgeInsets.all(22),
-                  decoration: BoxDecoration(gradient: ForgeXTheme.heroGradient, borderRadius: BorderRadius.circular(29), boxShadow: ForgeXTheme.cardShadow),
+                  decoration: BoxDecoration(gradient: LioraTheme.heroGradient, borderRadius: BorderRadius.circular(29), boxShadow: LioraTheme.cardShadow),
                   child: Stack(children: [
-                    const Positioned(right: -8, top: -10, child: Opacity(opacity: .12, child: ForgeXMark(size: 105, color: Colors.white))),
+                    const Positioned(right: -8, top: -10, child: Opacity(opacity: .12, child: LioraMark(size: 105, color: Colors.white))),
                     Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Container(width: 44, height: 44, decoration: BoxDecoration(color: Colors.white.withValues(alpha: .15), shape: BoxShape.circle), child: const Icon(Icons.groups_rounded, color: Colors.white)),
                       const SizedBox(height: 17),
                       const Text('Your growth should not happen alone.', style: TextStyle(color: Colors.white, fontSize: 24, height: 1.08, fontWeight: FontWeight.w800, letterSpacing: -.5)),
                       const SizedBox(height: 10),
-                      const Text('Join the ForgeX Telegram community for discussions, accountability and live sessions.', style: TextStyle(color: Colors.white70, height: 1.45, fontSize: 12)),
+                      const Text('Join the Liora Telegram community for discussions, accountability and live sessions.', style: TextStyle(color: Colors.white70, height: 1.45, fontSize: 12)),
                       const SizedBox(height: 18),
                       Container(
                         height: 52,
                         padding: const EdgeInsets.symmetric(horizontal: 18),
                         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(18)),
                         child: const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                          Icon(Icons.send_rounded, color: ForgeXTheme.primary, size: 18),
+                          Icon(Icons.send_rounded, color: LioraTheme.primary, size: 18),
                           SizedBox(width: 8),
-                          Text('Join Telegram', style: TextStyle(color: ForgeXTheme.primary, fontWeight: FontWeight.w900, fontSize: 13)),
+                          Text('Join Telegram', style: TextStyle(color: LioraTheme.primary, fontWeight: FontWeight.w900, fontSize: 13)),
                           SizedBox(width: 7),
-                          Icon(Icons.arrow_outward_rounded, color: ForgeXTheme.primary, size: 16),
+                          Icon(Icons.arrow_outward_rounded, color: LioraTheme.primary, size: 16),
                         ]),
                       ),
                     ]),
@@ -83,7 +83,7 @@ class CommunityScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 27),
-            const Text('WHAT’S HAPPENING', style: TextStyle(fontSize: 10, letterSpacing: 1.5, fontWeight: FontWeight.w900, color: ForgeXTheme.primary)),
+            const Text('WHAT’S HAPPENING', style: TextStyle(fontSize: 10, letterSpacing: 1.5, fontWeight: FontWeight.w900, color: LioraTheme.primary)),
             const SizedBox(height: 11),
             ...List.generate(items.length, (index) {
               final item = items[index];
@@ -112,16 +112,16 @@ class _CommunityItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         child: Ink(
           padding: const EdgeInsets.all(15),
-          decoration: ForgeXTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .72)),
+          decoration: LioraTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .72)),
           child: Row(children: [
-            Container(width: 43, height: 43, decoration: BoxDecoration(gradient: ForgeXTheme.softGradient, borderRadius: BorderRadius.circular(14)), child: Icon(icon, color: ForgeXTheme.primary, size: 19)),
+            Container(width: 43, height: 43, decoration: BoxDecoration(gradient: LioraTheme.softGradient, borderRadius: BorderRadius.circular(14)), child: Icon(icon, color: LioraTheme.primary, size: 19)),
             const SizedBox(width: 12),
             Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13)),
               const SizedBox(height: 4),
-              Text(subtitle, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 10.5, height: 1.35, color: ForgeXTheme.muted)),
+              Text(subtitle, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 10.5, height: 1.35, color: LioraTheme.muted)),
             ])),
-            const Icon(Icons.arrow_outward_rounded, size: 17, color: ForgeXTheme.primary),
+            const Icon(Icons.arrow_outward_rounded, size: 17, color: LioraTheme.primary),
           ]),
         ),
       ),

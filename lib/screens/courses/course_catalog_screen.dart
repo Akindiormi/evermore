@@ -45,11 +45,11 @@ class _CourseCatalogScreenState extends State<CourseCatalogScreen> {
     }).toList();
 
     return Scaffold(
-      body: ForgeXBackground(
+      body: LioraBackground(
         child: SafeArea(
           child: RefreshIndicator(
             onRefresh: _load,
-            color: ForgeXTheme.primary,
+            color: LioraTheme.primary,
             child: ListView(
               padding: const EdgeInsets.fromLTRB(20, 22, 20, 125),
               children: [
@@ -65,7 +65,7 @@ class _CourseCatalogScreenState extends State<CourseCatalogScreen> {
                 Text(
                   '${courseCatalog.length} practical courses across five growth categories.',
                   style: const TextStyle(
-                    color: ForgeXTheme.muted,
+                    color: LioraTheme.muted,
                     fontSize: 13.5,
                   ),
                 ),
@@ -97,13 +97,13 @@ class _CourseCatalogScreenState extends State<CourseCatalogScreen> {
                           ),
                           decoration: BoxDecoration(
                             color: selected
-                                ? ForgeXTheme.primary
+                                ? LioraTheme.primary
                                 : Colors.white.withValues(alpha: .72),
                             borderRadius: BorderRadius.circular(100),
                             border: Border.all(
                               color: selected
-                                  ? ForgeXTheme.primary
-                                  : ForgeXTheme.divider,
+                                  ? LioraTheme.primary
+                                  : LioraTheme.divider,
                             ),
                           ),
                           child: Text(
@@ -113,7 +113,7 @@ class _CourseCatalogScreenState extends State<CourseCatalogScreen> {
                               fontWeight: FontWeight.w800,
                               color: selected
                                   ? Colors.white
-                                  : ForgeXTheme.muted,
+                                  : LioraTheme.muted,
                             ),
                           ),
                         ),
@@ -173,7 +173,7 @@ class _CourseCard extends StatelessWidget {
           onTap: onTap,
           child: Ink(
             padding: const EdgeInsets.all(16),
-            decoration: ForgeXTheme.glassCard(
+            decoration: LioraTheme.glassCard(
               radius: 22,
               color: Colors.white.withValues(alpha: .74),
             ),
@@ -185,15 +185,15 @@ class _CourseCard extends StatelessWidget {
                   height: 48,
                   decoration: BoxDecoration(
                     gradient: progress > 0
-                        ? ForgeXTheme.logoGradient
-                        : ForgeXTheme.softGradient,
+                        ? LioraTheme.logoGradient
+                        : LioraTheme.softGradient,
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Icon(
                     _icon(course.category),
                     color: progress > 0
                         ? Colors.white
-                        : ForgeXTheme.primary,
+                        : LioraTheme.primary,
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -207,7 +207,7 @@ class _CourseCard extends StatelessWidget {
                           fontSize: 8.5,
                           letterSpacing: 1,
                           fontWeight: FontWeight.w900,
-                          color: ForgeXTheme.primary,
+                          color: LioraTheme.primary,
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -225,7 +225,7 @@ class _CourseCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           fontSize: 10.5,
-                          color: ForgeXTheme.muted,
+                          color: LioraTheme.muted,
                           height: 1.35,
                         ),
                       ),
@@ -236,9 +236,9 @@ class _CourseCard extends StatelessWidget {
                             child: LinearProgressIndicator(
                               value: progress,
                               minHeight: 4,
-                              color: ForgeXTheme.primary,
+                              color: LioraTheme.primary,
                               backgroundColor:
-                                  ForgeXTheme.primary.withValues(alpha: .08),
+                                  LioraTheme.primary.withValues(alpha: .08),
                             ),
                           ),
                           const SizedBox(width: 8),
@@ -247,7 +247,7 @@ class _CourseCard extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 9.5,
                               fontWeight: FontWeight.w800,
-                              color: ForgeXTheme.primary,
+                              color: LioraTheme.primary,
                             ),
                           ),
                         ],
@@ -258,7 +258,7 @@ class _CourseCard extends StatelessWidget {
                 const SizedBox(width: 5),
                 const Icon(
                   Icons.chevron_right_rounded,
-                  color: ForgeXTheme.primary,
+                  color: LioraTheme.primary,
                 ),
               ],
             ),

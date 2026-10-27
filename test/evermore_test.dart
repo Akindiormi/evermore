@@ -3,7 +3,7 @@ import 'package:evermore/data/course_catalog.dart';
 import 'package:evermore/services/account_service.dart';
 
 void main() {
-  group('ForgeX course catalogue', () {
+  group('Liora course catalogue', () {
     test('contains 50 or more meaningful courses', () {
       expect(courseCatalog.length, greaterThanOrEqualTo(50));
     });

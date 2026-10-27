@@ -1,6 +1,6 @@
-# ForgeX GitHub Actions signing
+# Liora GitHub Actions signing
 
-The release workflow is configured to use the ForgeX upload keystore through GitHub Actions secrets.
+The release workflow is configured to use the Liora upload keystore through GitHub Actions secrets.
 
 Create these four repository secrets:
 

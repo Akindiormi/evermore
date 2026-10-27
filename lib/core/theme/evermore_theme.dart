@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ForgeXTheme {
-  // Light glass system built on the ForgeX logo colors: orange, amber and black.
-  static const primary = Color(0xFFC94A00);
-  static const primaryDark = Color(0xFF9E3A00);
-  static const primaryMid = Color(0xFFFF6A00);
-  static const electric = Color(0xFFFF8A00);
-  static const violet = Color(0xFFFFB800);
-  static const primaryLight = Color(0xFFFFEFE2);
-  static const background = Color(0xFFFAF8F6);
+class LioraTheme {
+  // Light glass system built on the Liora logo colors: gold and black.
+  static const primary = Color(0xFF9A6508);
+  static const primaryDark = Color(0xFF6E4605);
+  static const primaryMid = Color(0xFFC9890F);
+  static const electric = Color(0xFFE0A21A);
+  static const violet = Color(0xFFF5D547);
+  static const primaryLight = Color(0xFFFFF4D6);
+  static const background = Color(0xFFFBF9F4);
   static const surface = Colors.white;
   static const glass = Color(0xDFFFFFFF);
   static const glassStrong = Color(0xEEFDFEFF);
@@ -82,7 +82,7 @@ class ForgeXTheme {
   static LinearGradient get softGradient => const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [Color(0xFFFFEFE2), Color(0xFFFFF7E6)],
+    colors: [Color(0xFFFFF4D6), Color(0xFFFFFAEB)],
   );
 
   static ThemeData theme() {

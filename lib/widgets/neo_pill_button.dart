@@ -16,8 +16,8 @@ class NeoPillButton extends StatefulWidget {
     super.key,
     required this.label,
     required this.onPressed,
-    this.fillColor = ForgeXTheme.primary,
-    this.shadowColor = ForgeXTheme.primaryLight,
+    this.fillColor = LioraTheme.primary,
+    this.shadowColor = LioraTheme.primaryLight,
     this.textColor = Colors.white,
     this.icon,
     this.fullWidth = true,
@@ -34,7 +34,7 @@ class _NeoPillButtonState extends State<NeoPillButton> {
   @override
   Widget build(BuildContext context) {
     final disabled = widget.onPressed == null;
-    final fill = disabled ? ForgeXTheme.muted.withValues(alpha: .22) : widget.fillColor;
+    final fill = disabled ? LioraTheme.muted.withValues(alpha: .22) : widget.fillColor;
     final shadow = disabled ? Colors.transparent : widget.shadowColor.withValues(alpha: .65);
 
     return GestureDetector(
@@ -60,7 +60,7 @@ class _NeoPillButtonState extends State<NeoPillButton> {
               color: fill,
               borderRadius: BorderRadius.circular(19),
               border: Border.all(color: Colors.white.withValues(alpha: .22)),
-              boxShadow: disabled ? const [] : [BoxShadow(color: ForgeXTheme.primary.withValues(alpha: .20), blurRadius: 20, offset: const Offset(0, 9), spreadRadius: -7)],
+              boxShadow: disabled ? const [] : [BoxShadow(color: LioraTheme.primary.withValues(alpha: .20), blurRadius: 20, offset: const Offset(0, 9), spreadRadius: -7)],
             ),
             child: Row(
               mainAxisSize: widget.fullWidth ? MainAxisSize.max : MainAxisSize.min,

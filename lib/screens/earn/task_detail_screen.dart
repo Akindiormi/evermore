@@ -32,7 +32,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final task = widget.task;
-    return ForgeXBackground(
+    return LioraBackground(
       child: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
@@ -44,24 +44,24 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                 const Spacer(),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(color: ForgeXTheme.primaryLight, borderRadius: BorderRadius.circular(20)),
-                  child: Text(task.category, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: ForgeXTheme.primary)),
+                  decoration: BoxDecoration(color: LioraTheme.primaryLight, borderRadius: BorderRadius.circular(20)),
+                  child: Text(task.category, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: LioraTheme.primary)),
                 ),
               ]),
               const SizedBox(height: 12),
               Text(task.title, style: const TextStyle(fontSize: 26, height: 1.1, fontWeight: FontWeight.w800, letterSpacing: -.7)),
               const SizedBox(height: 10),
-              Text(task.description, style: const TextStyle(color: ForgeXTheme.muted, height: 1.5, fontSize: 14)),
+              Text(task.description, style: const TextStyle(color: LioraTheme.muted, height: 1.5, fontSize: 14)),
               const SizedBox(height: 22),
               Container(
                 padding: const EdgeInsets.all(18),
-                decoration: ForgeXTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .72)),
+                decoration: LioraTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .72)),
                 child: Row(children: [
-                  const Icon(Icons.payments_rounded, color: ForgeXTheme.primary),
+                  const Icon(Icons.payments_rounded, color: LioraTheme.primary),
                   const SizedBox(width: 10),
                   Text('Reward: ₦${task.rewardNaira}', style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 14)),
                   const Spacer(),
-                  const Text('Credited after verification', style: TextStyle(fontSize: 10.5, color: ForgeXTheme.muted)),
+                  const Text('Credited after verification', style: TextStyle(fontSize: 10.5, color: LioraTheme.muted)),
                 ]),
               ),
               const Spacer(),
@@ -82,7 +82,7 @@ class _TaskDetailScreenState extends State<TaskDetailScreen> {
                   child: ElevatedButton(
                     onPressed: _submitting ? null : _submit,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: ForgeXTheme.primary,
+                      backgroundColor: LioraTheme.primary,
                       foregroundColor: Colors.white,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
                     ),

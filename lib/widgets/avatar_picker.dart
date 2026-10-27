@@ -65,12 +65,12 @@ class AvatarPicker extends StatelessWidget {
                 height: 4,
                 margin: const EdgeInsets.only(bottom: 12),
                 decoration: BoxDecoration(
-                  color: ForgeXTheme.border,
+                  color: LioraTheme.border,
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
               ListTile(
-                leading: const Icon(Icons.photo_library_outlined, color: ForgeXTheme.primary),
+                leading: const Icon(Icons.photo_library_outlined, color: LioraTheme.primary),
                 title: const Text('Choose from gallery', style: TextStyle(fontWeight: FontWeight.w600)),
                 onTap: () async {
                   Navigator.pop(sheetContext);
@@ -82,7 +82,7 @@ class AvatarPicker extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.photo_camera_outlined, color: ForgeXTheme.primary),
+                leading: const Icon(Icons.photo_camera_outlined, color: LioraTheme.primary),
                 title: const Text('Take a photo', style: TextStyle(fontWeight: FontWeight.w600)),
                 onTap: () async {
                   Navigator.pop(sheetContext);
@@ -123,11 +123,11 @@ class AvatarPicker extends StatelessWidget {
             height: size,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              gradient: hasPhoto ? null : ForgeXTheme.heroGradient,
+              gradient: hasPhoto ? null : LioraTheme.heroGradient,
               image: hasPhoto
                   ? DecorationImage(image: FileImage(File(photoPath!)), fit: BoxFit.cover)
                   : null,
-              boxShadow: ForgeXTheme.cardShadow,
+              boxShadow: LioraTheme.cardShadow,
             ),
             child: hasPhoto
                 ? null
@@ -150,7 +150,7 @@ class AvatarPicker extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                color: ForgeXTheme.primary,
+                color: LioraTheme.primary,
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.white, width: 2.5),
               ),

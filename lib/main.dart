@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'app/app_shell.dart';
 import 'core/theme/evermore_theme.dart';
 
-void main() => runApp(const ForgeXApp());
+void main() => runApp(const LioraApp());
 
-class ForgeXApp extends StatelessWidget {
-  const ForgeXApp({super.key});
+class LioraApp extends StatelessWidget {
+  const LioraApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'ForgeX',
-      theme: ForgeXTheme.theme(),
+      title: 'Liora',
+      theme: LioraTheme.theme(),
       home: const AppShell(),
     );
   }

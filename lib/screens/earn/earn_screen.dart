@@ -30,25 +30,25 @@ class _EarnScreenState extends State<EarnScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ForgeXBackground(
+    return LioraBackground(
       child: SafeArea(
         child: RefreshIndicator(
           onRefresh: _load,
           child: ListView(
             padding: const EdgeInsets.fromLTRB(20, 22, 20, 125),
             children: [
-              const Text('EARN', style: TextStyle(fontSize: 10, letterSpacing: 1.7, fontWeight: FontWeight.w900, color: ForgeXTheme.primary)),
+              const Text('EARN', style: TextStyle(fontSize: 10, letterSpacing: 1.7, fontWeight: FontWeight.w900, color: LioraTheme.primary)),
               const SizedBox(height: 6),
               const Text('Complete tasks, get paid.', style: TextStyle(fontSize: 28, height: 1, fontWeight: FontWeight.w800, letterSpacing: -.9)),
               const SizedBox(height: 8),
               const Text(
                 'Every reward here is only credited once a task is verified. Withdraw anytime — no fees, no unlock step.',
-                style: TextStyle(color: ForgeXTheme.muted, height: 1.45, fontSize: 13.5),
+                style: TextStyle(color: LioraTheme.muted, height: 1.45, fontSize: 13.5),
               ),
               const SizedBox(height: 18),
               _WalletShortcut(onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const WalletScreen()))),
               const SizedBox(height: 22),
-              const Text('AVAILABLE TASKS', style: TextStyle(fontSize: 10, letterSpacing: 1.5, fontWeight: FontWeight.w900, color: ForgeXTheme.primary)),
+              const Text('AVAILABLE TASKS', style: TextStyle(fontSize: 10, letterSpacing: 1.5, fontWeight: FontWeight.w900, color: LioraTheme.primary)),
               const SizedBox(height: 11),
               if (_tasks == null)
                 const Padding(padding: EdgeInsets.only(top: 40), child: Center(child: CircularProgressIndicator()))
@@ -80,7 +80,7 @@ class _WalletShortcut extends StatelessWidget {
           borderRadius: BorderRadius.circular(24),
           child: Ink(
             padding: const EdgeInsets.all(18),
-            decoration: BoxDecoration(gradient: ForgeXTheme.heroGradient, borderRadius: BorderRadius.circular(24), boxShadow: ForgeXTheme.cardShadow),
+            decoration: BoxDecoration(gradient: LioraTheme.heroGradient, borderRadius: BorderRadius.circular(24), boxShadow: LioraTheme.cardShadow),
             child: const Row(children: [
               Icon(Icons.account_balance_wallet_rounded, color: Colors.white),
               SizedBox(width: 12),
@@ -111,25 +111,25 @@ class _TaskCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           child: Ink(
             padding: const EdgeInsets.all(15),
-            decoration: ForgeXTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .72)),
+            decoration: LioraTheme.glassCard(radius: 20, color: Colors.white.withValues(alpha: .72)),
             child: Row(children: [
               Container(
                 width: 43,
                 height: 43,
-                decoration: BoxDecoration(gradient: ForgeXTheme.softGradient, borderRadius: BorderRadius.circular(14)),
-                child: Icon(verified ? Icons.check_circle_rounded : Icons.task_alt_rounded, color: ForgeXTheme.primary, size: 19),
+                decoration: BoxDecoration(gradient: LioraTheme.softGradient, borderRadius: BorderRadius.circular(14)),
+                child: Icon(verified ? Icons.check_circle_rounded : Icons.task_alt_rounded, color: LioraTheme.primary, size: 19),
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(task.title, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13)),
                   const SizedBox(height: 4),
-                  Text(task.category, style: const TextStyle(fontSize: 10.5, color: ForgeXTheme.muted)),
+                  Text(task.category, style: const TextStyle(fontSize: 10.5, color: LioraTheme.muted)),
                 ]),
               ),
               Text(
                 verified ? 'Verified' : '₦${task.rewardNaira}',
-                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 13, color: verified ? ForgeXTheme.muted : ForgeXTheme.primary),
+                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 13, color: verified ? LioraTheme.muted : LioraTheme.primary),
               ),
             ]),
           ),

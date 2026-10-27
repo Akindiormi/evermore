@@ -1,6 +1,6 @@
-# ForgeX
+# Liora
 
-ForgeX is a practical personal growth program delivered through a learning app and a Telegram community.
+Liora is a practical personal growth program delivered through a learning app and a Telegram community.
 
 ## Program
 
@@ -37,7 +37,7 @@ The Telegram community destination:
 
 ## Design
 
-ForgeX uses a blue visual system based on the supplied ForgeX icon and Plus Jakarta Sans.
+Liora uses a blue visual system based on the supplied Liora icon and Plus Jakarta Sans.
 
 ## Build
 
