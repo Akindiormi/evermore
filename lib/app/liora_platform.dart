@@ -156,7 +156,7 @@ class _LioraPlatformState extends State<LioraPlatform> {
     'Choose the membership that suits you.',
   ][selected];
 
-  Widget _bottomNav() => NavigationBar(selectedIndex: selected, onDestinationSelected: (v) => setState(() => selected = v),
+  Widget _bottomNav() => NavigationBar(selectedIndex: selected < 5 ? selected : 4, onDestinationSelected: (v) => setState(() => selected = v),
     destinations: const [
       NavigationDestination(icon: Icon(Icons.grid_view_rounded), label: 'Home'),
       NavigationDestination(icon: Icon(Icons.poll_outlined), label: 'Surveys'),
