@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'app/app_shell.dart';
+import 'app/liora_platform.dart';
 import 'core/theme/evermore_theme.dart';
 
 void main() => runApp(const LioraApp());
@@ -13,7 +13,7 @@ class LioraApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Liora',
       theme: LioraTheme.theme(),
-      home: const AppShell(),
+      home: const LioraPlatform(),
     );
   }
 }
