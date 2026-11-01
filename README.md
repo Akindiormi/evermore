@@ -1,57 +1,31 @@
 # Liora
 
-Liora is a practical personal growth program delivered through a learning app and a Telegram community.
+Liora is a membership-based digital platform. **Discover more. Become more.**
 
-## Program
+The platform experience is organized around:
+- Member accounts and membership access
+- Surveys
+- Games
+- Videos
+- Activities
 
-10 pillars, 5 lessons each:
+## Membership
 
-1. Self-Awareness
-2. Mindset & Resilience
-3. Productivity
-4. Communication
-5. Financial Literacy
-6. Career Growth
-7. Digital Skills
-8. Leadership
-9. Goals & Strategy
-10. Discipline & Execution
+- Active: ₦7,000
+- Premium: ₦14,000
 
-The product flow is:
+Membership pricing is displayed as supplied by the product owner. Payment processing, membership activation, and account security must be connected to a real backend/payment provider before accepting live members. Rewards and earnings are not live and must not be advertised as available until the underlying program is implemented and funded.
 
-Onboarding → Growth Path → 10 Pillars → Lessons → Reflection → Action → XP / Streak → Challenges → Community
-
-## Community
-
-Telegram is the social layer while the app remains the learning/program layer.
-
-Community areas:
-- Weekly discussions
-- Growth challenges
-- Accountability sessions
-- Community announcements
-- Live sessions
-
-The Telegram community destination:
-`https://t.me/earnpalnet`
-
-## Design
-
-Liora uses a blue visual system based on the supplied Liora icon and Plus Jakarta Sans.
-
-## Build
-
-Run:
+## Flutter Web
 
 ```bash
 flutter pub get
-dart run flutter_launcher_icons
-flutter analyze
-flutter build appbundle --release
+flutter config --enable-web
+flutter build web --release
 ```
 
-The GitHub Actions workflow also prepares Android files and handles release signing through GitHub repository secrets.
+The GitHub Actions workflow builds the web bundle and uploads it as the `liora-web-build` artifact. Hosting and a production domain still need to be configured.
 
-## Privacy policy
+## Current implementation status
 
-No privacy-policy URL is included yet. Add the real policy URL before Play Store submission.
+The new web-first Liora shell is a frontend foundation. Survey/game/video/activity content, secure server-side authentication, membership payments, admin tools, and rewards logic require backend implementation and configuration. The legacy personal-growth content is no longer part of the Liora product direction.
