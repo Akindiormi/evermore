@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/account_service.dart';
+import '../services/telegram_service.dart';
 
 class LioraPlatform extends StatefulWidget {
   const LioraPlatform({super.key});
@@ -77,6 +78,8 @@ class _LioraPlatformState extends State<LioraPlatform> {
       membershipStatus = 'Awaiting activation';
       view = _View.membership;
     });
+    // Reuse the Telegram community destination configured in the main app.
+    await TelegramService.openCommunity();
   }
 
   void _exploreMembership() {
@@ -484,6 +487,13 @@ class _LioraPlatformState extends State<LioraPlatform> {
                 _detailCard('Phone number', phone, 'Account contact', Icons.phone_outlined),
                 const SizedBox(height: 13),
                 _detailCard('Email address', email, 'Account email', Icons.mail_outline_rounded),
+                const SizedBox(height: 13),
+                SizedBox(width: double.infinity, height: 50, child: OutlinedButton.icon(
+                  onPressed: TelegramService.openCommunity,
+                  icon: const Icon(Icons.send_rounded),
+                  label: const Text('Open Telegram community'),
+                  style: OutlinedButton.styleFrom(foregroundColor: ink, side: const BorderSide(color: Color(0xFFD7C9AA)), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(13))),
+                )),
                 const SizedBox(height: 18),
                 SizedBox(width: double.infinity, height: 51, child: OutlinedButton.icon(
                   onPressed: () => setState(() => view = _View.membership),
