@@ -399,7 +399,7 @@ class _LioraPlatformState extends State<LioraPlatform> {
                 : Column(children: [cards[0], const SizedBox(height: 15), cards[1]]);
           }),
           const SizedBox(height: 16),
-          const Text('Selecting a plan records your choice only. Payment verification and membership activation will be enabled before launch.', style: TextStyle(color: Color(0xFF89847B), fontSize: 11, height: 1.5)),
+          const Text('Each plan is a one-time payment. There are no monthly or recurring charges. Your membership stays Pending until payment is verified and your account is approved.', style: TextStyle(color: Color(0xFF89847B), fontSize: 11, height: 1.5)),
         ]),
       );
 
@@ -419,7 +419,9 @@ class _LioraPlatformState extends State<LioraPlatform> {
           ]),
           const SizedBox(height: 13),
           Text(price, style: TextStyle(color: premium ? Colors.white : ink, fontSize: 34, fontWeight: FontWeight.w900, letterSpacing: -1)),
-          const SizedBox(height: 5),
+          const SizedBox(height: 4),
+          Text('ONE-TIME PAYMENT', style: TextStyle(color: premium ? const Color(0xFFE4B64F) : gold, fontSize: 9, fontWeight: FontWeight.w900, letterSpacing: 1.4)),
+          const SizedBox(height: 7),
           Text(subtitle, style: TextStyle(color: premium ? Colors.white60 : const Color(0xFF77736C), fontSize: 12)),
           const SizedBox(height: 22),
           ...benefits.map((benefit) => Padding(
@@ -539,22 +541,54 @@ class _LioraPlatformState extends State<LioraPlatform> {
         style: TextButton.styleFrom(foregroundColor: const Color(0xFF77736C), padding: EdgeInsets.zero),
       );
 
-  Widget _bottomNav() => Container(
-        decoration: const BoxDecoration(color: Colors.white, border: Border(top: BorderSide(color: Color(0xFFECE8DF)))),
-        child: NavigationBar(
-          height: 68,
-          backgroundColor: Colors.white,
-          elevation: 0,
-          selectedIndex: view == _View.account ? 1 : 0,
-          onDestinationSelected: (index) => setState(() => view = index == 0 ? _View.home : _View.account),
-          destinations: [
-            const NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home_rounded), label: 'Home'),
-            NavigationDestination(
-              icon: const Icon(Icons.person_outline_rounded),
-              selectedIcon: const Icon(Icons.person_rounded),
-              label: accountCreated && selectedPlan.isNotEmpty ? selectedPlan : 'Account',
-            ),
+  Widget _bottomNav() {
+    final selected = view == _View.account ? 2 : (view == _View.membership || view == _View.createAccount ? 1 : 0);
+    return Container(
+      decoration: const BoxDecoration(color: Colors.white, border: Border(top: BorderSide(color: Color(0xFFECE8DF)))),
+      child: NavigationBar(
+        height: 76,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        selectedIndex: selected,
+        onDestinationSelected: (index) {
+          if (index == 1) {
+            _exploreMembership();
+          } else {
+            setState(() => view = index == 0 ? _View.home : _View.account);
+          }
+        },
+        destinations: [
+          const NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home_rounded), label: 'Home'),
+          NavigationDestination(
+            icon: _lioraNavLogo(active: selected == 1),
+            label: 'Liora',
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.person_outline_rounded),
+            selectedIcon: const Icon(Icons.person_rounded),
+            label: 'Account',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _lioraNavLogo({required bool active}) => Container(
+        width: 54,
+        height: 54,
+        padding: const EdgeInsets.all(3),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: const LinearGradient(colors: [Color(0xFFFFE6A0), Color(0xFF9C6C16), Color(0xFFE8BD59)]),
+          boxShadow: [
+            BoxShadow(color: const Color(0xFFC58A19).withValues(alpha: active ? .48 : .28), blurRadius: active ? 24 : 16, spreadRadius: active ? 2 : 0),
+            const BoxShadow(color: Color(0x1A000000), blurRadius: 8, offset: Offset(0, 3)),
           ],
+        ),
+        child: Container(
+          decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0xFF171511)),
+          padding: const EdgeInsets.all(8),
+          child: ClipOval(child: Image.asset('assets/evermore_icon.png', fit: BoxFit.contain)),
         ),
       );
 }
