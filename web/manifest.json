@@ -1,0 +1,9 @@
+{
+  "name": "Liora",
+  "short_name": "Liora",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#F7F5F0",
+  "theme_color": "#111111",
+  "description": "Discover more. Become more."
+}
